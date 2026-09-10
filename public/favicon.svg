@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="toothGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="60%" stop-color="#e0f2fe"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#0284c7" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#0f172a"/>
+  <!-- Tooth Icon -->
+  <path d="M32 8 C23 8 16 14 16 23 C16 30 19 35 22 41 C24 45 26 53 28 56 C29 57 31 56 31 54 C31 48 31 43 32 39 C33 43 33 48 33 54 C33 56 35 57 36 56 C38 53 40 45 42 41 C45 35 48 30 48 23 C48 14 41 8 32 8 Z" 
+        fill="url(#toothGrad)" 
+        stroke="#38bdf8" 
+        stroke-width="1.5"
+        filter="url(#glow)"/>
+  <!-- Tooth highlight/shine -->
+  <path d="M22 18 C22 14 26 12 30 11 C26 13 23 16 23 20 C23 23 24 26 25 28 C23 25 22 21 22 18 Z" fill="#ffffff" opacity="0.8"/>
+  <!-- Sparkle -->
+  <path d="M44 14 L46 17 L49 17 L47 19 L48 22 L45 20 L43 22 L44 19 L41 17 L44 17 Z" fill="#38bdf8"/>
+</svg>

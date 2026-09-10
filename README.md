@@ -59,6 +59,7 @@ By running autonomous agents directly against the practice's MySQL/SQLite databa
 5. [`research/05_EMPIRICAL_PIXEL_SNIFFER_AUDIT_REPORT.md`](research/05_EMPIRICAL_PIXEL_SNIFFER_AUDIT_REPORT.md): 706-line publication-grade audit report evaluating tracking pixels on dental/med-spa booking funnels, automated Playwright sniffer script, and remediation playbook.
 6. [`research/06_PMS_CARRIER_INTEGRATION_AND_EDGE_CONNECTOR_SPECIFICATION.md`](research/06_PMS_CARRIER_INTEGRATION_AND_EDGE_CONNECTOR_SPECIFICATION.md): Deep-dive integration engineering study for Open Dental, Dentrix G6/G7, Eaglesoft, Boulevard GraphQL, Zenoti REST v2, A2P 10DLC TCR playbook, Zero-PHI SMS standard, and Zero-Port Edge Connector blueprint.
 7. [`research/07_PRICING_MODELS_AND_COMMERCIAL_OFFERING.md`](research/07_PRICING_MODELS_AND_COMMERCIAL_OFFERING.md): Comprehensive commercial offering dossier, true operating cost anatomy ($25-$95/mo vs $2,000/mo SaaS tax), build economics, 3 client pricing packages, client pitch script with objection handling, and 4-week onboarding roadmap with Mermaid charts.
+8. [`research/08_MEDSPA_EXPANSION_AND_PROSPECT_CONVERSION_PLAYBOOK.md`](research/08_MEDSPA_EXPANSION_AND_PROSPECT_CONVERSION_PLAYBOOK.md): Comprehensive Med Spa operational playbook, high-ticket dual-resource scheduling ($1,200 Morpheus8), Beauty Bank VIP concierge ($29.4k dormant credit recovery), 5 field how-to guides, and 5-stage prospect sales conversion protocol.
 
 ---
 
@@ -74,14 +75,15 @@ smb-ai-dental-and-medspa/
 │   ├── doc3.txt                                 # Atomic Requirements & Evaluation Weights
 │   ├── doc4.txt                                 # Digital Attic Literature Review
 │   └── doc5.txt                                 # Market Dynamics & Regulatory Report
-├── research/                                    # 7 Formal Research Deliverables (Markdown)
+├── research/                                    # 8 Formal Research Deliverables (Markdown)
 │   ├── 01_CANDIDATE_MASTER_REGISTRY.md
 │   ├── 02_PMS_INTEGRATION_AND_API_ARCHITECTURE.md
 │   ├── 03_COMPLIANCE_AND_LEGAL_AUDIT_REPORT.md
 │   ├── 04_LANE_3_AGENT_NATIVE_BRIDGE_SPECIFICATION.md
 │   ├── 05_EMPIRICAL_PIXEL_SNIFFER_AUDIT_REPORT.md
 │   ├── 06_PMS_CARRIER_INTEGRATION_AND_EDGE_CONNECTOR_SPECIFICATION.md
-│   └── 07_PRICING_MODELS_AND_COMMERCIAL_OFFERING.md
+│   ├── 07_PRICING_MODELS_AND_COMMERCIAL_OFFERING.md
+│   └── 08_MEDSPA_EXPANSION_AND_PROSPECT_CONVERSION_PLAYBOOK.md
 ├── prototype/                                   # Standalone Local Prototype Harness
 │   ├── database.py                              # SQLite Open Dental schema engine
 │   ├── seed_data.py                             # High-fidelity clinic database seeder

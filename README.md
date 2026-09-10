@@ -38,6 +38,9 @@ By running autonomous agents directly against the practice's MySQL/SQLite databa
 - 📊 **Master Working Index (Google Sheets - 14 Tabs Populated)**:  
   [https://docs.google.com/spreadsheets/d/1kjdhvtG_Z1KNiacZIjV-27QHVU90xW4zhmNcjzCn-28](https://docs.google.com/spreadsheets/d/1kjdhvtG_Z1KNiacZIjV-27QHVU90xW4zhmNcjzCn-28/edit?usp=sharing)  
   *Contains: Candidate Master (45 tools), Requirements Register (17 atomic specs), TCO Calculator (36-month), Scenario Library, Agent Authority Matrix, and Empirical Trial Results (TR-001 through TR-008).*
+- 📈 **El Dorado Hills 75-Practice Strike List (Google Sheets - 4 Tabs Populated & Formatted)**:  
+  [https://docs.google.com/spreadsheets/d/1BMqPiolxcGFcO7qQesWnp-rpbhg2p61wBSXzoE5YF0Q](https://docs.google.com/spreadsheets/d/1BMqPiolxcGFcO7qQesWnp-rpbhg2p61wBSXzoE5YF0Q/edit?usp=sharing)  
+  *Complete, verified California market directory across 4 tabs: 01 Master Roster (75), 02 Dental Practices (25), 03 Med Spa & Aesthetics (25), and 04 Allied Outpatient (25).*
 - 🖥️ **Executive Research Presentation Deck (Google Slides - 12 Custom Cards)**:  
   [https://docs.google.com/presentation/d/1Sj9nIV1BYlkhzlHT4xSR2ueuCn7Eg1Pf_P3ZKV1xPJY](https://docs.google.com/presentation/d/1Sj9nIV1BYlkhzlHT4xSR2ueuCn7Eg1Pf_P3ZKV1xPJY/edit?usp=sharing)  
   *Tailored for clinic leadership and practice partners covering the 4 operational bottlenecks and Lane 3 technical architecture.*
@@ -244,6 +247,7 @@ We provide three production-ready modules engineered specifically for live sales
 - **Rich Prospect Profiles**: Includes practice names, addresses, verified decision makers/lead clinicians, scale/revenue, current PMS stacks, and tailored Lane 3 pitch hooks.
 - **Interactive Searchable Directory**: Responsive HTML dashboard with category filters and keyword search in `prospects/el_dorado_hills_directory.html`.
 - **Master Strategy Document**: Documented in [`prospects/EL_DORADO_HILLS_75_STRIKE_LIST.md`](prospects/EL_DORADO_HILLS_75_STRIKE_LIST.md) and [`research/10_EL_DORADO_HILLS_CALIFORNIA_PROSPECT_EXPANSION.md`](research/10_EL_DORADO_HILLS_CALIFORNIA_PROSPECT_EXPANSION.md).
+- **Dedicated Google Sheet**: [Open El Dorado Hills 75-Practice Market Strike List](https://docs.google.com/spreadsheets/d/1BMqPiolxcGFcO7qQesWnp-rpbhg2p61wBSXzoE5YF0Q/edit?usp=sharing) across 4 styled and frozen tabs.
 
 ---
 
@@ -289,6 +293,7 @@ This repository strictly enforces the 5-tier Agent Authority framework:
 | **Founding Partner Pilot Agreement** | Google Docs | [Open Founding Partner Agreement](https://docs.google.com/document/d/13FfufRcOWL43UwHVvzv7Z7zsDpb7soAgbr0E4a33q3I/edit?usp=sharing) | `13FfufRcOWL43UwHVvzv7Z7zsDpb7soAgbr0E4a33q3I` | 1-Page executive agreement: $2,000 setup, 30-day trial guarantee, $450/mo retainer, BAA & signatures. |
 | **Technical Architecture Deck** | Google Slides | [Open Architecture Presentation Deck](https://docs.google.com/presentation/d/1Sj9nIV1BYlkhzlHT4xSR2ueuCn7Eg1Pf_P3ZKV1xPJY/edit?usp=sharing) | `1Sj9nIV1BYlkhzlHT4xSR2ueuCn7Eg1Pf_P3ZKV1xPJY` | 12 Slides: Reverse-engineering of Open Dental, Dentrix, Boulevard, Zenoti, and Zero-Port Edge Daemon. |
 | **Master Working Index** | Google Sheets | [Open Master Working Index](https://docs.google.com/spreadsheets/d/1kjdhvtG_Z1KNiacZIjV-27QHVU90xW4zhmNcjzCn-28/edit?usp=sharing) | `1kjdhvtG_Z1KNiacZIjV-27QHVU90xW4zhmNcjzCn-28` | 14 Tabs populated with PMS candidate registry, trial benchmarks, build catalog, and fee schedules. |
+| **El Dorado Hills 75 Practice Strike List** | Google Sheets | [Open El Dorado Hills 75 Practice Strike List](https://docs.google.com/spreadsheets/d/1BMqPiolxcGFcO7qQesWnp-rpbhg2p61wBSXzoE5YF0Q/edit?usp=sharing) | `1BMqPiolxcGFcO7qQesWnp-rpbhg2p61wBSXzoE5YF0Q` | 4 Tabs: Master Roster (75), Dental (25), Med Spa (25), and Allied Outpatient (25) with verified clinicians and PMS. |
 | **Production Web Demo** | Vercel | [https://webdemo-nine-zeta.vercel.app](https://webdemo-nine-zeta.vercel.app) | Public URL | Dual-practice interactive demonstration (Cascade Dental Arts $\leftrightarrow$ Cascade Aesthetic Medicine). |
 | **GitHub Repository** | Git | [github.com/milamanzarek/cascade-dental-staging-pilot](https://github.com/milamanzarek/cascade-dental-staging-pilot) | `main` branch | Clean, deployable source code repository. |
 

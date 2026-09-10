@@ -58,6 +58,26 @@
       font-size: 14px;
       margin-top: 4px;
     }
+        .btn-sheet {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #ffffff;
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+      transition: all 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .btn-sheet:hover {
+      background: linear-gradient(135deg, #059669, #047857);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
+    }
     .badge-market {
       background: rgba(6, 182, 212, 0.15);
       border: 1px solid var(--accent-cyan);
@@ -238,7 +258,12 @@
         <h1>El Dorado Hills, CA: Outpatient Practice Strike List</h1>
         <p>75 High-Ticket Practice Targets Across Dental, Medical Aesthetics & Allied Outpatient Specialties</p>
       </div>
-      <div class="badge-market">El Dorado Hills &bull; Folsom &bull; Granite Bay</div>
+      <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+        <a href="https://docs.google.com/spreadsheets/d/1BMqPiolxcGFcO7qQesWnp-rpbhg2p61wBSXzoE5YF0Q/edit?usp=sharing" target="_blank" class="btn-sheet">
+          <span>📊</span> Open Google Sheet (4 Tabs)
+        </a>
+        <div class="badge-market">El Dorado Hills &bull; Folsom &bull; Granite Bay</div>
+      </div>
     </header>
 
     <div class="stats-grid">

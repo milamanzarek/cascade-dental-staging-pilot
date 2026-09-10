@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cascade Dental Arts · Lane 3 Autonomous Agent Pilot</title>
+    <style>
+        :root {
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --bg: #0b1329;
+            --surface: #1e293b;
+            --border: #334155;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background: var(--bg); color: var(--text); padding: 20px; }
+        header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 16px; margin-bottom: 20px; gap: 12px; }
+        h1 { font-size: 22px; font-weight: 700; color: #38bdf8; }
+        .badge { background: #0369a1; color: #fff; padding: 4px 10px; border-radius: 9999px; font-size: 11px; font-weight: 600; text-transform: uppercase; }
+        .grid-container { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+        @media (max-width: 992px) { .grid-container { grid-template-columns: 1fr; } }
+        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px; margin-bottom: 20px; }
+        .card-title { font-size: 15px; font-weight: 600; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
+        
+        .op-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        @media (max-width: 768px) { .op-grid { grid-template-columns: 1fr; } }
+        .op-col { background: #0f172a; border: 1px solid var(--border); border-radius: 8px; padding: 10px; }
+        .op-header { font-size: 12px; font-weight: 700; color: #38bdf8; border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-bottom: 8px; }
+        
+        .apt-card { background: #1e293b; border-left: 4px solid var(--success); padding: 8px; border-radius: 4px; margin-bottom: 6px; font-size: 12px; transition: transform 0.1s, border-color 0.2s; }
+        .apt-card:hover { transform: translateY(-1px); border-color: #38bdf8; }
+        .apt-card.cancelled { border-left-color: var(--danger); background: #2d1515; }
+        .apt-time { font-weight: 700; color: #cbd5e1; }
+        .apt-patient { font-weight: 600; }
+        .apt-status { font-size: 10px; text-transform: uppercase; padding: 2px 4px; border-radius: 3px; display: inline-block; margin-top: 4px; font-weight: 600; }
+        .status-1 { background: #064e3b; color: #6ee7b7; }
+        .status-5 { background: #7f1d1d; color: #fca5a5; }
+        
+        button { background: var(--primary); color: #fff; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background 0.2s; font-size: 12px; }
+        button:hover { background: var(--primary-dark); }
+        button.danger { background: var(--danger); }
+        button.danger:hover { background: #dc2626; }
+        button.success { background: var(--success); }
+        button.success:hover { background: #059669; }
+        
+        .log-list { max-height: 240px; overflow-y: auto; font-size: 12px; }
+        .log-item { padding: 8px; border-bottom: 1px solid var(--border); }
+        .log-time { color: var(--text-muted); font-size: 10px; }
+
+        .sim-panel { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+        input[type="text"] { background: #0f172a; border: 1px solid var(--border); color: #fff; padding: 8px 12px; border-radius: 6px; font-size: 13px; }
+        .toast { background: #0284c7; color: #fff; padding: 10px 14px; border-radius: 6px; margin-bottom: 12px; font-size: 12px; display: none; }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <h1>Cascade Dental Arts · Lane 3 Autonomous Agent Pilot</h1>
+            <p style="color: var(--text-muted); font-size: 13px;">Open Dental Relational Architecture · Twilio 10DLC · Autonomous Schedule Hole Recovery</p>
+        </div>
+        <div>
+            <span class="badge" id="env-badge">VERCEL DEPLOYMENT</span>
+            <span class="badge" style="background:#10b981; margin-left:6px;">DAEMON: ACTIVE</span>
+        </div>
+    </header>
+
+    <div id="toast" class="toast"></div>
+
+    <div class="grid-container">
+        <!-- Left Column: Operatory Schedule Grid -->
+        <div>
+            <div class="card">
+                <div class="card-title">
+                    <span>Tomorrow's 6-Operatory Schedule (Live Open Dental DB)</span>
+                    <button onclick="refreshData()">Refresh Grid</button>
+                </div>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+                    💡 <strong>Interactive Demo:</strong> Click any booked card below to simulate a patient cancellation and trigger the autonomous agent.
+                </p>
+                <div class="op-grid" id="operatory-container">Loading schedule...</div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    <span>Ambient Clinical SOAP Note Review Queue (AA-03 Doctor Gate)</span>
+                </div>
+                <div id="staged-notes-container">Loading clinical review queue...</div>
+            </div>
+        </div>
+
+        <!-- Right Column: Interactive Simulation & SMS Telephony Stream -->
+        <div>
+            <div class="card">
+                <div class="card-title">
+                    <span>Simulate Patient Actions</span>
+                </div>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+                    Trigger an unexpected cancellation to watch the Lane 3 agent daemon detect the hole, identify recall candidates, and broadcast SMS.
+                </p>
+                <button class="danger" style="width: 100%; margin-bottom: 14px;" onclick="triggerCancellation()">Simulate Cancellation on Op 1</button>
+
+                <div style="border-top: 1px solid var(--border); padding-top: 12px;">
+                    <p style="font-size: 12px; font-weight: 600; margin-bottom: 6px;">Simulate Inbound Patient SMS Reply:</p>
+                    <div class="sim-panel">
+                        <input type="text" id="sim-phone" value="+14255550203" placeholder="Patient Phone Number">
+                        <div style="display: flex; gap: 6px;">
+                            <input type="text" id="sim-body" value="YES" placeholder="Message text (e.g. YES, STOP)" style="flex:1;">
+                            <button class="success" onclick="sendInboundSms()">Send SMS</button>
+                        </div>
+                        <div style="display: flex; gap: 6px; margin-top: 4px;">
+                            <button style="flex:1; background:#334155;" onclick="quickSms('YES')">Pre-fill YES (Claim)</button>
+                            <button style="flex:1; background:#7f1d1d;" onclick="quickSms('STOP')">Pre-fill STOP (Opt-Out)</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    <span>Outbound Twilio 10DLC Waitlist Offers</span>
+                </div>
+                <div class="log-list" id="offers-container">Loading offers...</div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    <span>Agent Execution & Audit Log</span>
+                </div>
+                <div class="log-list" id="agent-log-container">Loading audit logs...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State store with initial fallback
+        let state = {
+            operatories: [
+                { OperatoryNum: 1, OpName: "Hygiene 1 (East)" },
+                { OperatoryNum: 2, OpName: "Hygiene 2 (West)" },
+                { OperatoryNum: 3, OpName: "Op 1 (Restorative)" },
+                { OperatoryNum: 4, OpName: "Op 2 (Restorative)" },
+                { OperatoryNum: 5, OpName: "Op 3 (Surgical/Implants)" },
+                { OperatoryNum: 6, OpName: "Op 4 (Endodontics)" }
+            ],
+            appointments: [],
+            offers: [],
+            notes: [
+                {
+                    StagedNoteNum: 1,
+                    AptNum: 1,
+                    Status: "PENDING_REVIEW",
+                    SOAPContent: "SUBJECTIVE: Tooth #19 cold sensitivity. Prescribed Eliquis 5mg BID.\nOBJECTIVE: Pocket depths 5-4-5mm.\nPLAN: Root planing & crown.",
+                    SystemicAlerts: "HIGH BLEEDING RISK: Anticoagulant therapy (Eliquis). Bleeding precaution for root planing."
+                }
+            ],
+            logs: [
+                { Timestamp: new Date().toISOString(), ActionType: "SYSTEM_INIT", Details: "Lane 3 Agent Bridge initialized and monitoring Open Dental database" }
+            ]
+        };
+
+        // Initialize synthetic appointments
+        function initLocalApts() {
+            if (state.appointments.length > 0) return;
+            const hours = ["08:00", "09:00", "11:00", "13:00", "14:00", "15:00"];
+            const names = [
+                ["Marcus", "Vance"], ["Jessica", "Davis"], ["Henry", "Anderson"],
+                ["Elena", "Kovacs"], ["William", "Wright"], ["David", "Kim"]
+            ];
+            let id = 1;
+            for (let op = 1; op <= 6; op++) {
+                hours.forEach((h, idx) => {
+                    const p = names[(op + idx) % names.length];
+                    state.appointments.push({
+                        AptNum: id,
+                        Op: op,
+                        AptDateTime: `2026-09-10 ${h}:00`,
+                        FName: p[0],
+                        LName: p[1],
+                        AptStatus: 1
+                    });
+                    id++;
+                });
+            }
+        }
+        initLocalApts();
+
+        function showToast(msg, isError = false) {
+            const t = document.getElementById('toast');
+            t.style.display = 'block';
+            t.style.background = isError ? 'var(--danger)' : '#0284c7';
+            t.innerText = msg;
+            setTimeout(() => { t.style.display = 'none'; }, 6000);
+        }
+
+        async function refreshData() {
+            try {
+                const res = await fetch('/api/dashboard-data');
+                if (res.ok) {
+                    const data = await res.json();
+                    state.operatories = data.operatories || state.operatories;
+                    state.appointments = data.appointments || state.appointments;
+                    state.offers = data.offers || state.offers;
+                    state.notes = data.notes || state.notes;
+                    state.logs = data.logs || state.logs;
+                    document.getElementById('env-badge').innerText = 'VERCEL SERVERLESS (LIVE)';
+                }
+            } catch (e) {
+                // Keep local state
+            }
+            renderUI();
+        }
+
+        function renderUI() {
+            // Render Operatories
+            const opContainer = document.getElementById('operatory-container');
+            opContainer.innerHTML = '';
+            
+            state.operatories.forEach(op => {
+                const col = document.createElement('div');
+                col.className = 'op-col';
+                col.innerHTML = `<div class="op-header">${op.OpName}</div>`;
+                
+                const opApts = state.appointments.filter(a => a.Op === op.OperatoryNum);
+                opApts.forEach(apt => {
+                    const isCancelled = apt.AptStatus === 5;
+                    const card = document.createElement('div');
+                    card.className = `apt-card ${isCancelled ? 'cancelled' : ''}`;
+                    card.style.cursor = isCancelled ? 'default' : 'pointer';
+                    card.title = isCancelled ? 'Slot is vacant/cancelled' : 'Click to simulate patient cancellation';
+                    if (!isCancelled) {
+                        card.onclick = () => triggerCancellation(apt.AptNum);
+                    }
+                    card.innerHTML = `
+                        <div class="apt-time">${apt.AptDateTime.split(' ')[1].substring(0, 5)} · Apt #${apt.AptNum}</div>
+                        <div class="apt-patient">${apt.FName ? apt.FName + ' ' + apt.LName : 'VACANT / OPEN'}</div>
+                        <span class="apt-status status-${apt.AptStatus}">${isCancelled ? 'CANCELLED (HOLE)' : 'BOOKED (CLICK TO CANCEL)'}</span>
+                    `;
+                    col.appendChild(card);
+                });
+                opContainer.appendChild(col);
+            });
+
+            // Render Offers
+            const offersContainer = document.getElementById('offers-container');
+            offersContainer.innerHTML = '';
+            if (state.offers.length === 0) {
+                offersContainer.innerHTML = '<p style="color:var(--text-muted); font-size:11px;">No active SMS broadcasts.</p>';
+            } else {
+                state.offers.forEach(o => {
+                    const item = document.createElement('div');
+                    item.className = 'log-item';
+                    item.innerHTML = `
+                        <div class="log-time">${o.SentTimestamp ? o.SentTimestamp.split('T')[1].substring(0,8) : 'Now'} · To: ${o.FName || 'Patient'} (${o.Phone})</div>
+                        <div>Apt #${o.AptNum} · Status: <strong>${o.Status}</strong></div>
+                    `;
+                    offersContainer.appendChild(item);
+                });
+            }
+
+            // Render Logs
+            const logContainer = document.getElementById('agent-log-container');
+            logContainer.innerHTML = '';
+            state.logs.forEach(l => {
+                const item = document.createElement('div');
+                item.className = 'log-item';
+                item.innerHTML = `
+                    <div class="log-time">${l.Timestamp ? l.Timestamp.split('T')[1].substring(0,8) : 'Now'}</div>
+                    <div><strong>${l.ActionType}</strong>: ${l.Details}</div>
+                `;
+                logContainer.appendChild(item);
+            });
+
+            // Render Notes
+            const notesContainer = document.getElementById('staged-notes-container');
+            notesContainer.innerHTML = '';
+            state.notes.forEach(n => {
+                const isPending = n.Status === 'PENDING_REVIEW';
+                const item = document.createElement('div');
+                item.style = "background:#0f172a; border:1px solid var(--border); padding:12px; border-radius:6px; margin-bottom:8px;";
+                item.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                        <strong>Staged Note #${n.StagedNoteNum} (Apt #${n.AptNum})</strong>
+                        <span class="badge" style="background:${isPending ? 'var(--warning)' : 'var(--success)'}">${n.Status}</span>
+                    </div>
+                    <p style="font-size:12px; color:#cbd5e1; margin-bottom:8px;">${n.SOAPContent.substring(0, 160)}...</p>
+                    <div style="color:#fca5a5; font-size:11px; margin-bottom:8px;">⚠️ ${n.SystemicAlerts}</div>
+                    ${isPending ? `<button class="success" onclick="approveNote(${n.StagedNoteNum})">Dr. Chen: Approve & Commit to Chart</button>` : '<span style="color:var(--success); font-size:12px;">✓ Signed by Provider #1 (Sarah Chen, DDS)</span>'}
+                `;
+                notesContainer.appendChild(item);
+            });
+        }
+
+        async function triggerCancellation(aptNum = null) {
+            let targetApt = null;
+            if (aptNum) {
+                targetApt = state.appointments.find(a => a.AptNum === aptNum);
+            } else {
+                targetApt = state.appointments.find(a => a.AptStatus === 1 && a.Op === 1) || state.appointments.find(a => a.AptStatus === 1);
+            }
+            if (!targetApt) return;
+
+            try {
+                const res = await fetch(`/api/simulate/cancel-appointment?apt_num=${targetApt.AptNum}`, { method: 'POST' });
+                if (res.ok) {
+                    const json = await res.json();
+                    if (json.candidates && json.candidates.length > 0) {
+                        document.getElementById('sim-phone').value = json.candidates[0].phone;
+                        document.getElementById('sim-body').value = 'YES';
+                    }
+                    showToast(`Cancellation triggered for Apt #${json.cancelled_apt}. Lane 3 Daemon dispatched offers to ${json.dispatched_count} candidates! Candidate #1 pre-filled below.`);
+                    refreshData();
+                    return;
+                }
+            } catch (e) {
+                // Fallback to local state
+            }
+
+            // Local fallback simulation
+            targetApt.AptStatus = 5;
+            const cands = [
+                { name: "Henry Anderson", phone: "+14255550203" },
+                { name: "Jessica Davis", phone: "+14255550214" },
+                { name: "William Wright", phone: "+14255550209" }
+            ];
+            cands.forEach(c => {
+                state.offers.unshift({
+                    OfferId: Date.now(),
+                    AptNum: targetApt.AptNum,
+                    FName: c.name.split(' ')[0],
+                    Phone: c.phone,
+                    Status: "PENDING",
+                    SentTimestamp: new Date().toISOString()
+                });
+            });
+            state.logs.unshift({
+                Timestamp: new Date().toISOString(),
+                ActionType: "AUTOFILL_DISPATCHED",
+                Details: `Dispatched Twilio 10DLC waitlist alerts for Apt #${targetApt.AptNum} to 3 candidates`
+            });
+            document.getElementById('sim-phone').value = cands[0].phone;
+            document.getElementById('sim-body').value = 'YES';
+            showToast(`Cancellation triggered for Apt #${targetApt.AptNum}. Lane 3 Daemon dispatched offers to 3 candidates! Candidate #1 (${cands[0].name}) pre-filled below.`);
+            renderUI();
+        }
+
+        async function sendInboundSms() {
+            const phone = document.getElementById('sim-phone').value.trim();
+            const body = document.getElementById('sim-body').value.trim();
+
+            try {
+                const res = await fetch('/webhooks/twilio/inbound-sms', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ From: phone, Body: body })
+                });
+                if (res.ok) {
+                    const json = await res.json();
+                    showToast(`Inbound SMS Result: ${json.status} · ${json.message}`);
+                    refreshData();
+                    return;
+                }
+            } catch (e) {
+                // Fallback to local state
+            }
+
+            // Local fallback simulation
+            if (body.toUpperCase().includes('STOP')) {
+                state.logs.unshift({
+                    Timestamp: new Date().toISOString(),
+                    ActionType: "TCPA_OPT_OUT",
+                    Details: `Patient ${phone} sent STOP. PreferSMS revoked immediately in Open Dental chart.`
+                });
+                showToast(`[TCPA OPT-OUT] Patient ${phone} has been unsubscribed. SMS consent revoked.`);
+            } else if (body.toUpperCase().includes('YES')) {
+                const pendingOffer = state.offers.find(o => o.Phone === phone && o.Status === 'PENDING');
+                if (pendingOffer) {
+                    pendingOffer.Status = 'CLAIMED';
+                    // Expire others
+                    state.offers.forEach(o => {
+                        if (o.AptNum === pendingOffer.AptNum && o.OfferId !== pendingOffer.OfferId) o.Status = 'EXPIRED';
+                    });
+                    const apt = state.appointments.find(a => a.AptNum === pendingOffer.AptNum);
+                    if (apt) {
+                        apt.AptStatus = 1;
+                        apt.FName = pendingOffer.FName;
+                    }
+                    state.logs.unshift({
+                        Timestamp: new Date().toISOString(),
+                        ActionType: "AUTOFILL_CLAIMED",
+                        Details: `Apt #${pendingOffer.AptNum} atomically rebooked for ${pendingOffer.FName} (${phone})`
+                    });
+                    showToast(`[SLOT CLAIMED] Great news! Apt #${pendingOffer.AptNum} has been atomically rebooked for ${pendingOffer.FName}.`);
+                } else {
+                    showToast(`[CONTENTION] Sorry, another patient just confirmed this appointment! You remain top-priority on the waitlist.`);
+                }
+            }
+            renderUI();
+        }
+
+        function quickSms(txt) {
+            document.getElementById('sim-body').value = txt;
+        }
+
+        async function approveNote(stagedId) {
+            try {
+                const res = await fetch(`/api/simulate/doctor-approve?staged_id=${stagedId}`, { method: 'POST' });
+                if (res.ok) {
+                    showToast("Dr. Sarah Chen: Note approved and digitally committed to Open Dental chart!");
+                    refreshData();
+                    return;
+                }
+            } catch (e) {}
+
+            const n = state.notes.find(x => x.StagedNoteNum === stagedId);
+            if (n) n.Status = "APPROVED";
+            state.logs.unshift({
+                Timestamp: new Date().toISOString(),
+                ActionType: "NOTE_APPROVED",
+                Details: "Dr. Sarah Chen reviewed contraindications (Eliquis) and digitally signed note into chart"
+            });
+            showToast("Dr. Sarah Chen: Note approved and digitally committed to Open Dental chart!");
+            renderUI();
+        }
+
+        refreshData();
+        setInterval(refreshData, 4000);
+    </script>
+</body>
+</html>

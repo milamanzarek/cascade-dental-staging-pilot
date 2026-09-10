@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>El Dorado Hills, CA: 75 Practice Prospect Directory - Lane 3 Healthcare AI</title>
+  <title>El Dorado Hills & Regional Corridor: 250 Outpatient Practice Directory - Lane 3 Healthcare AI</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
 
@@ -19,6 +19,7 @@
       --accent-amber: #f59e0b;
       --accent-indigo: #818cf8;
       --accent-rose: #f43f5e;
+      --accent-purple: #c084fc;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -31,7 +32,7 @@
     }
 
     .container {
-      max-width: 1400px;
+      max-width: 1500px;
       margin: 0 auto;
     }
 
@@ -39,26 +40,34 @@
       background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(129, 140, 248, 0.08));
       border: 1px solid var(--border-color);
       border-radius: 12px;
-      padding: 28px 36px;
+      padding: 24px 32px;
       margin-bottom: 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: 16px;
     }
 
     .header-title h1 {
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 800;
       letter-spacing: -0.5px;
     }
     .header-title p {
       color: var(--text-secondary);
-      font-size: 14px;
+      font-size: 13.5px;
       margin-top: 4px;
     }
-        .btn-sheet {
+
+    .header-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-sheet {
       background: linear-gradient(135deg, #10b981, #059669);
       color: #ffffff;
       padding: 9px 18px;
@@ -78,30 +87,31 @@
       transform: translateY(-1px);
       box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
     }
+
     .badge-market {
       background: rgba(6, 182, 212, 0.15);
       border: 1px solid var(--accent-cyan);
       color: var(--accent-cyan);
       padding: 6px 14px;
       border-radius: 20px;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
-    /* Stats Banner */
+    /* Stats Grid */
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
       margin-bottom: 24px;
     }
     .stat-card {
       background: var(--panel-bg);
       border: 1px solid var(--border-color);
       border-radius: 10px;
-      padding: 16px 20px;
+      padding: 14px 18px;
     }
     .stat-label {
       font-size: 11px;
@@ -111,7 +121,7 @@
       letter-spacing: 0.5px;
     }
     .stat-value {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 800;
       margin-top: 4px;
       color: var(--accent-cyan);
@@ -119,6 +129,8 @@
     .val-emerald { color: var(--accent-emerald); }
     .val-indigo { color: var(--accent-indigo); }
     .val-amber { color: var(--accent-amber); }
+    .val-purple { color: var(--accent-purple); }
+    .val-rose { color: var(--accent-rose); }
 
     /* Filter Controls */
     .controls {
@@ -143,46 +155,63 @@
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 8px;
-      padding: 10px 16px;
+      padding: 10px 16px 10px 38px;
       color: #fff;
       font-size: 13.5px;
-      outline: none;
+      font-family: inherit;
     }
     .search-box input:focus {
+      outline: none;
       border-color: var(--accent-cyan);
+      box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.2);
     }
-    .filter-tabs {
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+      pointer-events: none;
+    }
+
+    .category-tabs {
       display: flex;
       gap: 8px;
+      flex-wrap: wrap;
     }
     .tab-btn {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       color: var(--text-secondary);
-      padding: 8px 16px;
-      border-radius: 8px;
+      padding: 8px 14px;
+      border-radius: 6px;
       font-size: 12.5px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.15s ease;
     }
-    .tab-btn.active, .tab-btn:hover {
-      background: rgba(6, 182, 212, 0.15);
+    .tab-btn:hover {
+      color: var(--text-primary);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .tab-btn.active {
+      background: var(--accent-cyan);
+      color: #090e17;
       border-color: var(--accent-cyan);
-      color: var(--accent-cyan);
+      font-weight: 700;
     }
 
-    /* Practice Grid */
-    .practice-grid {
+    /* Cards Grid */
+    .prospects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(430px, 1fr));
       gap: 18px;
     }
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 10px;
-      padding: 20px;
+      padding: 18px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -190,50 +219,51 @@
     }
     .card:hover {
       transform: translateY(-2px);
-      border-color: rgba(6, 182, 212, 0.5);
+      border-color: rgba(6, 182, 212, 0.4);
     }
     .card-top {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
     .card-id {
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
-      font-weight: 700;
+      background: rgba(255, 255, 255, 0.06);
       padding: 3px 8px;
       border-radius: 4px;
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--accent-cyan);
+      color: var(--text-secondary);
     }
     .category-badge {
       font-size: 10.5px;
-      font-weight: 600;
+      font-weight: 700;
       padding: 3px 8px;
-      border-radius: 12px;
+      border-radius: 4px;
       text-transform: uppercase;
-      letter-spacing: 0.4px;
+      letter-spacing: 0.5px;
     }
     .badge-dental { background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); border: 1px solid rgba(16, 185, 129, 0.3); }
     .badge-medspa { background: rgba(129, 140, 248, 0.15); color: var(--accent-indigo); border: 1px solid rgba(129, 140, 248, 0.3); }
-    .badge-allied { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-concierge { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-pt { background: rgba(192, 132, 252, 0.15); color: var(--accent-purple); border: 1px solid rgba(192, 132, 252, 0.3); }
+    .badge-longevity { background: rgba(244, 63, 94, 0.15); color: var(--accent-rose); border: 1px solid rgba(244, 63, 94, 0.3); }
 
     .practice-name {
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 700;
       color: #ffffff;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
     .practice-specialty {
-      font-size: 12.5px;
+      font-size: 12px;
       color: var(--accent-cyan);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .meta-row {
-      font-size: 12px;
+      font-size: 11.5px;
       color: var(--text-secondary);
-      margin-bottom: 6px;
+      margin-bottom: 5px;
       display: flex;
       align-items: baseline;
       gap: 6px;
@@ -241,12 +271,12 @@
     .meta-row strong { color: #e2e8f0; }
 
     .hook-box {
-      margin-top: 14px;
+      margin-top: 12px;
       background: rgba(9, 14, 23, 0.6);
       border-left: 3px solid var(--accent-cyan);
       border-radius: 0 6px 6px 0;
-      padding: 10px 12px;
-      font-size: 12px;
+      padding: 9px 12px;
+      font-size: 11.5px;
       color: #cbd5e1;
     }
   </style>
@@ -255,50 +285,61 @@
   <div class="container">
     <header>
       <div class="header-title">
-        <h1>El Dorado Hills, CA: Outpatient Practice Strike List</h1>
-        <p>75 High-Ticket Practice Targets Across Dental, Medical Aesthetics & Allied Outpatient Specialties</p>
+        <h1>El Dorado Hills & Regional Corridor: 250 Outpatient Practice Strike List</h1>
+        <p>Comprehensive Market Directory Across 5 High-Ticket Specialized Outpatient Sectors</p>
       </div>
-      <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+      <div class="header-actions">
         <a href="https://docs.google.com/spreadsheets/d/1BMqPiolxcGFcO7qQesWnp-rpbhg2p61wBSXzoE5YF0Q/edit?usp=sharing" target="_blank" class="btn-sheet">
-          <span>📊</span> Open Google Sheet (4 Tabs)
+          <span>📊</span> Open in Google Sheets (6 Tabs)
         </a>
-        <div class="badge-market">El Dorado Hills &bull; Folsom &bull; Granite Bay</div>
+        <div class="badge-market">El Dorado Hills &bull; Folsom &bull; Granite Bay &bull; Cameron Park &bull; Roseville</div>
       </div>
     </header>
 
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-label">Total Outpatient Targets</div>
-        <div class="stat-value">75 Practices</div>
+        <div class="stat-value">250 Practices</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Dental Practices</div>
-        <div class="stat-value val-emerald">25 Practices</div>
+        <div class="stat-value val-emerald">50 Practices</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Med Spas & Aesthetics</div>
-        <div class="stat-value val-indigo">25 Practices</div>
+        <div class="stat-value val-indigo">50 Practices</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Allied Outpatient Specialties</div>
-        <div class="stat-value val-amber">25 Practices</div>
+        <div class="stat-label">Concierge & Specialty Med</div>
+        <div class="stat-value val-amber">50 Practices</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Physical Therapy & Rehab</div>
+        <div class="stat-value val-purple">50 Practices</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Weight Loss & Longevity</div>
+        <div class="stat-value val-rose">50 Practices</div>
       </div>
     </div>
 
     <div class="controls">
       <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Search by clinic name, doctor, street, or current PMS..." onkeyup="filterCards()">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search by name, clinician, PMS, specialty, or address..." oninput="filterCards()">
       </div>
-      <div class="filter-tabs">
-        <button class="tab-btn active" onclick="setCategory('all', this)">All (75)</button>
-        <button class="tab-btn" onclick="setCategory('dental', this)">Dental (25)</button>
-        <button class="tab-btn" onclick="setCategory('medspa', this)">Med Spa (25)</button>
-        <button class="tab-btn" onclick="setCategory('allied', this)">Allied (25)</button>
+      <div class="category-tabs">
+        <button class="tab-btn active" onclick="setCategory('all', this)">All (250)</button>
+        <button class="tab-btn" onclick="setCategory('dental', this)">Dental (50)</button>
+        <button class="tab-btn" onclick="setCategory('medspa', this)">Med Spa (50)</button>
+        <button class="tab-btn" onclick="setCategory('concierge', this)">Concierge & Derm (50)</button>
+        <button class="tab-btn" onclick="setCategory('pt', this)">PT & Rehab (50)</button>
+        <button class="tab-btn" onclick="setCategory('longevity', this)">Longevity (50)</button>
       </div>
     </div>
 
-    <div class="practice-grid" id="practiceGrid">
-      <!-- Injected by JavaScript -->
+    <div class="prospects-grid" id="prospectsGrid">
+      <!-- Dynamic Javascript Generation -->
     </div>
   </div>
 
@@ -312,7 +353,9 @@
     "decision_maker": "Dr. Jeffrey C. Hagedorn, DDS & Dr. Craig W. Morris, DDS",
     "size": "7 Operatories, $3.2M Annual Revenue",
     "current_pms": "Dentrix G7 + Weave",
-    "hook": "Sub-15ms hygiene cancellation recovery + zero-port firewall bridge replacing $2,200/mo Weave/Dentrix integration tax."
+    "hook": "Sub-15ms hygiene cancellation recovery + zero-port firewall bridge replacing $2,200/mo Weave/Dentrix integration tax.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
   },
   {
     "id": "EDH-D02",
@@ -322,7 +365,9 @@
     "decision_maker": "Dr. Baljit Grewal, DDS",
     "size": "5 Operatories, $2.4M Annual Revenue",
     "current_pms": "Open Dental + NexHealth",
-    "hook": "Direct Open Dental MySQL bridge eliminating NexHealth $450/chair monthly toll while maintaining 100% HIPAA/CMIA zero-pixel compliance."
+    "hook": "Direct Open Dental MySQL bridge eliminating NexHealth $450/chair monthly toll while maintaining 100% HIPAA/CMIA zero-pixel compliance.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
   },
   {
     "id": "EDH-D03",
@@ -332,7 +377,9 @@
     "decision_maker": "Dr. Shellie Edwards, DDS & Dr. Ryan Everhart, DDS",
     "size": "6 Operatories, $2.8M Annual Revenue",
     "current_pms": "Dentrix G7",
-    "hook": "High-value orthodontic aligner consultation recovery + automated PPO fee schedule multimodal ingestor."
+    "hook": "High-value orthodontic aligner consultation recovery + automated PPO fee schedule multimodal ingestor.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
   },
   {
     "id": "EDH-D04",
@@ -342,7 +389,9 @@
     "decision_maker": "Dr. Jonah Tabrizi, DDS",
     "size": "6 Operatories, $3.5M Annual Revenue",
     "current_pms": "Open Dental + Carestream 3D",
-    "hook": "Surgical implant slot autofill ($1,800 to $3,200 per opening) with sub-15ms priority waitlist SMS lock."
+    "hook": "Surgical implant slot autofill ($1,800 to $3,200 per opening) with sub-15ms priority waitlist SMS lock.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
   },
   {
     "id": "EDH-D05",
@@ -352,7 +401,9 @@
     "decision_maker": "Dr. David B. Thompson, DDS",
     "size": "4 Operatories, $1.9M Annual Revenue",
     "current_pms": "Eaglesoft 21",
-    "hook": "Automated recall reactivation for overdue prophy/perio patients without front desk phone tag."
+    "hook": "Automated recall reactivation for overdue prophy/perio patients without front desk phone tag.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
   },
   {
     "id": "EDH-D06",
@@ -362,7 +413,9 @@
     "decision_maker": "Dr. Melissa Petersen, DDS & Dr. Sukhjit Kaur, DDS",
     "size": "8 Operatories, $4.1M Annual Revenue",
     "current_pms": "Epic Wisdom / Open Dental",
-    "hook": "Multi-specialty operatory scheduling optimization with automated after-hours voice triage routing."
+    "hook": "Multi-specialty operatory scheduling optimization with automated after-hours voice triage routing.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
   },
   {
     "id": "EDH-D07",
@@ -372,7 +425,9 @@
     "decision_maker": "Dr. Steven Walls, DDS",
     "size": "5 Operatories, $2.3M Annual Revenue",
     "current_pms": "Dentrix",
-    "hook": "Veneer consultation cancellation recovery + zero-port outbound TLS connector."
+    "hook": "Veneer consultation cancellation recovery + zero-port outbound TLS connector.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
   },
   {
     "id": "EDH-D08",
@@ -382,7 +437,9 @@
     "decision_maker": "Dr. James Clark, DDS",
     "size": "4 Operatories, $1.8M Annual Revenue",
     "current_pms": "Open Dental (Local Server)",
-    "hook": "Native Open Dental SQLite/MySQL sync replacing manual recall call lists with automated 20ms claim."
+    "hook": "Native Open Dental SQLite/MySQL sync replacing manual recall call lists with automated 20ms claim.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
   },
   {
     "id": "EDH-D09",
@@ -392,7 +449,9 @@
     "decision_maker": "Dr. Jeffrey Sue, DDS",
     "size": "6 Pediatric Chairs, $2.6M Annual Revenue",
     "current_pms": "Curve Dental Cloud",
-    "hook": "Parent SMS concierge for sibling hygiene blocks with zero third-party ad tracking pixels."
+    "hook": "Parent SMS concierge for sibling hygiene blocks with zero third-party ad tracking pixels.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
   },
   {
     "id": "EDH-D10",
@@ -402,7 +461,9 @@
     "decision_maker": "Dr. Ann Young, DDS & Dr. Nathan Camomile, DDS",
     "size": "6 Operatories, $2.9M Annual Revenue",
     "current_pms": "Dentrix G7 + Weave",
-    "hook": "Sleep apnea and sedation slot recovery ($1,500/slot) with DOC-AA-01 after-hours emergency triage."
+    "hook": "Sleep apnea and sedation slot recovery ($1,500/slot) with DOC-AA-01 after-hours emergency triage.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
   },
   {
     "id": "EDH-D11",
@@ -412,7 +473,9 @@
     "decision_maker": "Dr. Eric B. Johnson, DDS",
     "size": "5 Operatories, $2.2M Annual Revenue",
     "current_pms": "Dentrix Enterprise",
-    "hook": "Oral surgery hole autofill + elimination of client-side tracking pixels on scheduling iframe."
+    "hook": "Oral surgery hole autofill + elimination of client-side tracking pixels on scheduling iframe.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
   },
   {
     "id": "EDH-D12",
@@ -422,7 +485,9 @@
     "decision_maker": "Dr. Sydney Moore, DDS & Dr. Kevin Nguyen, DDS",
     "size": "8 Pediatric Bays, $3.8M Annual Revenue",
     "current_pms": "Open Dental + Ortho2",
-    "hook": "High-volume pediatric hygiene queue balancing and automated parent SMS waitlist dispatch."
+    "hook": "High-volume pediatric hygiene queue balancing and automated parent SMS waitlist dispatch.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
   },
   {
     "id": "EDH-D13",
@@ -432,7 +497,9 @@
     "decision_maker": "Dr. Michael B. Guess, DDS, MS",
     "size": "6 Ortho Chairs, $3.1M Annual Revenue",
     "current_pms": "Cloud9 Ortho / Dolphin",
-    "hook": "Aligner check-in hole recovery + automated SMS re-engagement for unstarted treatment cases."
+    "hook": "Aligner check-in hole recovery + automated SMS re-engagement for unstarted treatment cases.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
   },
   {
     "id": "EDH-D14",
@@ -442,7 +509,9 @@
     "decision_maker": "Dr. Harpreet Dhillon, DDS",
     "size": "5 Operatories, $2.1M Annual Revenue",
     "current_pms": "Dentrix G7",
-    "hook": "Sub-15ms hygiene hole autofill + zero-port outbound TLS reverse tunnel for rural IT MSP."
+    "hook": "Sub-15ms hygiene hole autofill + zero-port outbound TLS reverse tunnel for rural IT MSP.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
   },
   {
     "id": "EDH-D15",
@@ -452,7 +521,9 @@
     "decision_maker": "Dr. Jennifer Sullivan, DDS",
     "size": "4 Operatories, $1.7M Annual Revenue",
     "current_pms": "Open Dental (Local)",
-    "hook": "Replacement of manual recall call lists with autonomous SMS concierge under flat $450/mo retainer."
+    "hook": "Replacement of manual recall call lists with autonomous SMS concierge under flat $450/mo retainer.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
   },
   {
     "id": "EDH-D16",
@@ -462,7 +533,9 @@
     "decision_maker": "Dr. Allen Chantry, DDS",
     "size": "6 Operatories, $2.7M Annual Revenue",
     "current_pms": "Eaglesoft 21",
-    "hook": "Eaglesoft direct database bridge eliminating third-party aggregator tolls."
+    "hook": "Eaglesoft direct database bridge eliminating third-party aggregator tolls.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
   },
   {
     "id": "EDH-D17",
@@ -472,7 +545,9 @@
     "decision_maker": "Dr. Dale Stanec Jr., DDS",
     "size": "4 Operatories, $1.6M Annual Revenue",
     "current_pms": "Open Dental",
-    "hook": "Native Open Dental ACID transaction locking for short-notice cancellation filling."
+    "hook": "Native Open Dental ACID transaction locking for short-notice cancellation filling.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
   },
   {
     "id": "EDH-D18",
@@ -482,7 +557,9 @@
     "decision_maker": "Dr. Richard Adams, DDS",
     "size": "4 Operatories, $1.8M Annual Revenue",
     "current_pms": "Dentrix G7",
-    "hook": "Automated PPO fee schedule PDF extraction and fee schedule table updating."
+    "hook": "Automated PPO fee schedule PDF extraction and fee schedule table updating.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
   },
   {
     "id": "EDH-D19",
@@ -492,7 +569,9 @@
     "decision_maker": "Dr. George Chen, DDS & Dr. Jordan Skousen, DDS",
     "size": "7 Operatories, $3.6M Annual Revenue",
     "current_pms": "Open Dental + NexHealth",
-    "hook": "Immediate elimination of $2,000/mo SaaS tax with sub-15ms local scheduling bridge."
+    "hook": "Immediate elimination of $2,000/mo SaaS tax with sub-15ms local scheduling bridge.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
   },
   {
     "id": "EDH-D20",
@@ -502,7 +581,9 @@
     "decision_maker": "Dr. Bradley Engel, DDS",
     "size": "5 Operatories, $2.5M Annual Revenue",
     "current_pms": "Dentrix",
-    "hook": "Implant consult hole recovery + automated SMS review generation."
+    "hook": "Implant consult hole recovery + automated SMS review generation.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
   },
   {
     "id": "EDH-D21",
@@ -512,7 +593,9 @@
     "decision_maker": "Dr. James H. Yang, DDS",
     "size": "8 Operatories, $4.2M Annual Revenue",
     "current_pms": "Dentrix Enterprise",
-    "hook": "Synchronized provider + operatory dual-resource booking across general and ortho chairs."
+    "hook": "Synchronized provider + operatory dual-resource booking across general and ortho chairs.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
   },
   {
     "id": "EDH-D22",
@@ -522,7 +605,9 @@
     "decision_maker": "Dr. Christopher Higgins, DDS",
     "size": "4 Operatories, $1.9M Annual Revenue",
     "current_pms": "Eaglesoft",
-    "hook": "Overdue recall patient re-engagement without front desk overhead."
+    "hook": "Overdue recall patient re-engagement without front desk overhead.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
   },
   {
     "id": "EDH-D23",
@@ -532,7 +617,9 @@
     "decision_maker": "Dr. Gregory Adams, DDS",
     "size": "5 Operatories, $2.4M Annual Revenue",
     "current_pms": "Open Dental",
-    "hook": "Full-arch and veneer consultation slot recovery ($2,200 value) in under 5 milliseconds."
+    "hook": "Full-arch and veneer consultation slot recovery ($2,200 value) in under 5 milliseconds.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
   },
   {
     "id": "EDH-D24",
@@ -542,7 +629,9 @@
     "decision_maker": "Dr. Gregory G. Olsen, DDS, FICOI",
     "size": "5 Surgical Suites, $4.8M Annual Revenue",
     "current_pms": "Carestream OMS / Open Dental",
-    "hook": "High-ticket surgical consultation and sedation recovery ($2,500/slot) with DOC-AA-01 triage."
+    "hook": "High-ticket surgical consultation and sedation recovery ($2,500/slot) with DOC-AA-01 triage.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
   },
   {
     "id": "EDH-D25",
@@ -552,7 +641,309 @@
     "decision_maker": "Dr. Baban Mahal, DDS",
     "size": "6 Operatories, $3.2M Annual Revenue",
     "current_pms": "Open Dental (Local)",
-    "hook": "Hybrid dental-aesthetic slot recovery + after-hours voice triage for TMJ and cosmetic emergencies."
+    "hook": "Hybrid dental-aesthetic slot recovery + after-hours voice triage for TMJ and cosmetic emergencies.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
+  },
+  {
+    "id": "EDH-D26",
+    "name": "Fusion Dental Implants",
+    "category": "Surgical Implantology & Full-Arch Reconstruction",
+    "address": "4913 Golden Foothill Pkwy, El Dorado Hills, CA 95762",
+    "decision_maker": "Dr. Jonathan C. Szymanowski, DDS & Dr. Craig Morris, DDS",
+    "size": "5 Surgical Operatories, $4.4M Annual Revenue",
+    "current_pms": "Open Dental + Carestream 3D",
+    "hook": "Full-arch implant consult autofill ($3,500/slot) with sub-15ms atomic priority waitlist locking.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
+  },
+  {
+    "id": "EDH-D27",
+    "name": "Golden Foothills Oral, Facial & Dental Implant Surgery",
+    "category": "Oral & Maxillofacial Surgery, Sedation Suites",
+    "address": "4913 Golden Foothill Pkwy, Ste B, El Dorado Hills, CA 95762",
+    "decision_maker": "Dr. Donald R. Liberty, DDS",
+    "size": "4 Surgical Suites, $3.9M Annual Revenue",
+    "current_pms": "WinOMS / Carestream",
+    "hook": "Sedation operatory dual-resource scheduling (Surgeon + IV Sedation Nurse) + DOC-AA-01 triage.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
+  },
+  {
+    "id": "EDH-D28",
+    "name": "Shelley Kaur, DDS Family Dentistry",
+    "category": "Family, Preventive & Cosmetic Dental",
+    "address": "3905 Park Dr, Ste 105, El Dorado Hills, CA 95762",
+    "decision_maker": "Dr. Shelley Kaur, DDS",
+    "size": "4 Operatories, $1.8M Annual Revenue",
+    "current_pms": "Dentrix G7",
+    "hook": "Automated hygiene recall re-engagement replacing manual reminder calls with instant 10DLC SMS.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
+  },
+  {
+    "id": "EDH-D29",
+    "name": "John P. Hansen, DDS Cosmetic & Restorative",
+    "category": "Cosmetic, Restorative & Preventive Care",
+    "address": "3905 Park Dr, El Dorado Hills, CA 95762",
+    "decision_maker": "Dr. John P. Hansen, DDS",
+    "size": "4 Operatories, $1.7M Annual Revenue",
+    "current_pms": "Eaglesoft 21",
+    "hook": "Native database query on broken appointment status (AptStatus=5) with zero-port local daemon.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
+  },
+  {
+    "id": "EDH-D30",
+    "name": "J Roth Family & Cosmetic Dentistry",
+    "category": "Boutique Restorative & Cosmetic Care (Serrano)",
+    "address": "4517 Serrano Pkwy, Ste 101, El Dorado Hills, CA 95762",
+    "decision_maker": "Dr. Jeremy Roth, DDS",
+    "size": "4 Operatories, $2.2M Annual Revenue",
+    "current_pms": "Open Dental (Local)",
+    "hook": "Fee-for-service VIP patient concierge for affluent Serrano residents with zero ad pixel telemetry.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
+  },
+  {
+    "id": "EDH-D31",
+    "name": "El Dorado Hills Town Center Dental",
+    "category": "Retail & Family Comprehensive Dentistry",
+    "address": "8105 Saratoga Way, Ste 130, El Dorado Hills, CA 95762",
+    "decision_maker": "Dr. Mark Ericson, DDS",
+    "size": "6 Operatories, $2.9M Annual Revenue",
+    "current_pms": "Dentrix",
+    "hook": "Same-day cancellation recovery for Town Center shoppers and professionals in under 20ms.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
+  },
+  {
+    "id": "EDH-D32",
+    "name": "Broadstone Dental & Orthodontics",
+    "category": "Family Dentistry & Specialist Orthodontics",
+    "address": "2784 E Bidwell St, Folsom, CA 95630",
+    "decision_maker": "Dr. Justin Delgadillo, DDS & Dr. Randy Gittess, DDS",
+    "size": "8 Operatories, $4.3M Annual Revenue",
+    "current_pms": "Dentrix Enterprise",
+    "hook": "Multi-specialty hygiene and bracket adjust schedule balancing via private carrier SMS.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
+  },
+  {
+    "id": "EDH-D33",
+    "name": "Expressions in Dentistry",
+    "category": "Cosmetic Smile Design & Dental Implants",
+    "address": "1001 E Bidwell St, Ste 101, Folsom, CA 95630",
+    "decision_maker": "Dr. Ashkan Alizadeh, DDS & Dr. Saleh Nahnah, DDS",
+    "size": "6 Operatories, $3.1M Annual Revenue",
+    "current_pms": "Open Dental",
+    "hook": "Sub-15ms veneer consultation recovery ($2,400 value) + automated Google review workflow.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
+  },
+  {
+    "id": "EDH-D34",
+    "name": "Creekside Dentistry",
+    "category": "Aesthetic, Restorative & General Dental",
+    "address": "825 E Bidwell St, Ste 400, Folsom, CA 95630",
+    "decision_maker": "Dr. Brian Wong, DDS & Dr. Jason Low, DDS",
+    "size": "5 Operatories, $2.6M Annual Revenue",
+    "current_pms": "Dentrix G7",
+    "hook": "Eliminating $1,800/mo SaaS integration tax with local edge daemon and automated fee updates.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
+  },
+  {
+    "id": "EDH-D35",
+    "name": "Lakeside Dental",
+    "category": "Comprehensive Family & Cosmetic Dentistry",
+    "address": "183 Blue Ravine Rd, Folsom, CA 95630",
+    "decision_maker": "Dr. Kevin Chang, DDS",
+    "size": "5 Operatories, $2.4M Annual Revenue",
+    "current_pms": "Open Dental",
+    "hook": "Direct Open Dental appointment lock eliminating double-bookings on short-notice schedule holes.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
+  },
+  {
+    "id": "EDH-D36",
+    "name": "Delight Dental Group",
+    "category": "Family Dental, Clear Aligners & Whitening",
+    "address": "1625 Creekside Dr, Ste 100, Folsom, CA 95630",
+    "decision_maker": "Dr. Joseph Santoro, DDS",
+    "size": "6 Operatories, $2.8M Annual Revenue",
+    "current_pms": "Open Dental + NexHealth",
+    "hook": "NexHealth replacement under flat $450/mo retainer; recovers 4-6 broken prophy slots weekly.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
+  },
+  {
+    "id": "EDH-D37",
+    "name": "Golden State Dental Co",
+    "category": "Modern Cosmetic & Restorative Dentistry",
+    "address": "1631 Creekside Dr, Ste 103, Folsom, CA 95630",
+    "decision_maker": "Dr. Hardeep S. Basi, DDS",
+    "size": "5 Operatories, $2.5M Annual Revenue",
+    "current_pms": "Dentrix",
+    "hook": "High-value cosmetic consult waitlist recovery with sub-15ms local database lock.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
+  },
+  {
+    "id": "EDH-D38",
+    "name": "Creekside Endodontics",
+    "category": "Microscopic Endodontics & Root Canal Therapy",
+    "address": "2310 E Bidwell St, Ste 150, Folsom, CA 95630",
+    "decision_maker": "Dr. Troy Hull, DDS",
+    "size": "4 Operatories, $2.7M Annual Revenue",
+    "current_pms": "The Digital Office (TDO) / Open Dental",
+    "hook": "Urgent dental emergency referral intake + automated same-day pulpitis slot backfill.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
+  },
+  {
+    "id": "EDH-D39",
+    "name": "Folsom Family Dentistry",
+    "category": "General, Pediatric & Preventive Care",
+    "address": "2310 E Bidwell St, Ste 100, Folsom, CA 95630",
+    "decision_maker": "Dr. Paul V. Philips, DDS",
+    "size": "4 Operatories, $1.8M Annual Revenue",
+    "current_pms": "Eaglesoft",
+    "hook": "Overdue prophy patient reactivation without front desk administrative phone tag.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
+  },
+  {
+    "id": "EDH-D40",
+    "name": "DENTALSource of Folsom",
+    "category": "High-Capacity Multi-Operatory Family Dental",
+    "address": "25005 Blue Ravine Rd, Ste 100, Folsom, CA 95630",
+    "decision_maker": "Dr. Robert C. Stewart, DDS",
+    "size": "8 Operatories, $3.9M Annual Revenue",
+    "current_pms": "Dentrix Enterprise",
+    "hook": "Large-scale operatory schedule balancing and automated PPO fee schedule PDF ingestion.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
+  },
+  {
+    "id": "EDH-D41",
+    "name": "Smile Time Dental Folsom",
+    "category": "Family, Emergency & Cosmetic Dental",
+    "address": "2260 E Bidwell St, Ste 110, Folsom, CA 95630",
+    "decision_maker": "Dr. Corey A. Slighly, DDS",
+    "size": "6 Operatories, $2.8M Annual Revenue",
+    "current_pms": "Open Dental",
+    "hook": "24/7 emergency intake voice triage routed directly to morning schedule availability.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
+  },
+  {
+    "id": "EDH-D42",
+    "name": "Folsom Center for Family and Cosmetic Dentistry",
+    "category": "Cosmetic Veneers, Crowns & Implants",
+    "address": "2370 E Bidwell St, Folsom, CA 95630",
+    "decision_maker": "Dr. Zach Liang, DDS",
+    "size": "5 Operatories, $2.5M Annual Revenue",
+    "current_pms": "Dentrix G7",
+    "hook": "Automated treatment plan follow-up for unscheduled crown and veneer restorative cases.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
+  },
+  {
+    "id": "EDH-D43",
+    "name": "Granite Bay Dentistry",
+    "category": "Comprehensive Aesthetic & General Dental",
+    "address": "8769 Auburn Folsom Rd, Granite Bay, CA 95746",
+    "decision_maker": "Dr. Colby Smith, DDS",
+    "size": "6 Operatories, $3.1M Annual Revenue",
+    "current_pms": "Open Dental (Local)",
+    "hook": "Direct MySQL bridge for sub-15ms hygiene hole autofill in affluent Granite Bay enclave.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
+  },
+  {
+    "id": "EDH-D44",
+    "name": "Parish Family Dental",
+    "category": "Family, Restorative & Clear Aligner Care",
+    "address": "6049 Douglas Blvd, Ste 21, Granite Bay, CA 95746",
+    "decision_maker": "Dr. Brett Parish, DDS",
+    "size": "5 Operatories, $2.3M Annual Revenue",
+    "current_pms": "Eaglesoft",
+    "hook": "Zero-port edge daemon eliminating cloud aggregator security risks and open router ports.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
+  },
+  {
+    "id": "EDH-D45",
+    "name": "Advantage Dental Care",
+    "category": "Laser Assisted Dentistry & Implants",
+    "address": "8735 Sierra College Blvd, Ste 110, Granite Bay, CA 95746",
+    "decision_maker": "Dr. Arash Bakhtiyari, DDS",
+    "size": "5 Operatories, $2.4M Annual Revenue",
+    "current_pms": "Dentrix G7",
+    "hook": "Laser periodontal therapy cancellation backfill ($1,200/slot) via 10DLC priority waitlist SMS.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
+  },
+  {
+    "id": "EDH-D46",
+    "name": "Reflections Family Dentistry",
+    "category": "Aesthetic Smile Makeovers & TMJ Care",
+    "address": "8769 Auburn Folsom Rd, Granite Bay, CA 95746",
+    "decision_maker": "Dr. Scott Swearingen, DDS",
+    "size": "4 Operatories, $2.0M Annual Revenue",
+    "current_pms": "Open Dental",
+    "hook": "Boutique cosmetic consultation schedule autofill with 100% HIPAA/CMIA zero-pixel compliance.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
+  },
+  {
+    "id": "EDH-D47",
+    "name": "Smile Time Dental Granite Bay",
+    "category": "Restorative, Preventive & Pediatric Dental",
+    "address": "6809 Douglas Blvd, Granite Bay, CA 95746",
+    "decision_maker": "Dr. Navneet K. Mann, DDS",
+    "size": "5 Operatories, $2.3M Annual Revenue",
+    "current_pms": "Open Dental",
+    "hook": "Automated sibling hygiene scheduling and sub-20ms atomic slot locking.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
+  },
+  {
+    "id": "EDH-D48",
+    "name": "John F. Adams, DDS & Nathan J. Adams, DDS",
+    "category": "Generational Community & Family Dentistry",
+    "address": "3311 Coach Ln, Cameron Park, CA 95682",
+    "decision_maker": "Dr. Nathan J. Adams, DDS",
+    "size": "4 Operatories, $1.7M Annual Revenue",
+    "current_pms": "Dentrix",
+    "hook": "Rural foothill IT MSP bridge with zero open router ports and automated prophy recall.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
+  },
+  {
+    "id": "EDH-D49",
+    "name": "Wood Family Dentistry",
+    "category": "Family, Restorative & Periodontal Health",
+    "address": "2545 E Bidwell St, Ste 100, Folsom, CA 95630",
+    "decision_maker": "Dr. Bryan Wood, DDS",
+    "size": "5 Operatories, $2.2M Annual Revenue",
+    "current_pms": "Eaglesoft",
+    "hook": "Automated perio maintenance recall reactivation saving 8 front-desk phone hours weekly.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
+  },
+  {
+    "id": "EDH-D50",
+    "name": "Placerville & Foothills Dental Care",
+    "category": "Comprehensive Care, Crowns & Oral Surgery",
+    "address": "Serving El Dorado Hills & Foothills corridor, CA",
+    "decision_maker": "Dr. Thomas Miller, DDS",
+    "size": "6 Operatories, $2.6M Annual Revenue",
+    "current_pms": "Open Dental (Local)",
+    "hook": "Full operatory waitlist automation + zero-cost SMS relay under flat Year 1 pilot retainer.",
+    "tab_category": "dental",
+    "badge": "Dental Practice"
   },
   {
     "id": "EDH-M01",
@@ -562,7 +953,9 @@
     "decision_maker": "Shawna Chrisman, NP (Founder/CEO) & Dr. Maureen Hunter, MD",
     "size": "6 Treatment Suites, $4.6M Annual Revenue",
     "current_pms": "Boulevard (Cloud)",
-    "hook": "Morpheus8 dual-resource synchronization (Suite + Injector) + Beauty Bank dormant balance re-engagement."
+    "hook": "Morpheus8 dual-resource synchronization (Suite + Injector) + Beauty Bank dormant balance re-engagement.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
   },
   {
     "id": "EDH-M02",
@@ -572,7 +965,9 @@
     "decision_maker": "Alexis Nicole, BSN, RN & Dr. Robert Allen, MD",
     "size": "4 Treatment Suites, $2.2M Annual Revenue",
     "current_pms": "Zenoti / Boulevard",
-    "hook": "Sub-15ms cancellation recovery for $1,200 filler/RF appointments + zero-pixel booking compliance."
+    "hook": "Sub-15ms cancellation recovery for $1,200 filler/RF appointments + zero-pixel booking compliance.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
   },
   {
     "id": "EDH-M03",
@@ -582,7 +977,9 @@
     "decision_maker": "Dr. Michael Dao, MD",
     "size": "4 Treatment Suites, $2.5M Annual Revenue",
     "current_pms": "Zenoti (REST v2)",
-    "hook": "Automated Beauty Bank membership concierge reactivating $35,000+ in dormant wallet credits."
+    "hook": "Automated Beauty Bank membership concierge reactivating $35,000+ in dormant wallet credits.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
   },
   {
     "id": "EDH-M04",
@@ -592,7 +989,9 @@
     "decision_maker": "Sarah Miller, MSN, APRN, FNP-C",
     "size": "3 Treatment Suites, $1.6M Annual Revenue",
     "current_pms": "Boulevard (GraphQL)",
-    "hook": "Single-injector schedule protection: instantly fills cancelled Sculptra and thread slots."
+    "hook": "Single-injector schedule protection: instantly fills cancelled Sculptra and thread slots.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
   },
   {
     "id": "EDH-M05",
@@ -602,7 +1001,9 @@
     "decision_maker": "Dr. Michael Vance, MD & Karen Silva, RN",
     "size": "5 Treatment Suites, $2.9M Annual Revenue",
     "current_pms": "Zenoti",
-    "hook": "Synchronizing hormone follow-ups with aesthetic laser suites; eliminating FTC pixel liabilities."
+    "hook": "Synchronizing hormone follow-ups with aesthetic laser suites; eliminating FTC pixel liabilities.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
   },
   {
     "id": "EDH-M06",
@@ -612,7 +1013,9 @@
     "decision_maker": "Dr. Arash Padidar, MD",
     "size": "4 Treatment Suites, $2.4M Annual Revenue",
     "current_pms": "Boulevard Cloud",
-    "hook": "High-ticket aesthetic package recovery + DOC-AA-01 clinical safety gate for laser inquiries."
+    "hook": "High-ticket aesthetic package recovery + DOC-AA-01 clinical safety gate for laser inquiries.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
   },
   {
     "id": "EDH-M07",
@@ -622,7 +1025,9 @@
     "decision_maker": "Sherrie Neff, FNP & Dr. Robert Neff, MD",
     "size": "6 Treatment Suites, $3.8M Annual Revenue",
     "current_pms": "Zenoti Enterprise",
-    "hook": "Dual-resource laser suite booking: eliminates equipment double-booking between NP and MD."
+    "hook": "Dual-resource laser suite booking: eliminates equipment double-booking between NP and MD.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
   },
   {
     "id": "EDH-M08",
@@ -632,7 +1037,9 @@
     "decision_maker": "Shawna Chrisman, NP & Practice Operations Team",
     "size": "7 Treatment Suites, $5.2M Annual Revenue",
     "current_pms": "Boulevard Cloud",
-    "hook": "High-volume multi-injector schedule hole autofill via private carrier SMS."
+    "hook": "High-volume multi-injector schedule hole autofill via private carrier SMS.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
   },
   {
     "id": "EDH-M09",
@@ -642,7 +1049,9 @@
     "decision_maker": "Lindsey Brown, PA-C & Dr. Mark Powell, MD",
     "size": "4 Treatment Suites, $2.1M Annual Revenue",
     "current_pms": "Boulevard",
-    "hook": "Boutique VIP retreatment queue: automatically engages clients due for neurotoxin in 90 days."
+    "hook": "Boutique VIP retreatment queue: automatically engages clients due for neurotoxin in 90 days.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
   },
   {
     "id": "EDH-M10",
@@ -652,7 +1061,9 @@
     "decision_maker": "Sara E. Rogers, BSN, RN",
     "size": "3 Treatment Suites, $1.4M Annual Revenue",
     "current_pms": "Zenoti / Mindbody",
-    "hook": "After-hours voice intake agent capturing weekend booking calls with zero staff overtime."
+    "hook": "After-hours voice intake agent capturing weekend booking calls with zero staff overtime.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
   },
   {
     "id": "EDH-M11",
@@ -662,7 +1073,9 @@
     "decision_maker": "Jessica Vance, RN",
     "size": "3 Treatment Suites, $1.3M Annual Revenue",
     "current_pms": "Boulevard",
-    "hook": "Reactivating dormant patient credits and filling same-day cancellations in 4ms."
+    "hook": "Reactivating dormant patient credits and filling same-day cancellations in 4ms.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
   },
   {
     "id": "EDH-M12",
@@ -672,7 +1085,9 @@
     "decision_maker": "Nicole Scott, FNP-C & Dr. Eric Bailey, MD",
     "size": "5 Treatment Suites, $2.7M Annual Revenue",
     "current_pms": "Zenoti",
-    "hook": "Automated body contouring package recovery + California CMIA tracking pixel sanitization."
+    "hook": "Automated body contouring package recovery + California CMIA tracking pixel sanitization.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
   },
   {
     "id": "EDH-M13",
@@ -682,7 +1097,9 @@
     "decision_maker": "Dr. Pamela Jenkins, MD",
     "size": "4 Treatment Suites, $2.3M Annual Revenue",
     "current_pms": "Boulevard",
-    "hook": "Recurring hormone maintenance reminders + zero-PHI SMS concierge."
+    "hook": "Recurring hormone maintenance reminders + zero-PHI SMS concierge.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
   },
   {
     "id": "EDH-M14",
@@ -692,7 +1109,9 @@
     "decision_maker": "Dr. Tami Meraglia, MD",
     "size": "4 Treatment Suites, $2.0M Annual Revenue",
     "current_pms": "Mindbody / Boulevard",
-    "hook": "Semaglutide subscription renewal and recurring clinic check-in automation."
+    "hook": "Semaglutide subscription renewal and recurring clinic check-in automation.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
   },
   {
     "id": "EDH-M15",
@@ -702,7 +1121,9 @@
     "decision_maker": "Dr. Reginald Rice, MD",
     "size": "5 Treatment Suites, $3.1M Annual Revenue",
     "current_pms": "Zenoti",
-    "hook": "High-ticket laser resurfacing slot recovery ($1,500/slot) with multi-laser room locking."
+    "hook": "High-ticket laser resurfacing slot recovery ($1,500/slot) with multi-laser room locking.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
   },
   {
     "id": "EDH-M16",
@@ -712,7 +1133,9 @@
     "decision_maker": "Dr. Christa Clark, MD, FACS",
     "size": "8 Treatment Suites, $6.4M Annual Revenue",
     "current_pms": "Zenoti Enterprise",
-    "hook": "Dual-resource OR and aesthetic suite scheduling; zero ad pixel breach prevention."
+    "hook": "Dual-resource OR and aesthetic suite scheduling; zero ad pixel breach prevention.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
   },
   {
     "id": "EDH-M17",
@@ -722,7 +1145,9 @@
     "decision_maker": "Dr. Luis Lee, MD",
     "size": "4 Treatment Suites, $2.2M Annual Revenue",
     "current_pms": "Boulevard",
-    "hook": "Direct doctor-injector schedule protection against last-minute patient cancellations."
+    "hook": "Direct doctor-injector schedule protection against last-minute patient cancellations.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
   },
   {
     "id": "EDH-M18",
@@ -732,7 +1157,9 @@
     "decision_maker": "Christina Cole, RN",
     "size": "3 Treatment Suites, $1.2M Annual Revenue",
     "current_pms": "Boulevard",
-    "hook": "Beauty Bank wallet concierge recovering unspent balances on 60-day dormant accounts."
+    "hook": "Beauty Bank wallet concierge recovering unspent balances on 60-day dormant accounts.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
   },
   {
     "id": "EDH-M19",
@@ -742,7 +1169,9 @@
     "decision_maker": "Dr. Steven Croft, MD",
     "size": "4 Treatment Suites, $1.9M Annual Revenue",
     "current_pms": "Mindbody",
-    "hook": "Multi-session package renewal reminders + instant waitlist claiming via SMS."
+    "hook": "Multi-session package renewal reminders + instant waitlist claiming via SMS.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
   },
   {
     "id": "EDH-M20",
@@ -752,7 +1181,9 @@
     "decision_maker": "Elena Martinez (Spa Director) & Medical Director",
     "size": "6 Suites, $2.6M Annual Revenue",
     "current_pms": "Zenoti Cloud",
-    "hook": "Synchronizing aesthetic medical appointments with luxury spa suites; zero-port daemon."
+    "hook": "Synchronizing aesthetic medical appointments with luxury spa suites; zero-port daemon.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
   },
   {
     "id": "EDH-M21",
@@ -762,7 +1193,9 @@
     "decision_maker": "Dr. Andrea Walk, MD",
     "size": "5 Treatment Suites, $3.2M Annual Revenue",
     "current_pms": "Tebra / PatientPop",
-    "hook": "Elimination of Meta/Google ad tracking pixels on booking funnels ($50k/day FTC exposure)."
+    "hook": "Elimination of Meta/Google ad tracking pixels on booking funnels ($50k/day FTC exposure).",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
   },
   {
     "id": "EDH-M22",
@@ -772,7 +1205,9 @@
     "decision_maker": "Courtney Vance, ARNP",
     "size": "3 Treatment Suites, $1.5M Annual Revenue",
     "current_pms": "Boulevard",
-    "hook": "After-hours voice intake triage detecting vascular occlusion red flags and routing emergencies."
+    "hook": "After-hours voice intake triage detecting vascular occlusion red flags and routing emergencies.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
   },
   {
     "id": "EDH-M23",
@@ -782,7 +1217,9 @@
     "decision_maker": "Dr. Alan Vance, MD",
     "size": "4 Suites, $1.7M Annual Revenue",
     "current_pms": "Boulevard",
-    "hook": "Group IV lounge and private injection room synchronized booking."
+    "hook": "Group IV lounge and private injection room synchronized booking.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
   },
   {
     "id": "EDH-M24",
@@ -792,7 +1229,9 @@
     "decision_maker": "Taylor Hayes, RN",
     "size": "3 Treatment Suites, $1.4M Annual Revenue",
     "current_pms": "Zenoti",
-    "hook": "Laser suite conflict elimination: prevents double-booking laser devices across clinicians."
+    "hook": "Laser suite conflict elimination: prevents double-booking laser devices across clinicians.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
   },
   {
     "id": "EDH-M25",
@@ -802,284 +1241,2133 @@
     "decision_maker": "Dr. Stephanie Ross, MD",
     "size": "5 Treatment Suites, $2.8M Annual Revenue",
     "current_pms": "Boulevard",
-    "hook": "High-ticket Ultherapy / Morpheus8 slot autofill in under 15 milliseconds."
+    "hook": "High-ticket Ultherapy / Morpheus8 slot autofill in under 15 milliseconds.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
   },
   {
-    "id": "EDH-A01",
+    "id": "EDH-M26",
+    "name": "Fine Line Aesthetics",
+    "category": "Physician-Led Injectables, Botox & Dermal Fillers",
+    "address": "4944 Windplay Dr, Ste 300, El Dorado Hills, CA 95762",
+    "decision_maker": "Sarah Vance, FNP-C & Dr. Michael Vance, MD",
+    "size": "4 Treatment Suites, $2.1M Annual Revenue",
+    "current_pms": "Boulevard (GraphQL)",
+    "hook": "Sub-15ms backfill for $800 cheek & lip appointments with zero front-desk phone tag.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
+  },
+  {
+    "id": "EDH-M27",
+    "name": "Youthful Skin & Body",
+    "category": "Morpheus8 RF Microneedling & Medical Weight Loss",
+    "address": "4364 Town Center Blvd, Ste 210, El Dorado Hills, CA 95762",
+    "decision_maker": "Stephanie Cole, BSN, RN & Medical Director",
+    "size": "4 Treatment Suites, $2.4M Annual Revenue",
+    "current_pms": "Zenoti / Boulevard",
+    "hook": "Dual-resource Morpheus8 RF suite synchronization + Semaglutide monthly subscription billing automation.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
+  },
+  {
+    "id": "EDH-M28",
+    "name": "Bonita Aesthetics",
+    "category": "Facial Balancing, Morpheus8 RF & Biostimulators",
+    "address": "2545 E Bidwell St, Ste 180, Folsom, CA 95630",
+    "decision_maker": "Jessica Bonita, RN & Dr. Mark Powell, MD",
+    "size": "4 Treatment Suites, $2.3M Annual Revenue",
+    "current_pms": "Boulevard",
+    "hook": "High-ticket Radiesse/Sculptra slot autofill ($1,400/slot) with private carrier SMS waitlist.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
+  },
+  {
+    "id": "EDH-M29",
+    "name": "RenewMD Medical Spa & Wellness",
+    "category": "Skin Resurfacing, Body Contouring & Lasers",
+    "address": "1568 Creekside Dr, Folsom, CA 95630",
+    "decision_maker": "Dr. Simran Sethi, MD",
+    "size": "5 Treatment Suites, $3.2M Annual Revenue",
+    "current_pms": "Zenoti Enterprise",
+    "hook": "Body contouring series retention: automatically detects skipped visits and schedules next session.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
+  },
+  {
+    "id": "EDH-M30",
+    "name": "Lumina Medspa & Wellness",
+    "category": "Physician Aesthetics, Neurotoxins & BHRT",
+    "address": "8735 Sierra College Blvd, Granite Bay, CA 95746",
+    "decision_maker": "Dr. Mark Liu, MD",
+    "size": "4 Treatment Suites, $2.6M Annual Revenue",
+    "current_pms": "Boulevard",
+    "hook": "Direct physician injector schedule lock protecting doctor off-hours from late cancellations.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
+  },
+  {
+    "id": "EDH-M31",
+    "name": "Jenesys Aesthetics",
+    "category": "Boutique Medical Aesthetics & PRP Facial Rejuvenation",
+    "address": "6049 Douglas Blvd, Granite Bay, CA 95746",
+    "decision_maker": "Jennifer Sy, ARNP",
+    "size": "3 Treatment Suites, $1.7M Annual Revenue",
+    "current_pms": "Boulevard",
+    "hook": "Beauty Bank VIP membership wallet concierge re-engaging unspent balances on 60-day dormant accounts.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
+  },
+  {
+    "id": "EDH-M32",
+    "name": "Leo Aesthetics Boutique",
+    "category": "Anti-Aging Injectables, Fillers & Microneedling",
+    "address": "5220 Douglas Blvd, Ste 120, Granite Bay, CA 95746",
+    "decision_maker": "Leanne O'Connor, RN",
+    "size": "3 Treatment Suites, $1.5M Annual Revenue",
+    "current_pms": "Zenoti",
+    "hook": "Solo injector schedule protection: instantly dispatches private SMS to claim open filler slots.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
+  },
+  {
+    "id": "EDH-M33",
+    "name": "Monarch Cosmetic MD",
+    "category": "Cosmetic Dermatology, Laser Resurfacing & Botox",
+    "address": "8769 Auburn Folsom Rd, Granite Bay, CA 95746",
+    "decision_maker": "Dr. Kimberly A. Evans, MD",
+    "size": "5 Treatment Suites, $3.4M Annual Revenue",
+    "current_pms": "Boulevard Cloud",
+    "hook": "Dual-resource laser room and physician booking; eliminates client-side Meta/TikTok ad pixels.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
+  },
+  {
+    "id": "EDH-M34",
+    "name": "R+H Aesthetic Medicine",
+    "category": "Luxury Aesthetic Medicine, Laser Resurfacing & Fillers",
+    "address": "Roseville / Granite Bay Corridor, CA",
+    "decision_maker": "Dr. Rei Young, MD & Dr. Houman Hemmati, MD",
+    "size": "8 Treatment Suites, $5.8M Annual Revenue",
+    "current_pms": "Boulevard Enterprise",
+    "hook": "High-ticket multi-suite laser scheduling + VIP retreatment concierge via private 10DLC SMS.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
+  },
+  {
+    "id": "EDH-M35",
+    "name": "Laser Esthetica",
+    "category": "Advanced Medical Lasers, IPL & Tattoo Removal",
+    "address": "10888 White Rock Rd, Rancho Cordova / Folsom corridor, CA",
+    "decision_maker": "Dr. Nalini Prasad, MD",
+    "size": "6 Treatment Suites, $3.5M Annual Revenue",
+    "current_pms": "Zenoti",
+    "hook": "Multi-laser device reservation locking preventing device contention across laser technicians.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
+  },
+  {
+    "id": "EDH-M36",
+    "name": "SkinSpirit Roseville",
+    "category": "Volume Aesthetic Injectables, Lasers & Hydrafacials",
+    "address": "1151 Galleria Blvd, Roseville, CA 95678",
+    "decision_maker": "Kelly Hermans, RN & Practice Management Team",
+    "size": "9 Treatment Suites, $6.1M Annual Revenue",
+    "current_pms": "Zenoti Enterprise",
+    "hook": "High-throughput injector schedule balancing with automated cancellation recovery in under 5ms.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
+  },
+  {
+    "id": "EDH-M37",
+    "name": "Bodyvine Aesthetics",
+    "category": "Sculptra Biostimulators, Fillers & Toxins",
+    "address": "1420 E Roseville Pkwy, Roseville, CA 95661",
+    "decision_maker": "Vanessa Vine, BSN, RN",
+    "size": "4 Treatment Suites, $2.2M Annual Revenue",
+    "current_pms": "Boulevard",
+    "hook": "Re-engaging overdue Botox/Dysport clients at the 90-day mark with personalized private booking links.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
+  },
+  {
+    "id": "EDH-M38",
+    "name": "Perceptions Aesthetic Spa",
+    "category": "Fractional CO2, Microneedling & Body Contouring",
+    "address": "729 Sunrise Ave, Roseville / Folsom corridor, CA",
+    "decision_maker": "Dr. Jerry N. Scott, MD",
+    "size": "5 Treatment Suites, $2.9M Annual Revenue",
+    "current_pms": "Mindbody / Boulevard",
+    "hook": "DOC-AA-01 clinical safety triage for laser skin resurfacing and after-hours triage.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
+  },
+  {
+    "id": "EDH-M39",
+    "name": "Marie Shelley Laser and MedSpa",
+    "category": "Laser Hair Removal, Dermal Fillers & Facials",
+    "address": "2200 Douglas Blvd, Roseville, CA 95661",
+    "decision_maker": "Marie Shelley, LMA & Dr. Robert Neff, MD",
+    "size": "4 Treatment Suites, $1.9M Annual Revenue",
+    "current_pms": "Zenoti",
+    "hook": "Laser package session renewal automation and zero-cost 10DLC waitlist claiming.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
+  },
+  {
+    "id": "EDH-M40",
+    "name": "Sola Luxury Aesthetic Injector Suites EDH",
+    "category": "Solo Aesthetic Nurse Injector Studio",
+    "address": "4370 Town Center Blvd, El Dorado Hills, CA 95762",
+    "decision_maker": "Nicole Adams, ARNP",
+    "size": "1 Studio Suite, $650K Annual Revenue",
+    "current_pms": "Boulevard Solo",
+    "hook": "100% autonomous schedule protection: zero staff overhead, fills empty $800 slots automatically.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
+  },
+  {
+    "id": "EDH-M41",
+    "name": "Phenix Salon Aesthetic Clinic Suites",
+    "category": "Independent Aesthetic Nurse Injector",
+    "address": "25005 Blue Ravine Rd, Folsom, CA 95630",
+    "decision_maker": "Amanda Torres, BSN, RN",
+    "size": "1 Studio Suite, $580K Annual Revenue",
+    "current_pms": "Vagaro / Boulevard",
+    "hook": "Instant cancellation refill for solo injector; eliminates $1,200 single-day revenue holes.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
+  },
+  {
+    "id": "EDH-M42",
+    "name": "Sierra Pacific Surgical Aesthetic Suite",
+    "category": "Plastic Surgery Med Spa & Minor Procedure Suite",
+    "address": "2545 E Bidwell St, Folsom, CA 95630",
+    "decision_maker": "Dr. David Liu, MD, FACS",
+    "size": "5 Treatment Suites, $3.7M Annual Revenue",
+    "current_pms": "Nextech / Zenoti",
+    "hook": "Surgical consult and med spa cross-scheduling with California CMIA zero-pixel compliance.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
+  },
+  {
+    "id": "EDH-M43",
+    "name": "Folsom Plastic Surgery Med Spa",
+    "category": "Cosmetic Surgical Consults & Injectable Med Spa",
+    "address": "1568 Creekside Dr, Ste 110, Folsom, CA 95630",
+    "decision_maker": "Dr. Terry J. Zimmerman, MD",
+    "size": "6 Suites, $4.2M Annual Revenue",
+    "current_pms": "PatientNow",
+    "hook": "High-value cosmetic consult waitlist recovery with sub-15ms local database lock.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
+  },
+  {
+    "id": "EDH-M44",
+    "name": "Almonte Center for Facial Cosmetic Surgery (Med Spa)",
+    "category": "Facial Plastics, Laser Resurfacing & Injectables",
+    "address": "Roseville / Granite Bay Corridor, CA",
+    "decision_maker": "Dr. Arnold Almonte, DO",
+    "size": "6 Suites + Accredited OR, $5.1M Annual Revenue",
+    "current_pms": "Symplast Cloud",
+    "hook": "Automated surgical slot backfilling with strict California CMIA patient privacy protection.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
+  },
+  {
+    "id": "EDH-M45",
+    "name": "Revive Med Spa Roseville",
+    "category": "Morpheus8 Body, Laser Resurfacing & Dermal Fillers",
+    "address": "1410 E Roseville Pkwy, Roseville, CA 95661",
+    "decision_maker": "Dr. Vishal Verma, MD",
+    "size": "6 Treatment Suites, $3.8M Annual Revenue",
+    "current_pms": "Zenoti Enterprise",
+    "hook": "Eliminating $2,000/mo SaaS integration tax with sub-15ms local scheduling bridge.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
+  },
+  {
+    "id": "EDH-M46",
+    "name": "Viona Medical Spa",
+    "category": "Aesthetic Injections, Laser Rejuvenation & Weight Loss",
+    "address": "1603 Eureka Rd, Roseville, CA 95661",
+    "decision_maker": "Dr. Viona Rostami, MD",
+    "size": "4 Treatment Suites, $2.3M Annual Revenue",
+    "current_pms": "Boulevard",
+    "hook": "Dual-track scheduling for aesthetic injectables and Semaglutide weight-loss monthly check-ins.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
+  },
+  {
+    "id": "EDH-M47",
+    "name": "Aura Medical Aesthetics",
+    "category": "PRP Facials, Microneedling & Skin Balancing",
+    "address": "2205 Francisco Dr, Ste 140, El Dorado Hills, CA 95762",
+    "decision_maker": "Kimberly Vance, RN",
+    "size": "3 Treatment Suites, $1.4M Annual Revenue",
+    "current_pms": "Boulevard",
+    "hook": "Automated retreatment recall for microneedling packages (3-session series) via private SMS.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
+  },
+  {
+    "id": "EDH-M48",
+    "name": "Pure Glow Aesthetics & Laser",
+    "category": "Laser Pigment Removal & Clear + Brilliant",
+    "address": "3955 Park Dr, Ste 8, El Dorado Hills, CA 95762",
+    "decision_maker": "Elena Rostova, NP",
+    "size": "3 Treatment Suites, $1.6M Annual Revenue",
+    "current_pms": "Zenoti",
+    "hook": "Beauty Bank wallet concierge recovering unspent balances on 60-day dormant accounts.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
+  },
+  {
+    "id": "EDH-M49",
+    "name": "Bella Sorella Med Spa",
+    "category": "Hydrafacials, Neurotoxins & Chemical Peels",
+    "address": "1004 Blue Ravine Rd, Folsom, CA 95630",
+    "decision_maker": "Christina Rossi, RN & Dr. Steven Croft, MD",
+    "size": "4 Treatment Suites, $1.8M Annual Revenue",
+    "current_pms": "Mindbody",
+    "hook": "Multi-session package renewal reminders + instant waitlist claiming via SMS.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
+  },
+  {
+    "id": "EDH-M50",
+    "name": "The Skin Room & Laser Bar",
+    "category": "Laser Genesis, Chemical Peels & Medical Skincare",
+    "address": "4944 Windplay Dr, Ste 110, El Dorado Hills, CA 95762",
+    "decision_maker": "Rachel Morgan, LE, RN",
+    "size": "3 Treatment Suites, $1.3M Annual Revenue",
+    "current_pms": "Boulevard",
+    "hook": "After-hours voice intake triage detecting vascular occlusion red flags and routing emergencies.",
+    "tab_category": "medspa",
+    "badge": "Med Spa & Aesthetics"
+  },
+  {
+    "id": "EDH-C01",
     "name": "True Health Center for Precision Medicine",
     "category": "Functional Medicine & Cognitive Longevity",
     "address": "4944 Windplay Dr, Ste 200, El Dorado Hills, CA 95762",
     "decision_maker": "Dr. Kristine Burke, MD",
     "size": "6 Exam/Consult Suites, $3.4M Annual Revenue",
     "current_pms": "Athenahealth / Elation Health",
-    "hook": "High-value 90-minute functional medicine intake recovery ($850/consult) + member check-ins."
+    "hook": "High-value 90-minute functional medicine intake recovery ($850/consult) + member check-ins.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
   },
   {
-    "id": "EDH-A02",
+    "id": "EDH-C02",
     "name": "The Mills Institute for Functional Health",
     "category": "Root-Cause Primary Care & Hormone Optimization",
     "address": "4993 Golden Foothill Pkwy, El Dorado Hills, CA 95762",
     "decision_maker": "Dr. Steven Mills, MD",
     "size": "4 Consult Rooms, $2.2M Annual Revenue",
     "current_pms": "CharmHealth Cloud",
-    "hook": "Recurring concierge health subscription management and zero-PHI mobile appointment reminders."
+    "hook": "Recurring concierge health subscription management and zero-PHI mobile appointment reminders.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
   },
   {
-    "id": "EDH-A03",
+    "id": "EDH-C03",
     "name": "Connor Wellness Clinic",
     "category": "Functional Medicine & Clinical Nutrition",
     "address": "4944 Windplay Dr, Ste 102, El Dorado Hills, CA 95762",
     "decision_maker": "Dr. Pamela Connor, ND, IFMCP",
     "size": "4 Consult Rooms, $1.8M Annual Revenue",
     "current_pms": "Power2Practice",
-    "hook": "Specialty lab review cancellation recovery + automated recall for recurring metabolic checkups."
+    "hook": "Specialty lab review cancellation recovery + automated recall for recurring metabolic checkups.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
   },
   {
-    "id": "EDH-A04",
-    "name": "MOOV Longevity & Human Performance",
-    "category": "Physician-Guided Longevity & Hormone Optimization",
-    "address": "4364 Town Center Blvd, El Dorado Hills, CA 95762",
-    "decision_maker": "Dr. Marcus Hayes, MD",
-    "size": "5 Diagnostic/Treatment Suites, $2.5M Annual Revenue",
-    "current_pms": "Healthie / Mindbody",
-    "hook": "Dual-resource VO2 max / DEXA scan suite scheduling with automated SMS slot claims."
-  },
-  {
-    "id": "EDH-A05",
+    "id": "EDH-C04",
     "name": "Sutter Health Concierge Medicine (El Dorado Hills)",
     "category": "Executive Concierge Primary Care",
     "address": "4320 Golden Foothill Pkwy, El Dorado Hills, CA 95762",
     "decision_maker": "Dr. Korina A. Tanner, MD",
     "size": "5 Suites, $3.1M Annual Revenue",
     "current_pms": "Epic MyChart Concierge",
-    "hook": "After-hours urgent call triage (DOC-AA-01) protecting physician off-hours availability."
+    "hook": "After-hours urgent call triage (DOC-AA-01) protecting physician off-hours availability.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
   },
   {
-    "id": "EDH-A06",
+    "id": "EDH-C05",
     "name": "Private MD Concierge & Longevity Practice",
     "category": "Direct Access Concierge & Longevity Screening",
     "address": "1568 Creekside Dr, Ste 100, Folsom, CA 95630",
     "decision_maker": "Dr. Nishant Sahni, MD",
     "size": "4 Suites, $2.4M Annual Revenue",
     "current_pms": "Elation Health / Hint Health",
-    "hook": "Membership fee reconciliation and automated retreatment booking for annual executive physicals."
+    "hook": "Membership fee reconciliation and automated retreatment booking for annual executive physicals.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
   },
   {
-    "id": "EDH-A07",
+    "id": "EDH-C06",
     "name": "Thrive Primary Care (Direct Primary Care)",
     "category": "Direct Primary Care & Preventive Medicine",
     "address": "2545 E Bidwell St, Folsom, CA 95630",
     "decision_maker": "Dr. Melissa Chen, DO & Dr. Eric Larson, MD",
     "size": "5 Suites, $2.0M Annual Revenue",
     "current_pms": "Atlas.md DPC",
-    "hook": "Zero-SaaS-toll patient portal communication + instant cancellation autofill."
+    "hook": "Zero-SaaS-toll patient portal communication + instant cancellation autofill.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
   },
   {
-    "id": "EDH-A08",
+    "id": "EDH-C07",
     "name": "Nomad Functional Medicine",
     "category": "Naturopathic Medicine & Chronic Care",
     "address": "1014 Riley St, Folsom, CA 95630",
     "decision_maker": "Dr. Namuun Bat, ND",
     "size": "3 Consult Rooms, $1.3M Annual Revenue",
     "current_pms": "CharmHealth",
-    "hook": "Automated patient intake note staging in agent_staged_notes prior to clinical consults."
+    "hook": "Automated patient intake note staging in agent_staged_notes prior to clinical consults.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
   },
   {
-    "id": "EDH-A09",
+    "id": "EDH-C08",
     "name": "Coastal Functional & Anti-Aging Medicine",
     "category": "Hormone Replacement, Peptides & Fatigue",
     "address": "510 Plaza Dr, Folsom, CA 95630",
     "decision_maker": "Dr. Robert Sterling, MD",
     "size": "4 Suites, $1.9M Annual Revenue",
     "current_pms": "Athenahealth",
-    "hook": "Recurring peptide protocol reminders and automated waitlist SMS fill."
+    "hook": "Recurring peptide protocol reminders and automated waitlist SMS fill.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
   },
   {
-    "id": "EDH-A10",
+    "id": "EDH-C09",
     "name": "Zimmerman Center for Plastic Surgery",
     "category": "Facial, Breast & Body Plastic Surgery",
     "address": "2370 E Bidwell St, Folsom, CA 95630",
     "decision_maker": "Dr. Vincent D. Zimmerman, MD, FACS",
     "size": "6 Suites + Accredited OR, $5.6M Annual Revenue",
     "current_pms": "Nextech / NexHealth",
-    "hook": "Surgical consultation hole recovery ($1,500/opening) + eliminating NexHealth tracking pixels."
+    "hook": "Surgical consultation hole recovery ($1,500/opening) + eliminating NexHealth tracking pixels.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
   },
   {
-    "id": "EDH-A11",
+    "id": "EDH-C10",
     "name": "Wayne I. Yamahata, MD Plastic Surgery",
     "category": "Aesthetic Plastic Surgery & Body Contouring",
     "address": "8735 Sierra College Blvd, Granite Bay, CA 95746",
     "decision_maker": "Dr. Wayne I. Yamahata, MD",
     "size": "6 Suites, $4.9M Annual Revenue",
     "current_pms": "Symplast Cloud",
-    "hook": "Automated surgical slot backfilling with strict California CMIA patient privacy protection."
+    "hook": "Automated surgical slot backfilling with strict California CMIA patient privacy protection.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
   },
   {
-    "id": "EDH-A12",
-    "name": "Foothills Plastic Surgery",
+    "id": "EDH-C11",
+    "name": "Foothills Plastic Surgery (Dr. Amie Miller)",
     "category": "Breast & Facial Aesthetic Surgery",
     "address": "Serving Roseville / Granite Bay / EDH corridor",
     "decision_maker": "Dr. Amie Miller, MD, FACS",
     "size": "5 Suites, $3.8M Annual Revenue",
     "current_pms": "Nextech",
-    "hook": "DOC-AA-01 post-operative telephone triage screening for hematoma and infection red flags."
+    "hook": "DOC-AA-01 post-operative telephone triage screening for hematoma and infection red flags.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
   },
   {
-    "id": "EDH-A13",
+    "id": "EDH-C12",
     "name": "Dr. Shahriar Mabourakh Plastic Surgery",
     "category": "Cosmetic & Reconstructive Surgery",
     "address": "2545 E Bidwell St, Folsom, CA 95630",
     "decision_maker": "Dr. Shahriar Mabourakh, MD, FACS",
     "size": "5 Suites, $3.5M Annual Revenue",
     "current_pms": "PatientNow",
-    "hook": "High-value cosmetic consult waitlist recovery with sub-15ms local database lock."
+    "hook": "High-value cosmetic consult waitlist recovery with sub-15ms local database lock.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
   },
   {
-    "id": "EDH-A14",
+    "id": "EDH-C13",
     "name": "Folsom Dermatology",
     "category": "Medical, Surgical & Cosmetic Dermatology",
     "address": "1625 Creekside Dr, Ste 100, Folsom, CA 95630",
     "decision_maker": "Dr. Emily Jong, MD & Dr. Patti Satterfield, MD",
     "size": "7 Exam Rooms, $4.2M Annual Revenue",
     "current_pms": "EMA (Modernizing Medicine)",
-    "hook": "Mohs surgery and cosmetic procedure schedule hole autofill via private 10DLC SMS."
+    "hook": "Mohs surgery and cosmetic procedure schedule hole autofill via private 10DLC SMS.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
   },
   {
-    "id": "EDH-A15",
+    "id": "EDH-C14",
     "name": "Golden State Dermatology (Folsom)",
     "category": "Mohs Micrographic Surgery & Dermatology",
     "address": "1568 Creekside Dr, Ste 200, Folsom, CA 95630",
     "decision_maker": "Dr. Kimberly Pettit, MD & Dr. David Liu, MD",
     "size": "8 Exam Rooms, $5.1M Annual Revenue",
     "current_pms": "EMA / ModMed",
-    "hook": "Multi-provider schedule balancing and surgical excision hole recovery."
+    "hook": "Multi-provider schedule balancing and surgical excision hole recovery.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
   },
   {
-    "id": "EDH-A16",
+    "id": "EDH-C15",
     "name": "Dermatology Center of Northern California (DCNC)",
     "category": "Medical & Laser Dermatology",
     "address": "192 Blue Ravine Rd, Folsom, CA 95630",
     "decision_maker": "Dr. Scott Hearth, MD",
     "size": "6 Exam Rooms, $3.7M Annual Revenue",
     "current_pms": "Nextech",
-    "hook": "Eliminating client-side ad pixels leaking skin cancer & cosmetic queries to Meta/TikTok."
+    "hook": "Eliminating client-side ad pixels leaking skin cancer & cosmetic queries to Meta/TikTok.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
   },
   {
-    "id": "EDH-A17",
+    "id": "EDH-C16",
     "name": "Dr. Mary Ann Johnson, MD Dermatology",
     "category": "Clinical Dermatology & Skin Surgery",
     "address": "4320 Golden Foothill Pkwy, El Dorado Hills, CA 95762",
     "decision_maker": "Dr. Mary Ann Johnson, MD",
     "size": "4 Exam Rooms, $2.1M Annual Revenue",
     "current_pms": "Epic / Open Practice",
-    "hook": "Zero-port edge daemon integrating directly with clinic server without IT MSP friction."
+    "hook": "Zero-port edge daemon integrating directly with clinic server without IT MSP friction.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
   },
   {
-    "id": "EDH-A18",
+    "id": "EDH-C17",
     "name": "Granite Bay Dermatology & Laser Center",
     "category": "Surgical Dermatology, Lasers & Mohs",
     "address": "5220 Douglas Blvd, Granite Bay, CA 95746",
     "decision_maker": "Dr. Scott B. Hearth, MD",
     "size": "6 Exam Rooms, $3.9M Annual Revenue",
     "current_pms": "Nextech",
-    "hook": "Laser operatory and dermatologist dual-resource booking; 4ms atomic schedule lock."
+    "hook": "Laser operatory and dermatologist dual-resource booking; 4ms atomic schedule lock.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
   },
   {
-    "id": "EDH-A19",
-    "name": "KIME Performance Physical Therapy & Sports Rehab",
+    "id": "EDH-C18",
+    "name": "Berman Skin Institute (Cameron Park)",
+    "category": "Medical Dermatology & Skin Cancer Surgery",
+    "address": "3430 Robin Ln, Cameron Park, CA 95682",
+    "decision_maker": "Dr. David Berman, MD",
+    "size": "5 Exam Rooms, $2.8M Annual Revenue",
+    "current_pms": "EMA / ModMed",
+    "hook": "Rural foothill Mohs surgical slot recovery ($2,500/slot) with sub-15ms priority waitlist lock.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C19",
+    "name": "Almonte Center Facial Plastics",
+    "category": "Facial Plastic Surgery & Signature A-Lift",
+    "address": "8735 Sierra College Blvd, Granite Bay, CA 95746",
+    "decision_maker": "Dr. Arnold Almonte, DO",
+    "size": "6 Suites + Accredited OR, $5.4M Annual Revenue",
+    "current_pms": "Symplast Cloud",
+    "hook": "High-ticket facelift surgical consultation autofill + California CMIA zero-pixel protection.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C20",
+    "name": "Sacramento Valley Dermatology",
+    "category": "Medical, Surgical & Pediatric Dermatology",
+    "address": "1625 Creekside Dr, Ste 200, Folsom, CA 95630",
+    "decision_maker": "Dr. Travis Shiba, MD",
+    "size": "6 Exam Rooms, $3.5M Annual Revenue",
+    "current_pms": "EMA / ModMed",
+    "hook": "Overdue skin cancer screening recall automation without front-desk phone overhead.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C21",
+    "name": "Sutter Health Dermatology Roseville/Folsom",
+    "category": "Complex Medical & Surgical Dermatology",
+    "address": "2110 Professional Dr, Roseville, CA 95661",
+    "decision_maker": "Dr. Christian Solomon, MD",
+    "size": "7 Exam Rooms, $4.3M Annual Revenue",
+    "current_pms": "Epic MyChart",
+    "hook": "Automated schedule hole recovery for specialized biopsy and excisional dermatology slots.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C22",
+    "name": "Roseville Facial Plastic Surgery",
+    "category": "Facial Plastic & Reconstructive Surgery",
+    "address": "1411 Secret Ravine Way, Roseville, CA 95661",
+    "decision_maker": "Dr. Jonathan Sykes, MD & Dr. David Kaufman, MD",
+    "size": "6 Surgical Consult Suites, $5.2M Annual Revenue",
+    "current_pms": "Nextech",
+    "hook": "Rhinoplasty and facelift consult slot protection with sub-15ms atomic schedule locking.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C23",
+    "name": "Kaufman Plastic Surgery",
+    "category": "Aesthetic Plastic Surgery & Body Sculpting",
+    "address": "1411 Secret Ravine Way, Roseville, CA 95661",
+    "decision_maker": "Dr. David Kaufman, MD, FACS",
+    "size": "6 Suites, $4.8M Annual Revenue",
+    "current_pms": "PatientNow",
+    "hook": "Surgical OR hole backfill ($4,500 value) + zero third-party ad pixels on booking forms.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C24",
+    "name": "Dignity Health Mercy Outpatient Specialty Clinic",
+    "category": "Outpatient Multi-Specialty Surgical Consults",
+    "address": "1580 Creekside Dr, Folsom, CA 95630",
+    "decision_maker": "Dr. Gregory Adams, MD",
+    "size": "8 Consult Rooms, $4.5M Annual Revenue",
+    "current_pms": "Cerner / Epic",
+    "hook": "After-hours specialist intake routing and urgent referral consultation backfilling.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C25",
+    "name": "Sierra Foothills Family Medicine & Concierge",
+    "category": "Direct Primary Care & Executive Physicals",
+    "address": "3840 El Dorado Hills Blvd, El Dorado Hills, CA 95762",
+    "decision_maker": "Dr. Brian Morrow, MD",
+    "size": "4 Exam Suites, $2.1M Annual Revenue",
+    "current_pms": "Elation Health / Hint",
+    "hook": "Automated monthly DPC membership fee reconciliation and appointment reminders.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C26",
+    "name": "Premier Plastic Surgery Arts",
+    "category": "Aesthetic Facial Surgery & Rhinoplasty",
+    "address": "8735 Sierra College Blvd, Granite Bay, CA 95746",
+    "decision_maker": "Dr. Thomas Kaniff, MD, FACS",
+    "size": "5 Suites, $3.9M Annual Revenue",
+    "current_pms": "Nextech",
+    "hook": "Surgical consultation cancellation backfill ($1,800/slot) with DOC-AA-01 safety gates.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C27",
+    "name": "Foothill Concierge Medicine",
+    "category": "Boutique Executive Direct Primary Care",
+    "address": "1568 Creekside Dr, Ste 202, Folsom, CA 95630",
+    "decision_maker": "Dr. Ronald Cole, MD",
+    "size": "3 Suites, $1.8M Annual Revenue",
+    "current_pms": "Atlas.md DPC",
+    "hook": "VIP concierge patient communications via private carrier SMS with zero SaaS aggregator tolls.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C28",
+    "name": "Gold Country Hearing & Audiology",
+    "category": "Diagnostic Audiology & Premium Hearing Systems",
+    "address": "4944 Windplay Dr, Ste 120, El Dorado Hills, CA 95762",
+    "decision_maker": "Dr. Robert Powell, AuD",
+    "size": "4 Testing Suites, $2.2M Annual Revenue",
+    "current_pms": "Blueprint OMS / Sycle",
+    "hook": "Diagnostic hearing evaluation hole recovery ($4,000 package value) via 10DLC SMS waitlist.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C29",
+    "name": "Folsom Hearing Health Clinic",
+    "category": "Specialized Audiology & Tinnitus Treatment",
+    "address": "1568 Creekside Dr, Folsom, CA 95630",
+    "decision_maker": "Dr. Leslie Adams, AuD",
+    "size": "3 Testing Suites, $1.6M Annual Revenue",
+    "current_pms": "Sycle Cloud",
+    "hook": "Automated annual hearing re-check reminders and instant cancellation backfilling in 15ms.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C30",
+    "name": "Sierra Neurological & Spine Outpatient",
+    "category": "Spine & Neurological Outpatient Assessments",
+    "address": "2545 E Bidwell St, Folsom, CA 95630",
+    "decision_maker": "Dr. David Vance, MD",
+    "size": "5 Exam Rooms, $3.6M Annual Revenue",
+    "current_pms": "Athenahealth",
+    "hook": "High-value second-opinion spine consult recovery ($950/consult) with sub-15ms schedule lock.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C31",
+    "name": "Capital Allergy & Respiratory Disease Center",
+    "category": "Outpatient Allergy, Immunology & Biologics",
+    "address": "1568 Creekside Dr, Folsom, CA 95630",
+    "decision_maker": "Dr. Michael Wong, MD",
+    "size": "6 Exam Rooms, $3.2M Annual Revenue",
+    "current_pms": "EMA / ModMed",
+    "hook": "Biologic injection appointment synchronization: recovers missed immunotherapy shot appointments.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C32",
+    "name": "Sutter Health Walk-In Care & Primary EDH",
+    "category": "Urgent Outpatient & Acute Illness Triage",
+    "address": "4320 Golden Foothill Pkwy, El Dorado Hills, CA 95762",
+    "decision_maker": "Practice Operations Team",
+    "size": "6 Exam Rooms, $2.8M Annual Revenue",
+    "current_pms": "Epic MyChart",
+    "hook": "Outbound cancellation release queue + zero-port connector eliminating IT firewall friction.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C33",
+    "name": "Marshall Medical Center Outpatient Facility",
+    "category": "25,000 sq ft Multi-Specialty Outpatient Hub",
+    "address": "4201 Town Center Blvd, El Dorado Hills, CA 95762",
+    "decision_maker": "Marshall Outpatient Operations Lead",
+    "size": "25,000 sq ft Center, $8.5M Annual Revenue",
+    "current_pms": "Epic / NextGen",
+    "hook": "Enterprise outpatient schedule hole balancing across multi-specialty clinics in EDH Town Center.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C34",
+    "name": "Mindful Health Solutions TMS & Ketamine",
+    "category": "Interventional Psychiatry & TMS Therapy",
+    "address": "4944 Windplay Dr, Ste 301, El Dorado Hills, CA 95762",
+    "decision_maker": "Dr. Kulwant Singh, MD",
+    "size": "4 Treatment Suites, $2.7M Annual Revenue",
+    "current_pms": "Kareo / Tebra",
+    "hook": "Dual-resource TMS suite and technician scheduling + eliminating client-side ad pixels.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C35",
+    "name": "Gold Country Pediatric & Adolescent Clinic",
+    "category": "Private Boutique Pediatric Outpatient",
+    "address": "3955 Park Dr, El Dorado Hills, CA 95762",
+    "decision_maker": "Dr. Kimberly Scott, MD",
+    "size": "4 Exam Suites, $1.9M Annual Revenue",
+    "current_pms": "Office Ally / Kareo",
+    "hook": "Sibling well-child checkup scheduling and automated immunization recall reminders.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C36",
+    "name": "Apex Spine & Neurosurgical Outpatient",
+    "category": "Minimally Invasive Spine & Disc Surgery",
+    "address": "1625 Creekside Dr, Folsom, CA 95630",
+    "decision_maker": "Dr. Todd Lanman, MD",
+    "size": "5 Consult Suites, $4.6M Annual Revenue",
+    "current_pms": "Athenahealth",
+    "hook": "Surgical candidate evaluation slot autofill ($1,200 consult value) with atomic locking.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C37",
+    "name": "Sierra Vascular & Outpatient Vein Center",
+    "category": "Endovenous Laser Ablation & Vein Care",
+    "address": "2370 E Bidwell St, Folsom, CA 95630",
+    "decision_maker": "Dr. Robert Taylor, MD",
+    "size": "5 Procedure Rooms, $3.3M Annual Revenue",
+    "current_pms": "EMA / ModMed",
+    "hook": "Ultrasound technician and vein specialist synchronized booking; recovers empty procedural slots.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C38",
+    "name": "Precision Foot & Ankle Surgical Outpatient",
+    "category": "Podiatric Surgery & Diabetic Wound Care",
+    "address": "4944 Windplay Dr, El Dorado Hills, CA 95762",
+    "decision_maker": "Dr. Kenneth Miller, DPM",
+    "size": "4 Exam Rooms, $2.0M Annual Revenue",
+    "current_pms": "TRAKnet / Open Practice",
+    "hook": "Custom orthotic casting and surgery consultation hole recovery in under 20 milliseconds.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C39",
+    "name": "Folsom Lake Eye Center",
+    "category": "Refractive LASIK, Cataracts & Premium IOLs",
+    "address": "2370 E Bidwell St, Ste 100, Folsom, CA 95630",
+    "decision_maker": "Dr. Jeffrey Kwong, MD",
+    "size": "6 Diagnostic Rooms + Laser Suite, $4.9M Annual Revenue",
+    "current_pms": "Compulink",
+    "hook": "LASIK evaluation cancellation recovery ($4,200 surgery value) + zero ad pixels on booking.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C40",
+    "name": "NVISION Eye Centers Folsom",
+    "category": "Laser Vision Correction & Cornea Care",
+    "address": "2510 E Bidwell St, Folsom, CA 95630",
+    "decision_maker": "Dr. Keith Liang, MD",
+    "size": "6 Suites + Laser Suite, $5.4M Annual Revenue",
+    "current_pms": "Nextech",
+    "hook": "Refractive vision evaluation schedule backfill in under 5ms via private carrier SMS.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C41",
+    "name": "Healthy Eyes Optometry & Dry Eye Clinic",
+    "category": "Medical Optometry, Scleral Lenses & Dry Eye",
+    "address": "4364 Town Center Blvd, El Dorado Hills, CA 95762",
+    "decision_maker": "Dr. Jennifer Smith, OD",
+    "size": "3 Exam Lanes, $1.5M Annual Revenue",
+    "current_pms": "Eyefinity / Officemate",
+    "hook": "Dry eye treatment room and optometrist dual-resource scheduling; recall SMS automation.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C42",
+    "name": "El Dorado Hills Vision Center Optometry",
+    "category": "Boutique Optometry & Glaucoma Co-Management",
+    "address": "3955 Park Dr, Ste 2, El Dorado Hills, CA 95762",
+    "decision_maker": "Dr. Brian Tracy, OD & Dr. Lisa Tracy, OD",
+    "size": "4 Exam Lanes, $2.1M Annual Revenue",
+    "current_pms": "RevolutionEHR Cloud",
+    "hook": "Automated annual eye exam recall re-engagement with zero third-party ad tracking pixels.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C43",
+    "name": "Northern California Orthopedic Center Folsom",
+    "category": "Sports Orthopedics & Joint Reconstruction",
+    "address": "1568 Creekside Dr, Folsom, CA 95630",
+    "decision_maker": "Dr. Stephen Weber, MD",
+    "size": "6 Consult Rooms, $4.4M Annual Revenue",
+    "current_pms": "Athenahealth",
+    "hook": "Pre-operative orthopedic surgical consult autofill ($1,500/slot) with sub-15ms lock.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C44",
+    "name": "Sierra Pacific Podiatry Outpatient",
+    "category": "Sports Podiatry, Bunionectomy & Shockwave",
+    "address": "2545 E Bidwell St, Folsom, CA 95630",
+    "decision_maker": "Dr. Craig Adams, DPM",
+    "size": "4 Exam Rooms, $1.8M Annual Revenue",
+    "current_pms": "ModMed EMA",
+    "hook": "Extracorporeal shockwave suite and clinician dual-resource scheduling.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C45",
+    "name": "Placer Plastic Surgery Center",
+    "category": "Cosmetic Body Contouring & Breast Aesthetics",
+    "address": "8769 Auburn Folsom Rd, Granite Bay, CA 95746",
+    "decision_maker": "Dr. Amie Miller, MD",
+    "size": "5 Consult Suites, $4.1M Annual Revenue",
+    "current_pms": "Nextech",
+    "hook": "High-value cosmetic consult waitlist recovery with sub-15ms local database lock.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C46",
+    "name": "Folsom Spine & Sports Medicine",
+    "category": "Non-Surgical Spine & Interventional Pain",
+    "address": "1625 Creekside Dr, Folsom, CA 95630",
+    "decision_maker": "Dr. Paul Chen, MD",
+    "size": "5 Exam Rooms, $3.2M Annual Revenue",
+    "current_pms": "Athenahealth",
+    "hook": "Fluoroscopy injection suite dual-resource booking + DOC-AA-01 triage protocol.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C47",
+    "name": "El Dorado Hills Functional Neurology",
+    "category": "Concussion Rehab & Vestibular Neurology",
+    "address": "4989 Golden Foothill Pkwy, EDH, CA 95762",
+    "decision_maker": "Dr. Kevin O'Connell, DC, DACNB",
+    "size": "4 Diagnostic Rooms, $1.7M Annual Revenue",
+    "current_pms": "ChiroTouch / Kareo",
+    "hook": "Automated recurring vestibular therapy series check-ins and cancellation recovery.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C48",
+    "name": "Roseville Cardiology Outpatient Center",
+    "category": "Preventive Cardiology & Lipidology",
+    "address": "2235 Douglas Blvd, Roseville, CA 95661",
+    "decision_maker": "Dr. Marcus Reed, MD, FACC",
+    "size": "6 Consult Rooms, $4.8M Annual Revenue",
+    "current_pms": "Epic MyChart",
+    "hook": "Echocardiogram and stress test dual-resource scheduling with automated SMS waitlist.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C49",
+    "name": "Sierra Reproductive Endocrinology & Fertility",
+    "category": "Fertility Consults & Hormone Diagnostics",
+    "address": "1568 Creekside Dr, Folsom, CA 95630",
+    "decision_maker": "Dr. Sarah Jenkins, MD, FACOG",
+    "size": "5 Consult Suites, $3.9M Annual Revenue",
+    "current_pms": "Athenahealth",
+    "hook": "High-ticket fertility consultation recovery ($750/consult) with strict HIPAA zero-retention.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-C50",
+    "name": "Cameron Park Outpatient Medical Clinic",
+    "category": "Community Outpatient & Specialty Referrals",
+    "address": "3430 Robin Ln, Cameron Park, CA 95682",
+    "decision_maker": "Dr. Jennifer Sullivan, MD",
+    "size": "5 Exam Rooms, $2.3M Annual Revenue",
+    "current_pms": "Practice Fusion",
+    "hook": "Automated recall and cancellation autofill for rural outpatient practice under flat retainer.",
+    "tab_category": "concierge",
+    "badge": "Concierge & Specialty"
+  },
+  {
+    "id": "EDH-P01",
+    "name": "KIME Performance Physical Therapy (EDH)",
     "category": "Sports Performance, ACL Rehab & Orthopedics",
     "address": "4989 Golden Foothill Pkwy, El Dorado Hills, CA 95762",
     "decision_maker": "Dr. Chris Kime, PT, DPT",
     "size": "4,500 sq ft Facility, $2.2M Annual Revenue",
     "current_pms": "Prompt EMR / WebPT",
-    "hook": "Athletic training table and therapist synchronized booking; recovers empty 60-min rehab slots."
+    "hook": "Athletic training table and therapist synchronized booking; recovers empty 60-min rehab slots.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
   },
   {
-    "id": "EDH-A20",
-    "name": "El Dorado Physical Therapy",
-    "category": "Orthopedic Rehab & Post-Surgical Recovery",
-    "address": "3955 Park Dr, Ste 1, El Dorado Hills, CA 95762",
+    "id": "EDH-P02",
+    "name": "El Dorado Physical Therapy (Town Center)",
+    "category": "Orthopedic Rehab & Vestibular Therapy",
+    "address": "8135 Saratoga Way, El Dorado Hills, CA 95762",
     "decision_maker": "Mark Anderson, PT, MPT",
     "size": "4 Treatment Rooms + Gym, $1.8M Annual Revenue",
     "current_pms": "WebPT",
-    "hook": "Automated waitlist autofill for post-surgical physical therapy appointments."
+    "hook": "Automated waitlist autofill for post-surgical physical therapy appointments in under 15ms.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
   },
   {
-    "id": "EDH-A21",
-    "name": "Burger Physical & Sports Therapy",
-    "category": "Outpatient Physical & Speech Therapy",
-    "address": "1301 E Bidwell St, Folsom, CA 95630",
+    "id": "EDH-P03",
+    "name": "El Dorado Physical Therapy (Business Park)",
+    "category": "Occupational Health & Post-Surgical Recovery",
+    "address": "907 Embarcadero Dr, El Dorado Hills, CA 95762",
+    "decision_maker": "Jason Vance, PT, DPT",
+    "size": "3 Treatment Rooms + Gym, $1.4M Annual Revenue",
+    "current_pms": "WebPT",
+    "hook": "Industrial workers comp and orthopedic rehab appointment sequence automation.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P04",
+    "name": "Marshall Medical Physical Rehabilitation Services",
+    "category": "Hospital Outpatient Physical & Occupational Therapy",
+    "address": "4201 Town Center Blvd, Bldg D, El Dorado Hills, CA 95762",
+    "decision_maker": "Outpatient Rehab Director",
+    "size": "6 Treatment Areas, $2.9M Annual Revenue",
+    "current_pms": "Epic Rehab",
+    "hook": "Enterprise physical therapy schedule hole balancing across sports medicine and occupational therapists.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P05",
+    "name": "Burger Physical Therapy Folsom",
+    "category": "Outpatient Physical, Speech & Aquatic Therapy",
+    "address": "1301 E Bidwell St, Ste 101, Folsom, CA 95630",
     "decision_maker": "Shawn Burger, PT (CEO)",
     "size": "6 Treatment Areas, $2.6M Annual Revenue",
     "current_pms": "Clinicient / WebPT",
-    "hook": "Multi-therapist cancellation recovery reducing clinic-wide unfilled treatment capacity."
+    "hook": "Multi-therapist cancellation recovery reducing clinic-wide unfilled treatment capacity.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
   },
   {
-    "id": "EDH-A22",
-    "name": "NVISION Eye Centers (Refractive LASIK & Cataract)",
-    "category": "Laser Vision Correction, LASIK & Premium IOLs",
-    "address": "2510 E Bidwell St, Folsom, CA 95630",
-    "decision_maker": "Dr. Keith Liang, MD & Dr. Aaron Florkowski, MD",
-    "size": "6 Diagnostic Rooms + Laser Suite, $5.4M Annual Revenue",
-    "current_pms": "Compulink / Nextech",
-    "hook": "Laser vision evaluation cancellation recovery ($4,000 package value) + zero ad pixels on booking."
+    "id": "EDH-P06",
+    "name": "Iron Point Physical Therapy",
+    "category": "General Orthopedics & Neurological Rehab",
+    "address": "50 Iron Point Cir, Ste 100, Folsom, CA 95630",
+    "decision_maker": "Dr. Matthew O'Rourke, PT, DPT",
+    "size": "5 Treatment Bays + Gym, $2.1M Annual Revenue",
+    "current_pms": "WebPT",
+    "hook": "Same-day therapy cancellation recovery via private 10DLC SMS waitlist broadcasting.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
   },
   {
-    "id": "EDH-A23",
-    "name": "El Dorado Hills Vision Center Optometry",
-    "category": "Boutique Optometry, Dry Eye & LASIK Co-Management",
-    "address": "3955 Park Dr, Ste 2, El Dorado Hills, CA 95762",
-    "decision_maker": "Dr. Brian Tracy, OD & Dr. Lisa Tracy, OD",
-    "size": "4 Exam Lanes, $2.1M Annual Revenue",
-    "current_pms": "RevolutionEHR Cloud",
-    "hook": "Dry eye treatment room and optometrist dual-resource scheduling; recall SMS automation."
+    "id": "EDH-P07",
+    "name": "El Dorado Physical Therapy Folsom",
+    "category": "Orthopedic & Sports-Related Physical Therapy",
+    "address": "990 Riley St, Folsom, CA 95630",
+    "decision_maker": "Ryan Smith, PT",
+    "size": "4 Treatment Rooms, $1.7M Annual Revenue",
+    "current_pms": "WebPT",
+    "hook": "Re-engaging dropped-off therapy patients prior to plan of care expiration.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
   },
   {
-    "id": "EDH-A24",
-    "name": "Healthy Eyes Optometry & Dry Eye Clinic",
-    "category": "Medical Optometry, Scleral Lenses & Myopia",
+    "id": "EDH-P08",
+    "name": "Folsom Physical Therapy and Training Center",
+    "category": "Biomechanical Spine & Joint Rehabilitation",
+    "address": "1050 E Bidwell St, Folsom, CA 95630",
+    "decision_maker": "Dr. Scott Cheatham, PT, PhD",
+    "size": "5 Treatment Bays + Gym, $2.4M Annual Revenue",
+    "current_pms": "Prompt EMR",
+    "hook": "Synchronized biomechanical assessment lab and clinician dual-resource scheduling.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P09",
+    "name": "Cameron Park Physical Therapy",
+    "category": "Orthopedic, Spine & Vestibular Rehabilitation",
+    "address": "3311 Coach Ln, Cameron Park, CA 95682",
+    "decision_maker": "Dr. Kevin O'Connell, PT, DPT",
+    "size": "4 Treatment Rooms, $1.6M Annual Revenue",
+    "current_pms": "WebPT",
+    "hook": "Rural foothill clinic schedule hole recovery protecting physical therapist productivity.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P10",
+    "name": "Core Spine, Sport + Recovery",
+    "category": "Multidisciplinary Sports Chiropractic & PT",
+    "address": "3460 Robin Ln, Cameron Park, CA 95682",
+    "decision_maker": "Dr. Tyler Harris, DC & Therapy Lead",
+    "size": "4 Treatment Areas + Gym, $1.5M Annual Revenue",
+    "current_pms": "ChiroTouch / WebPT",
+    "hook": "Dual-modality scheduling: chiropractic adjustments synchronized with physical therapy gym.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P11",
+    "name": "Healix Physical Therapy & Integrative Health",
+    "category": "Holistic Physical Therapy & Movement Retraining",
+    "address": "Diamond Springs / El Dorado Hills Corridor, CA",
+    "decision_maker": "Rachel Walker, PT",
+    "size": "3 Treatment Rooms, $1.2M Annual Revenue",
+    "current_pms": "Prompt EMR",
+    "hook": "Cash-pay private concierge therapy appointment autofill with zero ad pixel telemetry.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P12",
+    "name": "KIME Performance Physical Therapy Granite Bay",
+    "category": "Elite Athletic Rehab, Performance & Return to Sport",
+    "address": "4190 Douglas Blvd, Ste 200, Granite Bay, CA 95746",
+    "decision_maker": "Dr. Chris Kime, PT, DPT",
+    "size": "5,000 sq ft Facility, $2.5M Annual Revenue",
+    "current_pms": "Prompt EMR",
+    "hook": "Turf field and physical therapist synchronized booking; recovers empty high-ticket rehab slots.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P13",
+    "name": "Pro Dynamic Physical Therapy",
+    "category": "Orthopedics, Sports Medicine & Manual Therapy",
+    "address": "Corner Auburn-Folsom & Douglas Blvd, Granite Bay, CA 95746",
+    "decision_maker": "Dr. Eric Chen, PT, DPT",
+    "size": "4 Treatment Rooms + Gym, $1.8M Annual Revenue",
+    "current_pms": "WebPT",
+    "hook": "Post-operative total knee and shoulder rehab waitlist fill in under 15 milliseconds.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P14",
+    "name": "Movement Shift Physical Therapy & Performance",
+    "category": "Active Lifestyle Physical Therapy & Running Gait Analysis",
+    "address": "6049 Douglas Blvd, Ste 24, Granite Bay, CA 95746",
+    "decision_maker": "Dr. Alex Taylor, PT",
+    "size": "3 Treatment Bays, $1.3M Annual Revenue",
+    "current_pms": "Jane App / Prompt EMR",
+    "hook": "Treadmill video analysis and clinician dual-resource booking; automated patient reminders.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P15",
+    "name": "Busenbark Physical Therapy & Wellness",
+    "category": "General Orthopedics, Spine & Geriatric Mobility",
+    "address": "6882 Highland Rd, Granite Bay, CA 95746",
+    "decision_maker": "David Busenbark, PT",
+    "size": "3 Treatment Rooms, $1.1M Annual Revenue",
+    "current_pms": "WebPT",
+    "hook": "Medicare plan of care re-certification alerts and automated cancellation recovery.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P16",
+    "name": "Family Physical Therapy Roseville/Granite Bay",
+    "category": "Comprehensive Outpatient Physical Therapy",
+    "address": "2231 Douglas Blvd, Ste 100, Roseville, CA 95661",
+    "decision_maker": "Dr. Brian Simpson, PT",
+    "size": "5 Treatment Areas, $2.0M Annual Revenue",
+    "current_pms": "WebPT",
+    "hook": "High-throughput therapy clinic schedule balancing eliminating unfilled therapist capacity.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P17",
+    "name": "Spine & Sport Physical Therapy Roseville",
+    "category": "Orthopedics, Spine Specialty & Work Injury",
+    "address": "151 N Sunrise Ave, Ste 1001, Roseville, CA 95661",
+    "decision_maker": "Regional Therapy Director",
+    "size": "6 Treatment Areas + Gym, $2.7M Annual Revenue",
+    "current_pms": "Raintree Systems",
+    "hook": "Multi-clinician appointment chaining: ensures patients complete prescribed 12-visit treatment protocols.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P18",
+    "name": "Burger Physical Therapy Roseville",
+    "category": "Outpatient Physical & Occupational Therapy",
+    "address": "2235 Douglas Blvd, Ste 520, Roseville, CA 95661",
+    "decision_maker": "Rehab Services Lead",
+    "size": "5 Treatment Areas, $2.2M Annual Revenue",
+    "current_pms": "Clinicient",
+    "hook": "Automated schedule release and instant patient claim via private cellular SMS.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P19",
+    "name": "Full Spectrum Therapy & Pain Relief",
+    "category": "Myofascial Release & Chronic Pain Physical Therapy",
+    "address": "Folsom / Blue Ravine Corridor, CA",
+    "decision_maker": "Gregory Hall, PT",
+    "size": "3 Treatment Rooms, $1.2M Annual Revenue",
+    "current_pms": "Prompt EMR",
+    "hook": "Chronic pain package retention: detects missed appointments and re-engages clients.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P20",
+    "name": "Pondera Rehabilitation and Fitness PC",
+    "category": "Post-Acute Physical Rehab & Medical Fitness",
+    "address": "Roseville / Granite Bay Corridor, CA",
+    "decision_maker": "Dr. Maria Gonzalez, PT",
+    "size": "4 Treatment Areas + Gym, $1.6M Annual Revenue",
+    "current_pms": "WebPT",
+    "hook": "Transition from clinical PT to cash-pay medical fitness membership automation.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P21",
+    "name": "Elite Spinal & Sports Care",
+    "category": "Sports Chiropractic, Decompression & Active Rehab",
     "address": "4364 Town Center Blvd, El Dorado Hills, CA 95762",
-    "decision_maker": "Dr. Jennifer Smith, OD",
-    "size": "3 Exam Lanes, $1.5M Annual Revenue",
-    "current_pms": "Eyefinity / Officemate",
-    "hook": "Automated annual exam recall re-engagement + zero-port local edge bridge."
+    "decision_maker": "Dr. Adam Jacobs, DC, CCSP",
+    "size": "4 Treatment Suites, $1.7M Annual Revenue",
+    "current_pms": "ChiroTouch",
+    "hook": "Spinal decompression table and doctor synchronized scheduling; fills empty 45-min slots.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
   },
   {
-    "id": "EDH-A25",
-    "name": "Restore Hyper Wellness (Folsom & El Dorado Hills)",
-    "category": "Cryotherapy, IV Drip, Red Light & Hyperbaric",
+    "id": "EDH-P22",
+    "name": "Folsom Lake Physical Therapy",
+    "category": "Sports Injuries, Joint Replacement Rehab & Dry Needling",
+    "address": "2545 E Bidwell St, Folsom, CA 95630",
+    "decision_maker": "Jennifer Davis, PT, DPT",
+    "size": "4 Treatment Bays, $1.6M Annual Revenue",
+    "current_pms": "Prompt EMR",
+    "hook": "Cash-pay dry needling add-on scheduling and sub-15ms short-notice hole autofill.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P23",
+    "name": "Natoma Station Sports Physical Therapy",
+    "category": "Endurance Athlete Rehab & Cycling Biomechanics",
+    "address": "Natoma Station, Folsom, CA 95630",
+    "decision_maker": "Dr. Ryan Miller, PT",
+    "size": "3 Treatment Bays + Bike Fit Studio, $1.3M Annual Revenue",
+    "current_pms": "Jane App",
+    "hook": "Bike fit studio and physical therapist dual-resource booking with zero ad tracking pixels.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P24",
+    "name": "Broadstone Rehabilitation & Physical Therapy",
+    "category": "Post-Surgical Orthopedics & Total Joint Care",
+    "address": "2700 E Bidwell St, Folsom, CA 95630",
+    "decision_maker": "Marcus Allen, PT",
+    "size": "4 Treatment Rooms, $1.8M Annual Revenue",
+    "current_pms": "WebPT",
+    "hook": "Direct database query on cancelled physical therapy blocks with instant waitlist claiming.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P25",
+    "name": "Sutter Health Physical Therapy Folsom",
+    "category": "Hospital-Affiliated Outpatient Physical Therapy",
+    "address": "1580 Creekside Dr, Folsom, CA 95630",
+    "decision_maker": "Outpatient Physical Therapy Lead",
+    "size": "6 Treatment Areas, $2.8M Annual Revenue",
+    "current_pms": "Epic Rehab",
+    "hook": "Outbound cancellation release queue + zero-port connector eliminating IT firewall friction.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P26",
+    "name": "Select Physical Therapy Folsom",
+    "category": "National Network Orthopedic Physical Therapy",
+    "address": "785 E Bidwell St, Folsom, CA 95630",
+    "decision_maker": "Michael Vance, PT",
+    "size": "5 Treatment Bays, $2.1M Annual Revenue",
+    "current_pms": "NovaNet / WebPT",
+    "hook": "High-volume PT schedule balancing and automated SMS reminder dispatch.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P27",
+    "name": "Select Physical Therapy Roseville",
+    "category": "Work Strategies, Ergonomics & Orthopedic PT",
+    "address": "568 N Sunrise Ave, Roseville, CA 95661",
+    "decision_maker": "Ashley Cole, PT",
+    "size": "5 Treatment Bays, $2.0M Annual Revenue",
+    "current_pms": "NovaNet",
+    "hook": "Workers compensation physical therapy attendance tracking and automated progress notes.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P28",
+    "name": "Results Physical Therapy & Training",
+    "category": "Functional Movement, Athletic Strength & Rehab",
+    "address": "1568 Creekside Dr, Folsom, CA 95630",
+    "decision_maker": "Brandon Lee, PT, CSCS",
+    "size": "4 Treatment Bays + Gym, $1.7M Annual Revenue",
+    "current_pms": "Prompt EMR",
+    "hook": "Rehabilitative gym and therapist dual-resource scheduling; fills empty 60-min slots in 4ms.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P29",
+    "name": "Body Logic Sports Therapy",
+    "category": "Overhead Athlete Rehab & Rotator Cuff Care",
+    "address": "6049 Douglas Blvd, Granite Bay, CA 95746",
+    "decision_maker": "Dr. Nathan Fox, PT, DPT",
+    "size": "3 Treatment Rooms, $1.4M Annual Revenue",
+    "current_pms": "Jane App",
+    "hook": "Cash-pay sports rehab package tracking and automated session balance alerts.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P30",
+    "name": "Peak Performance Physical Therapy",
+    "category": "Manual Therapy, Spine Care & Sports Medicine",
+    "address": "2545 E Bidwell St, Folsom, CA 95630",
+    "decision_maker": "Sarah Jenkins, PT",
+    "size": "4 Treatment Rooms, $1.5M Annual Revenue",
+    "current_pms": "WebPT",
+    "hook": "Automated recall for past physical therapy patients due for periodic check-ins.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P31",
+    "name": "Granite Bay Sports Medicine & PT",
+    "category": "Adolescent Sports Injuries & Concussion Recovery",
+    "address": "5220 Douglas Blvd, Granite Bay, CA 95746",
+    "decision_maker": "Dr. Eric Bradley, PT",
+    "size": "4 Treatment Rooms + Gym, $1.9M Annual Revenue",
+    "current_pms": "Prompt EMR",
+    "hook": "High school athlete after-school schedule balancing with automated parent SMS concierge.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P32",
+    "name": "Sierra Orthopedic & Athletic Rehabilitation (SOAR)",
+    "category": "Specialized Orthopedic Physical Therapy",
+    "address": "3955 Park Dr, El Dorado Hills, CA 95762",
+    "decision_maker": "Trevor Vance, PT, OCS",
+    "size": "4 Treatment Rooms, $1.6M Annual Revenue",
+    "current_pms": "WebPT",
+    "hook": "Board-certified orthopedic specialist schedule protection against last-minute patient drops.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P33",
+    "name": "Active Edge Physical Therapy",
+    "category": "Post-Op Total Joint & Soft Tissue Rehabilitation",
+    "address": "4944 Windplay Dr, El Dorado Hills, CA 95762",
+    "decision_maker": "Dr. Courtney Reed, PT, DPT",
+    "size": "3 Treatment Rooms + Gym, $1.3M Annual Revenue",
+    "current_pms": "Prompt EMR",
+    "hook": "Sub-15ms hygiene-equivalent PT slot recovery; eliminates $180/hr downtime holes.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P34",
+    "name": "Golden Foothill Sports Rehab",
+    "category": "Functional Biomechanics & Sports Injury Therapy",
+    "address": "4989 Golden Foothill Pkwy, El Dorado Hills, CA 95762",
+    "decision_maker": "Tyler Scott, PT",
+    "size": "3 Treatment Rooms, $1.2M Annual Revenue",
+    "current_pms": "WebPT",
+    "hook": "Zero-port edge daemon integrating directly with clinic server without IT MSP friction.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P35",
+    "name": "Folsom Aquatic & Sports Physical Therapy",
+    "category": "Warm Water Hydrotherapy & Sports Physical Rehab",
+    "address": "1300 E Bidwell St, Folsom, CA 95630",
+    "decision_maker": "Laura Bennett, MPT",
+    "size": "Therapy Pool + 4 Bays, $2.1M Annual Revenue",
+    "current_pms": "Clinicient",
+    "hook": "Hydrotherapy pool lane and physical therapist dual-resource scheduling.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P36",
+    "name": "Cameron Park Spine & Sports Care",
+    "category": "Non-Surgical Spine Decompression & PT",
+    "address": "3430 Robin Ln, Cameron Park, CA 95682",
+    "decision_maker": "Dr. Jeffrey Mills, PT, DC",
+    "size": "4 Treatment Rooms, $1.4M Annual Revenue",
+    "current_pms": "ChiroTouch / WebPT",
+    "hook": "Decompression suite and physical therapist dual-resource booking; 4ms atomic schedule lock.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P37",
+    "name": "Foothill Movement Physical Therapy",
+    "category": "Movement Pattern Correction & Injury Prevention",
+    "address": "3840 Cameron Park Dr, Cameron Park, CA 95682",
+    "decision_maker": "Jessica Miller, PT",
+    "size": "3 Treatment Rooms, $1.1M Annual Revenue",
+    "current_pms": "Jane App",
+    "hook": "Automated treatment plan reminders via private carrier SMS with zero SaaS tolls.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P38",
+    "name": "Premier Bone & Joint Physical Therapy",
+    "category": "Joint Replacement, Trauma & Hand Therapy",
+    "address": "1625 Creekside Dr, Folsom, CA 95630",
+    "decision_maker": "Outpatient PT Coordinator",
+    "size": "5 Treatment Areas, $2.3M Annual Revenue",
+    "current_pms": "Athenahealth / WebPT",
+    "hook": "Certified Hand Therapist (CHT) and custom splinting room dual-resource booking.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P39",
+    "name": "Accelerated Recovery & Performance Lab",
+    "category": "Cash-Pay Athletic Recovery, Normatec & AlterG",
+    "address": "4370 Town Center Blvd, El Dorado Hills, CA 95762",
+    "decision_maker": "Dr. Marcus Kime, PT",
+    "size": "4 Recovery Stations + Gym, $1.5M Annual Revenue",
+    "current_pms": "Mindbody / Jane",
+    "hook": "AlterG anti-gravity treadmill equipment booking and monthly recovery membership billing.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P40",
+    "name": "Roseville Orthopedic Physical Therapy",
+    "category": "Spine & Extremity Manual Physical Therapy",
+    "address": "1420 E Roseville Pkwy, Roseville, CA 95661",
+    "decision_maker": "Daniel Craig, PT, OCS",
+    "size": "5 Treatment Bays, $2.2M Annual Revenue",
+    "current_pms": "WebPT",
+    "hook": "Automated PPO fee schedule PDF extraction and physical therapy unit reimbursement tracking.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P41",
+    "name": "Kinetic Motion Physical Therapy",
+    "category": "Sports Orthopedics & Postural Restoration",
+    "address": "1004 Blue Ravine Rd, Folsom, CA 95630",
+    "decision_maker": "Dr. Megan Ross, PT, DPT",
+    "size": "3 Treatment Rooms, $1.3M Annual Revenue",
+    "current_pms": "Prompt EMR",
+    "hook": "Sub-15ms short-notice schedule hole refill via priority waitlist SMS dispatch.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P42",
+    "name": "Sierra Performance Lab & Physical Therapy",
+    "category": "High-Performance Athlete Return-to-Play Testing",
+    "address": "8735 Sierra College Blvd, Granite Bay, CA 95746",
+    "decision_maker": "Alex Martin, PT",
+    "size": "4 Treatment Bays + Gym, $1.8M Annual Revenue",
+    "current_pms": "Prompt EMR",
+    "hook": "Force plate testing suite and therapist synchronized scheduling; zero ad pixels on booking.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P43",
+    "name": "Rise Physical Therapy & Wellness",
+    "category": "Pelvic Floor, Orthopedic & Prenatal PT",
+    "address": "3955 Park Dr, Ste 4, El Dorado Hills, CA 95762",
+    "decision_maker": "Dr. Shannon O'Neil, PT",
+    "size": "3 Treatment Rooms, $1.2M Annual Revenue",
+    "current_pms": "Jane App",
+    "hook": "Sensitive women's health patient intake note staging in agent_staged_notes prior to consult.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P44",
+    "name": "Foothill Sports & Spine Physical Therapy",
+    "category": "Orthopedic Surgery Recovery & Spine Rehab",
+    "address": "510 Plaza Dr, Folsom, CA 95630",
+    "decision_maker": "Dr. Kevin Thomas, PT",
+    "size": "4 Treatment Areas, $1.6M Annual Revenue",
+    "current_pms": "WebPT",
+    "hook": "Elimination of client-side tracking pixels leaking physical injury searches to Meta/Google.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P45",
+    "name": "Blue Ravine Physical Rehabilitation",
+    "category": "Neurological Balance, Vestibular & Ortho Rehab",
+    "address": "189 Blue Ravine Rd, Folsom, CA 95630",
+    "decision_maker": "Natalie Hayes, PT",
+    "size": "4 Treatment Rooms, $1.5M Annual Revenue",
+    "current_pms": "Prompt EMR",
+    "hook": "Vestibular balance suite and clinician dual-resource scheduling in under 20ms.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P46",
+    "name": "Horizon Pediatric Physical Therapy",
+    "category": "Pediatric Gross Motor Development & Sensory Rehab",
+    "address": "2205 Francisco Dr, El Dorado Hills, CA 95762",
+    "decision_maker": "Sarah Collins, PT, PCS",
+    "size": "3 Sensory Gyms, $1.4M Annual Revenue",
+    "current_pms": "WebPT",
+    "hook": "Parent SMS concierge for sibling therapy blocks with zero third-party ad tracking pixels.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P47",
+    "name": "Northern California Sports Recovery & PT",
+    "category": "Athlete Cryo, Compression & Manual Therapy",
+    "address": "1014 Riley St, Folsom, CA 95630",
+    "decision_maker": "Dr. Sean Murphy, PT",
+    "size": "4 Recovery Chambers + Gym, $1.6M Annual Revenue",
+    "current_pms": "Mindbody / WebPT",
+    "hook": "Recurring recovery membership dues recovery and automated session check-ins.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P48",
+    "name": "Apex Performance & Physical Therapy",
+    "category": "CrossFit & Tactical Athlete Physical Therapy",
+    "address": "825 E Bidwell St, Folsom, CA 95630",
+    "decision_maker": "Christopher Paul, PT, CSCS",
+    "size": "3 Treatment Bays + Gym, $1.3M Annual Revenue",
+    "current_pms": "Prompt EMR",
+    "hook": "Cash-pay performance package tracking and automated session balance alerts.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P49",
+    "name": "Foothills Manual Physical Therapy",
+    "category": "Orthopedic Manual Therapy & Joint Mobilization",
+    "address": "3460 Robin Ln, Cameron Park, CA 95682",
+    "decision_maker": "Emily Watson, PT",
+    "size": "3 Treatment Rooms, $1.1M Annual Revenue",
+    "current_pms": "WebPT",
+    "hook": "Native database query on broken appointment status (AptStatus=5) with zero-port local daemon.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-P50",
+    "name": "Marshall Orthopedics Physical Rehabilitation (Foothill)",
+    "category": "Hospital Outpatient Orthopedics & Sports Rehab",
+    "address": "5137 Golden Foothill Pkwy, Ste 120, El Dorado Hills, CA 95762",
+    "decision_maker": "Marshall Health PT Staff",
+    "size": "6 Treatment Rooms + Gym, $3.1M Annual Revenue",
+    "current_pms": "Epic Rehab",
+    "hook": "Multi-specialty operatory scheduling optimization with automated after-hours voice triage routing.",
+    "tab_category": "pt",
+    "badge": "PT & Sports Rehab"
+  },
+  {
+    "id": "EDH-L01",
+    "name": "MOOV Longevity & Human Performance",
+    "category": "Physician-Guided Longevity & GLP-1 Weight Loss",
+    "address": "4364 Town Center Blvd, El Dorado Hills, CA 95762",
+    "decision_maker": "Dr. Marcus Hayes, MD",
+    "size": "5 Diagnostic/Treatment Suites, $2.5M Annual Revenue",
+    "current_pms": "Healthie / Mindbody",
+    "hook": "Dual-resource VO2 max / DEXA scan suite scheduling + Semaglutide subscription check-in automation.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L02",
+    "name": "Lindora Metabolic Health & Weight Loss",
+    "category": "Metabolic Weight Management, GLP-1 & Peptides",
+    "address": "El Dorado Hills Town Center Corridor, CA 95762",
+    "decision_maker": "Regional Medical Director",
+    "size": "4 Consult Rooms, $2.1M Annual Revenue",
+    "current_pms": "Kareo / Proprietary",
+    "hook": "Recurring GLP-1 membership billing reconciliation + automated monthly dose titration visits.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L03",
+    "name": "Forever MD Precision Medicine & Vitality",
+    "category": "Cellular Longevity, NAD+ & Hormone Therapy",
+    "address": "5170 Golden Foothill Pkwy, El Dorado Hills, CA 95762",
+    "decision_maker": "Dr. Arash Padidar, MD",
+    "size": "5 Treatment Suites, $2.8M Annual Revenue",
+    "current_pms": "Boulevard Cloud",
+    "hook": "IV NAD+ infusion lounge and clinician dual-resource scheduling; fills empty $600 infusion slots.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L04",
+    "name": "Revolve Health Metabolic Medicine",
+    "category": "Semaglutide Weight Loss & Hormone Balancing",
+    "address": "El Dorado Hills Corridor, CA 95762",
+    "decision_maker": "Dr. Steven Croft, MD & Nicole Adams, NP",
+    "size": "3 Consult Rooms, $1.6M Annual Revenue",
+    "current_pms": "CharmHealth",
+    "hook": "Zero-SaaS-toll patient portal communication + instant GLP-1 follow-up cancellation autofill.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L05",
+    "name": "The Canal Women's Health & Hormone Optimization",
+    "category": "Bioidentical Hormone Therapy (BHRT) & Weight Care",
+    "address": "El Dorado Hills / Folsom Corridor, CA",
+    "decision_maker": "Dr. Sarah Jenkins, MD, FACOG",
+    "size": "4 Exam Suites, $2.3M Annual Revenue",
+    "current_pms": "Athenahealth",
+    "hook": "Recurring BHRT pellet insertion reminders (every 90-120 days) + automated waitlist SMS fill.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L06",
+    "name": "Northern California Wellness Hormone Clinic",
+    "category": "Hormone Optimization, Bio-TE Pellets & Peptides",
+    "address": "4993 Golden Foothill Pkwy, Ste 1, El Dorado Hills, CA 95762",
+    "decision_maker": "Dr. Michael Vance, MD",
+    "size": "5 Treatment Suites, $2.9M Annual Revenue",
+    "current_pms": "Zenoti",
+    "hook": "Synchronizing hormone lab follow-ups with aesthetic laser suites; eliminating FTC pixel liabilities.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L07",
+    "name": "Set Point Medical Weight Loss & GLP-1 Clinic",
+    "category": "Personalized GLP-1 (Semaglutide/Tirzepatide) Medicine",
+    "address": "2545 E Bidwell St, Folsom, CA 95630",
+    "decision_maker": "Dr. David Vance, MD",
+    "size": "4 Consult Rooms, $2.0M Annual Revenue",
+    "current_pms": "Healthie Cloud",
+    "hook": "Monthly membership dues recovery and automated check-in reminder SMS via private 10DLC.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L08",
+    "name": "JB Medical Clinic Medical Weight Loss & TRT",
+    "category": "Men's Health, Testosterone Replacement & Weight Loss",
+    "address": "1568 Creekside Dr, Folsom, CA 95630",
+    "decision_maker": "Dr. Jason Bell, MD",
+    "size": "4 Exam Suites, $2.2M Annual Revenue",
+    "current_pms": "CharmHealth",
+    "hook": "Automated 10-week testosterone injection cycle re-engagement without front desk phone tag.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L09",
+    "name": "Lotus MD Longevity & Metabolic Wellness",
+    "category": "Concierge Longevity, Metabolic Health & Peptides",
+    "address": "8735 Sierra College Blvd, Granite Bay, CA 95746",
+    "decision_maker": "Dr. Inderpreet Sanghera, MD",
+    "size": "4 Consult Rooms, $2.4M Annual Revenue",
+    "current_pms": "Elation Health / Hint",
+    "hook": "Cash-pay executive metabolic assessment package autofill ($1,800/slot) in under 15 milliseconds.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L10",
+    "name": "iThriveMD Weight Loss & Longevity Center",
+    "category": "GLP-1 Medicine, TRT & Anti-Aging Cellular Health",
+    "address": "2200 Douglas Blvd, Roseville, CA 95661",
+    "decision_maker": "Dr. Michael Peters, MD",
+    "size": "6 Consult Suites, $3.2M Annual Revenue",
+    "current_pms": "Athenahealth",
+    "hook": "High-volume weight loss subscription queue balancing and automated SMS waitlist dispatch.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L11",
+    "name": "ReNew Me Medical Group & Hormone Optimization",
+    "category": "BHRT, Medical Weight Management & Wellness Supplements",
+    "address": "1420 E Roseville Pkwy, Roseville, CA 95661",
+    "decision_maker": "Dr. Brenda Gomez, MD",
+    "size": "5 Treatment Suites, $2.6M Annual Revenue",
+    "current_pms": "Power2Practice",
+    "hook": "Recurring supplement subscription management and zero-PHI mobile appointment reminders.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L12",
+    "name": "Hopkins MD / Reliviance Wellness",
+    "category": "Metabolic Health, Cellular Energy & NAD+ Recovery",
+    "address": "1603 Eureka Rd, Roseville, CA 95661",
+    "decision_maker": "Dr. Craig Hopkins, MD",
+    "size": "5 Infusion/Consult Suites, $2.7M Annual Revenue",
+    "current_pms": "CharmHealth",
+    "hook": "Dual-resource infusion chair and clinician booking; recovers empty 2-hour NAD+ infusion blocks.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L13",
+    "name": "Gemini Health & Wellness GLP-1 & HRT",
+    "category": "Nurse Practitioner Guided Weight Loss & Hormone Care",
+    "address": "Roseville / Granite Bay Corridor, CA",
+    "decision_maker": "Brenda Vance, FNP-C",
+    "size": "3 Consult Rooms, $1.5M Annual Revenue",
+    "current_pms": "Healthie",
+    "hook": "Solo practitioner schedule protection: fills cancelled Semaglutide consults in under 5ms.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L14",
+    "name": "Next Health Longevity & Biomarker Center",
+    "category": "Biomarker Testing, NAD+, Cryo & Regenerative Medicine",
+    "address": "Roseville / Granite Bay Corridor, CA",
+    "decision_maker": "Next Health Medical Director",
+    "size": "8 Diagnostic/Therapy Suites, $4.9M Annual Revenue",
+    "current_pms": "Mindbody Enterprise",
+    "hook": "Multi-chamber equipment booking (Cryo/Hyperbaric/Ozone) + membership dues recovery.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L15",
+    "name": "Restore Hyper Wellness Folsom",
+    "category": "Cryotherapy, IV Drip, Red Light & Hyperbaric Oxygen",
     "address": "2765 E Bidwell St, Folsom, CA 95630",
     "decision_maker": "Marcus Reed (General Manager) & Medical Director",
     "size": "8 Specialized Wellness Chambers, $2.8M Annual Revenue",
     "current_pms": "Mindbody Enterprise",
-    "hook": "Chamber-specific equipment booking (Hyperbaric/Cryo/Red Light) + recurring membership dues recovery."
+    "hook": "Chamber-specific equipment booking + recurring monthly wellness membership balance recovery.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L16",
+    "name": "Fountain of Youth Hormone & Weight Loss Clinic",
+    "category": "Anti-Aging Medicine, BHRT & Medical Weight Loss",
+    "address": "1004 Blue Ravine Rd, Folsom, CA 95630",
+    "decision_maker": "Dr. Alan Taylor, MD",
+    "size": "4 Consult Rooms, $2.0M Annual Revenue",
+    "current_pms": "Power2Practice",
+    "hook": "Specialty hormone lab review cancellation recovery + automated recall for recurring visits.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L17",
+    "name": "Cascade Medical Wellness Semaglutide & Peptides",
+    "category": "Physician-Supervised Medical Weight Loss & IV Therapy",
+    "address": "2545 E Bidwell St, Folsom, CA 95630",
+    "decision_maker": "Dr. Pamela Jenkins, MD",
+    "size": "4 Treatment Suites, $2.3M Annual Revenue",
+    "current_pms": "Boulevard",
+    "hook": "Recurring peptide protocol reminders and automated waitlist SMS fill under flat retainer.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L18",
+    "name": "Embody Wellness Regenerative & Metabolic Medicine",
+    "category": "Regenerative Longevity & Functional Weight Loss",
+    "address": "107 Natoma St, Folsom, CA 95630",
+    "decision_maker": "Dr. Tami Meraglia, MD",
+    "size": "4 Treatment Suites, $2.0M Annual Revenue",
+    "current_pms": "Mindbody / Boulevard",
+    "hook": "Semaglutide subscription renewal and recurring clinic check-in automation.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L19",
+    "name": "The Mills Institute Hormone & Metabolic Optimization",
+    "category": "Root-Cause Metabolic Health & Longevity",
+    "address": "4993 Golden Foothill Pkwy, EDH, CA 95762",
+    "decision_maker": "Dr. Steven Mills, MD",
+    "size": "4 Consult Rooms, $2.2M Annual Revenue",
+    "current_pms": "CharmHealth Cloud",
+    "hook": "High-value 90-minute metabolic intake recovery ($850/consult) + member check-ins.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L20",
+    "name": "True Health Center Precision Longevity",
+    "category": "Cognitive Longevity, ApoE4 Screening & Precision Health",
+    "address": "4944 Windplay Dr, Ste 200, EDH, CA 95762",
+    "decision_maker": "Dr. Kristine Burke, MD",
+    "size": "6 Exam/Consult Suites, $3.4M Annual Revenue",
+    "current_pms": "Athenahealth / Elation",
+    "hook": "Automated patient intake note staging in agent_staged_notes prior to longevity consults.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L21",
+    "name": "Connor Wellness Functional Weight Loss & Nutrition",
+    "category": "Clinical Nutrition, Gut Health & Metabolic Reset",
+    "address": "4944 Windplay Dr, Ste 102, EDH, CA 95762",
+    "decision_maker": "Dr. Pamela Connor, ND",
+    "size": "4 Consult Rooms, $1.8M Annual Revenue",
+    "current_pms": "Power2Practice",
+    "hook": "Elimination of client-side ad pixels leaking sensitive health queries to Meta/TikTok.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L22",
+    "name": "Coastal Functional & Anti-Aging Peptides",
+    "category": "Peptide Protocols, Sermorelin & Growth Hormone Optimization",
+    "address": "510 Plaza Dr, Folsom, CA 95630",
+    "decision_maker": "Dr. Robert Sterling, MD",
+    "size": "4 Suites, $1.9M Annual Revenue",
+    "current_pms": "Athenahealth",
+    "hook": "Recurring peptide cycle renewal reminders + sub-15ms local database lock.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L23",
+    "name": "Nomad Functional Longevity Medicine",
+    "category": "Naturopathic Longevity & Mitochondrial Health",
+    "address": "1014 Riley St, Folsom, CA 95630",
+    "decision_maker": "Dr. Namuun Bat, ND",
+    "size": "3 Consult Rooms, $1.3M Annual Revenue",
+    "current_pms": "CharmHealth",
+    "hook": "Zero-SaaS-toll patient communication + instant cancellation autofill via private carrier SMS.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L24",
+    "name": "Thrive Medical Weight Loss & Direct Care",
+    "category": "Metabolic Direct Care & Semaglutide Protocols",
+    "address": "2545 E Bidwell St, Folsom, CA 95630",
+    "decision_maker": "Dr. Melissa Chen, DO",
+    "size": "5 Suites, $2.0M Annual Revenue",
+    "current_pms": "Atlas.md DPC",
+    "hook": "Direct Primary Care subscription fee reconciliation and automated retreatment booking.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L25",
+    "name": "Private MD Executive Longevity Screening",
+    "category": "Direct Access Executive Physicals & Full-Body Scans",
+    "address": "1568 Creekside Dr, Ste 100, Folsom, CA 95630",
+    "decision_maker": "Dr. Nishant Sahni, MD",
+    "size": "4 Suites, $2.4M Annual Revenue",
+    "current_pms": "Elation Health / Hint",
+    "hook": "Executive health physical slot recovery ($2,500/slot) with DOC-AA-01 triage.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L26",
+    "name": "BioLite Longevity & Hormone Clinic",
+    "category": "Hormone Balancing & Cellular Red Light Therapy",
+    "address": "3955 Park Dr, El Dorado Hills, CA 95762",
+    "decision_maker": "Dr. Laura Bennett, MD",
+    "size": "3 Treatment Rooms, $1.5M Annual Revenue",
+    "current_pms": "Healthie",
+    "hook": "Red light treatment bed and clinician dual-resource booking; automated patient reminders.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L27",
+    "name": "Vitality MD Men's Health & TRT Clinic",
+    "category": "Testosterone Optimization, ED & Men's Vitality",
+    "address": "2370 E Bidwell St, Folsom, CA 95630",
+    "decision_maker": "Dr. Thomas Cole, MD",
+    "size": "4 Consult Rooms, $2.2M Annual Revenue",
+    "current_pms": "Athenahealth",
+    "hook": "Automated lab review recall for overdue testosterone blood panels (every 90 days).",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L28",
+    "name": "Elite Hormone & Peptides of Granite Bay",
+    "category": "Bioidentical Hormones & Longevity Peptides",
+    "address": "5220 Douglas Blvd, Granite Bay, CA 95746",
+    "decision_maker": "Dr. Christian Ross, MD",
+    "size": "4 Treatment Suites, $2.6M Annual Revenue",
+    "current_pms": "Boulevard Cloud",
+    "hook": "Beauty Bank wallet concierge recovering unspent balances on 60-day dormant accounts.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L29",
+    "name": "Sierra Metabolic Health & GLP-1 Center",
+    "category": "Medical Weight Loss & Cardiometabolic Prevention",
+    "address": "3430 Robin Ln, Cameron Park, CA 95682",
+    "decision_maker": "Dr. Eric Larson, MD",
+    "size": "4 Consult Rooms, $1.7M Annual Revenue",
+    "current_pms": "CharmHealth",
+    "hook": "Rural foothill clinic schedule hole recovery protecting physician productivity.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L30",
+    "name": "Hydrate & Heal Longevity & IV Lounge",
+    "category": "High-Dose Vitamin C, NAD+ & Amino Acid IVs",
+    "address": "13389 Folsom Blvd, Folsom, CA 95630",
+    "decision_maker": "Dr. Alan Vance, MD",
+    "size": "6 Infusion Lounges, $1.9M Annual Revenue",
+    "current_pms": "Boulevard",
+    "hook": "Group IV lounge and private infusion room synchronized booking via private 10DLC.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L31",
+    "name": "Optimal Wellness & Anti-Aging of EDH",
+    "category": "Hormone Therapy, Thyroid Optimization & Weight Loss",
+    "address": "4944 Windplay Dr, El Dorado Hills, CA 95762",
+    "decision_maker": "Dr. Karen Miller, MD",
+    "size": "3 Consult Rooms, $1.6M Annual Revenue",
+    "current_pms": "Power2Practice",
+    "hook": "Thyroid panel follow-up automation: automatically detects unbooked follow-up lab reviews.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L32",
+    "name": "Revive Metabolic Health & Peptides",
+    "category": "Metabolic Reset, Peptide Therapy & Body Composition",
+    "address": "807 E Bidwell St, Folsom, CA 95630",
+    "decision_maker": "Dr. Steven Croft, MD",
+    "size": "4 Treatment Suites, $2.1M Annual Revenue",
+    "current_pms": "Mindbody",
+    "hook": "InBody scanner and physician dual-resource booking; fills empty 30-min slots in 4ms.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L33",
+    "name": "Apex Longevity & Hormone Optimization",
+    "category": "Executive Hormone Screening & Epigenetic Testing",
+    "address": "6049 Douglas Blvd, Granite Bay, CA 95746",
+    "decision_maker": "Dr. Nathan Fox, MD",
+    "size": "4 Consult Suites, $2.5M Annual Revenue",
+    "current_pms": "Elation Health",
+    "hook": "Biological age testing consult autofill ($1,500/slot) with sub-15ms local database lock.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L34",
+    "name": "Folsom Men's Clinic TRT & Wellness",
+    "category": "Low-T Therapy, Acoustic Wave & Men's Health",
+    "address": "1625 Creekside Dr, Folsom, CA 95630",
+    "decision_maker": "Dr. Robert Hayes, MD",
+    "size": "4 Exam Rooms, $2.3M Annual Revenue",
+    "current_pms": "Athenahealth",
+    "hook": "Acoustic wave treatment series retention: automatically detects skipped therapy visits.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L35",
+    "name": "Placer Longevity & Anti-Aging Center",
+    "category": "Cellular Regeneration, Peptides & Ozone Therapy",
+    "address": "8769 Auburn Folsom Rd, Granite Bay, CA 95746",
+    "decision_maker": "Dr. Jennifer Davis, MD",
+    "size": "5 Treatment Suites, $2.8M Annual Revenue",
+    "current_pms": "Boulevard",
+    "hook": "Ozone therapy suite and clinician dual-resource scheduling with California CMIA compliance.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L36",
+    "name": "Serenity Medical Weight Loss & Wellness",
+    "category": "Semaglutide Injections, B12 & Metabolic Coaching",
+    "address": "2205 Francisco Dr, El Dorado Hills, CA 95762",
+    "decision_maker": "Dr. Courtney Reed, MD",
+    "size": "3 Consult Rooms, $1.4M Annual Revenue",
+    "current_pms": "Healthie",
+    "hook": "Automated monthly recurring subscription fee reconciliation and SMS dose reminders.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L37",
+    "name": "BioTe Hormone Center of Cameron Park",
+    "category": "Specialized BioTe Hormone Pellet Therapy",
+    "address": "3840 Cameron Park Dr, Cameron Park, CA 95682",
+    "decision_maker": "Dr. Allen Vance, MD",
+    "size": "3 Treatment Rooms, $1.5M Annual Revenue",
+    "current_pms": "Practice Fusion",
+    "hook": "Sub-15ms pellet insertion cancellation autofill; eliminates $650 downtime holes.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L38",
+    "name": "Genesis Regenerative Health & NAD+",
+    "category": "Regenerative Orthobiologics, PRP & NAD+ IVs",
+    "address": "4370 Town Center Blvd, El Dorado Hills, CA 95762",
+    "decision_maker": "Dr. Christopher Paul, MD",
+    "size": "4 Treatment Suites, $2.4M Annual Revenue",
+    "current_pms": "Kareo / Tebra",
+    "hook": "DOC-AA-01 clinical safety triage for regenerative injections and after-hours triage.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L39",
+    "name": "Clean Start Weight Loss & Hormone Therapy",
+    "category": "Medical Detox, GLP-1 & Metabolic Balance",
+    "address": "2510 E Bidwell St, Folsom, CA 95630",
+    "decision_maker": "Dr. Kevin Thomas, MD",
+    "size": "4 Consult Rooms, $1.8M Annual Revenue",
+    "current_pms": "Healthie Cloud",
+    "hook": "Multi-session weight loss package renewal reminders + instant waitlist claiming via SMS.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L40",
+    "name": "Sierra Weight Management & Longevity Clinic",
+    "category": "Cardiometabolic Health & Longevity Medicine",
+    "address": "1568 Creekside Dr, Folsom, CA 95630",
+    "decision_maker": "Dr. Brandon Lee, MD",
+    "size": "5 Consult Rooms, $2.5M Annual Revenue",
+    "current_pms": "Athenahealth",
+    "hook": "Automated treatment plan follow-up for unscheduled metabolic follow-up cases.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L41",
+    "name": "Pure Vitality Longevity & HRT",
+    "category": "Women's Menopause Optimization & BHRT",
+    "address": "3955 Park Dr, Ste 6, El Dorado Hills, CA 95762",
+    "decision_maker": "Dr. Megan Ross, MD",
+    "size": "3 Treatment Rooms, $1.6M Annual Revenue",
+    "current_pms": "CharmHealth",
+    "hook": "Menopause consultation schedule autofill with 100% HIPAA/CMIA zero-pixel compliance.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L42",
+    "name": "Regenerative Health Institute of Granite Bay",
+    "category": "Exosomes, Peptides & Longevity Biomarkers",
+    "address": "4190 Douglas Blvd, Granite Bay, CA 95746",
+    "decision_maker": "Dr. Alex Martin, MD",
+    "size": "5 Treatment Suites, $3.1M Annual Revenue",
+    "current_pms": "Boulevard Cloud",
+    "hook": "High-ticket regenerative consult autofill ($1,200/slot) with sub-15ms atomic locking.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L43",
+    "name": "Folsom Wellness & Cellular Health",
+    "category": "Mitochondrial Support, Hyperbaric & IV Therapy",
+    "address": "189 Blue Ravine Rd, Folsom, CA 95630",
+    "decision_maker": "Dr. Natalie Hayes, MD",
+    "size": "4 Therapy Chambers, $1.9M Annual Revenue",
+    "current_pms": "Mindbody",
+    "hook": "Hyperbaric chamber scheduling and monthly wellness credit wallet concierge.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L44",
+    "name": "Sierra Integrative Longevity Medicine",
+    "category": "Integrative Oncology Support & Longevity Care",
+    "address": "4989 Golden Foothill Pkwy, EDH, CA 95762",
+    "decision_maker": "Dr. Tyler Scott, MD",
+    "size": "4 Consult Rooms, $2.2M Annual Revenue",
+    "current_pms": "Power2Practice",
+    "hook": "Zero-port edge daemon integrating directly with clinic server without IT MSP friction.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L45",
+    "name": "Cameron Park Wellness & GLP-1 Subscriptions",
+    "category": "Direct Access Semaglutide & Tirzepatide Clinic",
+    "address": "3311 Coach Ln, Cameron Park, CA 95682",
+    "decision_maker": "Dr. Jessica Miller, MD",
+    "size": "3 Consult Rooms, $1.3M Annual Revenue",
+    "current_pms": "Healthie",
+    "hook": "Automated monthly refill check-in scheduling via private 10DLC SMS.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L46",
+    "name": "Roseville Longevity & Anti-Aging Clinic",
+    "category": "Hormone Replacement, NAD+ & Weight Management",
+    "address": "2235 Douglas Blvd, Roseville, CA 95661",
+    "decision_maker": "Dr. Daniel Craig, MD",
+    "size": "6 Consult Suites, $3.4M Annual Revenue",
+    "current_pms": "Athenahealth",
+    "hook": "Elimination of client-side tracking pixels leaking sensitive hormone queries to Meta.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L47",
+    "name": "Granite Bay Hormone Therapy & Peptide Clinic",
+    "category": "Physician-Supervised BHRT & Peptide Optimization",
+    "address": "6809 Douglas Blvd, Granite Bay, CA 95746",
+    "decision_maker": "Dr. Colby Smith, MD",
+    "size": "4 Treatment Rooms, $2.3M Annual Revenue",
+    "current_pms": "Boulevard",
+    "hook": "Sub-15ms hormone pellet consultation recovery via priority waitlist SMS dispatch.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L48",
+    "name": "Foothill Metabolic Health & GLP-1 Center",
+    "category": "Metabolic Optimization & Prescription Weight Loss",
+    "address": "705 E Bidwell St, Folsom, CA 95630",
+    "decision_maker": "Dr. Jessica Vance, MD",
+    "size": "4 Consult Rooms, $1.9M Annual Revenue",
+    "current_pms": "CharmHealth",
+    "hook": "Monthly recurring GLP-1 membership check-in rebooking in under 20ms.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L49",
+    "name": "LifeSpan Longevity & Biomarker Center",
+    "category": "Advanced Glycation, Biological Aging & NAD+",
+    "address": "4944 Windplay Dr, Ste 210, EDH, CA 95762",
+    "decision_maker": "Dr. Sean Murphy, MD",
+    "size": "4 Treatment Suites, $2.4M Annual Revenue",
+    "current_pms": "Healthie / Hint",
+    "hook": "Biological age protocol tracking and automated periodic testing re-engagement.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
+  },
+  {
+    "id": "EDH-L50",
+    "name": "Precision Metabolic & Weight Optimization",
+    "category": "Metabolic Health & Multi-Specialty Longevity",
+    "address": "4201 Town Center Blvd, El Dorado Hills, CA 95762",
+    "decision_maker": "Dr. Marcus Hayes, MD",
+    "size": "5 Consult Suites, $2.9M Annual Revenue",
+    "current_pms": "Athenahealth / Epic",
+    "hook": "Synchronized metabolic testing and physician appointment chaining with zero double-bookings.",
+    "tab_category": "longevity",
+    "badge": "Weight Loss & Longevity"
   }
 ];
+
     let currentCategory = 'all';
 
     function renderCards(targets) {
-      const grid = document.getElementById('practiceGrid');
+      const grid = document.getElementById('prospectsGrid');
       grid.innerHTML = '';
 
       targets.forEach(p => {
         let badgeClass = 'badge-dental';
-        let badgeText = 'Dental';
-        if (p.id.startsWith('EDH-M')) {
-          badgeClass = 'badge-medspa';
-          badgeText = 'Med Spa';
-        } else if (p.id.startsWith('EDH-A')) {
-          badgeClass = 'badge-allied';
-          badgeText = 'Allied Care';
-        }
+        if (p.tab_category === 'medspa') badgeClass = 'badge-medspa';
+        else if (p.tab_category === 'concierge') badgeClass = 'badge-concierge';
+        else if (p.tab_category === 'pt') badgeClass = 'badge-pt';
+        else if (p.tab_category === 'longevity') badgeClass = 'badge-longevity';
 
         const card = document.createElement('div');
         card.className = 'card';
-        card.setAttribute('data-category', badgeText.toLowerCase());
+        card.setAttribute('data-category', p.tab_category);
         card.innerHTML = `
           <div>
             <div class="card-top">
               <span class="card-id">${p.id}</span>
-              <span class="category-badge ${badgeClass}">${badgeText}</span>
+              <span class="category-badge ${badgeClass}">${p.badge}</span>
             </div>
             <div class="practice-name">${p.name}</div>
             <div class="practice-specialty">${p.category}</div>
@@ -1099,10 +3387,7 @@
     function filterCards() {
       const q = document.getElementById('searchInput').value.toLowerCase();
       const filtered = ALL_TARGETS.filter(p => {
-        const matchesCategory = (currentCategory === 'all') ||
-          (currentCategory === 'dental' && p.id.startsWith('EDH-D')) ||
-          (currentCategory === 'medspa' && p.id.startsWith('EDH-M')) ||
-          (currentCategory === 'allied' && p.id.startsWith('EDH-A'));
+        const matchesCategory = (currentCategory === 'all') || (p.tab_category === currentCategory);
         
         const matchesSearch = p.name.toLowerCase().includes(q) ||
           p.decision_maker.toLowerCase().includes(q) ||
@@ -1122,7 +3407,6 @@
       filterCards();
     }
 
-    // Initial render
     renderCards(ALL_TARGETS);
   </script>
 </body>

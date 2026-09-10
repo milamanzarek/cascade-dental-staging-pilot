@@ -38,9 +38,9 @@ By running autonomous agents directly against the practice's MySQL/SQLite databa
 - 📊 **Master Working Index (Google Sheets - 14 Tabs Populated)**:  
   [https://docs.google.com/spreadsheets/d/1kjdhvtG_Z1KNiacZIjV-27QHVU90xW4zhmNcjzCn-28](https://docs.google.com/spreadsheets/d/1kjdhvtG_Z1KNiacZIjV-27QHVU90xW4zhmNcjzCn-28/edit?usp=sharing)  
   *Contains: Candidate Master (45 tools), Requirements Register (17 atomic specs), TCO Calculator (36-month), Scenario Library, Agent Authority Matrix, and Empirical Trial Results (TR-001 through TR-008).*
-- 📈 **El Dorado Hills 75-Practice Strike List (Google Sheets - 4 Tabs Populated & Formatted)**:  
+- 📈 **El Dorado Hills & Regional Corridor: 250-Practice Strike List (Google Sheets - 6 Tabs Populated & Formatted)**:  
   [https://docs.google.com/spreadsheets/d/1BMqPiolxcGFcO7qQesWnp-rpbhg2p61wBSXzoE5YF0Q](https://docs.google.com/spreadsheets/d/1BMqPiolxcGFcO7qQesWnp-rpbhg2p61wBSXzoE5YF0Q/edit?usp=sharing)  
-  *Complete, verified California market directory across 4 tabs: 01 Master Roster (75), 02 Dental Practices (25), 03 Med Spa & Aesthetics (25), and 04 Allied Outpatient (25).*
+  *Complete, verified California market directory across 6 tabs (50 targets per sub-industry): 01 Master Roster (250), 02 Dental Practices (50), 03 Med Spa & Aesthetics (50), 04 Concierge & Specialty Med (50), 05 Physical Therapy & Rehab (50), and 06 Weight Loss & Longevity (50).*
 - 🖥️ **Executive Research Presentation Deck (Google Slides - 12 Custom Cards)**:  
   [https://docs.google.com/presentation/d/1Sj9nIV1BYlkhzlHT4xSR2ueuCn7Eg1Pf_P3ZKV1xPJY](https://docs.google.com/presentation/d/1Sj9nIV1BYlkhzlHT4xSR2ueuCn7Eg1Pf_P3ZKV1xPJY/edit?usp=sharing)  
   *Tailored for clinic leadership and practice partners covering the 4 operational bottlenecks and Lane 3 technical architecture.*
@@ -64,7 +64,7 @@ By running autonomous agents directly against the practice's MySQL/SQLite databa
 7. [`research/07_PRICING_MODELS_AND_COMMERCIAL_OFFERING.md`](research/07_PRICING_MODELS_AND_COMMERCIAL_OFFERING.md): Comprehensive commercial offering dossier, true operating cost anatomy ($25-$95/mo vs $2,000/mo SaaS tax), build economics, 3 client pricing packages, client pitch script with objection handling, and 4-week onboarding roadmap with Mermaid charts.
 8. [`research/08_MEDSPA_EXPANSION_AND_PROSPECT_CONVERSION_PLAYBOOK.md`](research/08_MEDSPA_EXPANSION_AND_PROSPECT_CONVERSION_PLAYBOOK.md): Comprehensive Med Spa operational playbook, high-ticket dual-resource scheduling ($1,200 Morpheus8), Beauty Bank VIP concierge ($29.4k dormant credit recovery), 5 field how-to guides, and 5-stage prospect sales conversion protocol.
 9. [`research/09_OPERATIONAL_ROLLOUT_AND_SYSTEM_WALKTHROUGH.md`](research/09_OPERATIONAL_ROLLOUT_AND_SYSTEM_WALKTHROUGH.md): Master technical walkthrough of the commercial outreach suite, after-hours conversational voice agent, and one-click Windows edge installer.
-10. [`research/10_EL_DORADO_HILLS_CALIFORNIA_PROSPECT_EXPANSION.md`](research/10_EL_DORADO_HILLS_CALIFORNIA_PROSPECT_EXPANSION.md): Comprehensive 75-practice regional strike list and market analysis across El Dorado Hills, Folsom, and Granite Bay, CA (25 Dental, 25 Med Spa, 25 Allied Outpatient).
+10. [`research/10_EL_DORADO_HILLS_CALIFORNIA_PROSPECT_EXPANSION.md`](research/10_EL_DORADO_HILLS_CALIFORNIA_PROSPECT_EXPANSION.md): Comprehensive 250-practice regional strike list and market analysis across El Dorado Hills, Folsom, Granite Bay, Cameron Park, and Roseville, CA (50 Dental, 50 Med Spa, 50 Concierge/Specialty, 50 PT & Rehab, 50 Weight Loss & Longevity).
 
 ---
 
@@ -239,15 +239,17 @@ We provide three production-ready modules engineered specifically for live sales
 - **Interactive Configuration Wizard (`installer/config_wizard.py`)**: Prompts clinic staff for practice credentials, database connection paths (Open Dental / Boulevard / Zenoti), and carrier tokens, generating secure, redacted `.env.clinic` files.
 - **IT MSP Documentation (`installer/README.md`)**: Complete system requirements, architecture flowcharts, service management commands, and troubleshooting guides.
 
-### 6.8 El Dorado Hills, CA: 75 Practice Acquisition Strike List (`prospects/` & `research/10`)
-- **Comprehensive Outpatient Portfolio**: 75 verified healthcare targets compiled across El Dorado Hills, Folsom, and Granite Bay, CA:
-  - **25 Dental Practices**: General, cosmetic, pediatric, orthodontic, and implantology practices.
-  - **25 Medical Spas & Aesthetic Clinics**: Laser resurfacing, injectables, RF microneedling, and body contouring centers.
-  - **25 Allied Outpatient Practices**: Concierge medicine, functional/longevity clinics, cosmetic dermatology, plastic surgery, sports physical therapy, and refractive eye care.
-- **Rich Prospect Profiles**: Includes practice names, addresses, verified decision makers/lead clinicians, scale/revenue, current PMS stacks, and tailored Lane 3 pitch hooks.
-- **Interactive Searchable Directory**: Responsive HTML dashboard with category filters and keyword search in `prospects/el_dorado_hills_directory.html`.
-- **Master Strategy Document**: Documented in [`prospects/EL_DORADO_HILLS_75_STRIKE_LIST.md`](prospects/EL_DORADO_HILLS_75_STRIKE_LIST.md) and [`research/10_EL_DORADO_HILLS_CALIFORNIA_PROSPECT_EXPANSION.md`](research/10_EL_DORADO_HILLS_CALIFORNIA_PROSPECT_EXPANSION.md).
-- **Dedicated Google Sheet**: [Open El Dorado Hills 75-Practice Market Strike List](https://docs.google.com/spreadsheets/d/1BMqPiolxcGFcO7qQesWnp-rpbhg2p61wBSXzoE5YF0Q/edit?usp=sharing) across 4 styled and frozen tabs.
+### 6.8 El Dorado Hills & Regional Corridor: 250 Practice Acquisition Strike List (`prospects/` & `research/10`)
+- **Comprehensive Outpatient Portfolio**: 250 verified healthcare targets compiled across El Dorado Hills, Folsom, Granite Bay, Cameron Park, and Roseville, CA:
+  - **50 Dental Practices**: General, cosmetic, pediatric, orthodontic, oral surgery, and implantology practices.
+  - **50 Medical Spas & Aesthetic Clinics**: Laser resurfacing, neurotoxins, dermal fillers, RF microneedling, and body contouring.
+  - **50 Concierge & Specialty Medical Practices**: Direct primary care (DPC), cosmetic dermatology, facial plastic surgery, and audiology.
+  - **50 Physical Therapy & Sports Rehab Centers**: Orthopedic PT, athletic recovery, spine rehabilitation, and biomechanical performance labs.
+  - **50 Medical Weight Loss & Longevity Clinics**: GLP-1 (Semaglutide/Tirzepatide) subscriptions, BHRT/TRT, peptide protocols, and cellular wellness.
+- **Rich Prospect Profiles**: Includes practice IDs, verified clinician names, physical addresses, estimated revenue, current software stacks, and tailored Lane 3 pitch hooks.
+- **Interactive Searchable Directory**: Responsive HTML dashboard with 6 category tabs and real-time keyword search across all 250 clinics in [`prospects/el_dorado_hills_directory.html`](prospects/el_dorado_hills_directory.html).
+- **Master Strategy Dossier**: Documented in [`prospects/EL_DORADO_HILLS_250_STRIKE_LIST.md`](prospects/EL_DORADO_HILLS_250_STRIKE_LIST.md) and [`research/10_EL_DORADO_HILLS_CALIFORNIA_PROSPECT_EXPANSION.md`](research/10_EL_DORADO_HILLS_CALIFORNIA_PROSPECT_EXPANSION.md).
+- **Dedicated Google Sheet**: [Open El Dorado Hills 250-Practice Market Strike List](https://docs.google.com/spreadsheets/d/1BMqPiolxcGFcO7qQesWnp-rpbhg2p61wBSXzoE5YF0Q/edit?usp=sharing) across 6 styled and frozen tabs.
 
 ---
 
@@ -293,7 +295,7 @@ This repository strictly enforces the 5-tier Agent Authority framework:
 | **Founding Partner Pilot Agreement** | Google Docs | [Open Founding Partner Agreement](https://docs.google.com/document/d/13FfufRcOWL43UwHVvzv7Z7zsDpb7soAgbr0E4a33q3I/edit?usp=sharing) | `13FfufRcOWL43UwHVvzv7Z7zsDpb7soAgbr0E4a33q3I` | 1-Page executive agreement: $2,000 setup, 30-day trial guarantee, $450/mo retainer, BAA & signatures. |
 | **Technical Architecture Deck** | Google Slides | [Open Architecture Presentation Deck](https://docs.google.com/presentation/d/1Sj9nIV1BYlkhzlHT4xSR2ueuCn7Eg1Pf_P3ZKV1xPJY/edit?usp=sharing) | `1Sj9nIV1BYlkhzlHT4xSR2ueuCn7Eg1Pf_P3ZKV1xPJY` | 12 Slides: Reverse-engineering of Open Dental, Dentrix, Boulevard, Zenoti, and Zero-Port Edge Daemon. |
 | **Master Working Index** | Google Sheets | [Open Master Working Index](https://docs.google.com/spreadsheets/d/1kjdhvtG_Z1KNiacZIjV-27QHVU90xW4zhmNcjzCn-28/edit?usp=sharing) | `1kjdhvtG_Z1KNiacZIjV-27QHVU90xW4zhmNcjzCn-28` | 14 Tabs populated with PMS candidate registry, trial benchmarks, build catalog, and fee schedules. |
-| **El Dorado Hills 75 Practice Strike List** | Google Sheets | [Open El Dorado Hills 75 Practice Strike List](https://docs.google.com/spreadsheets/d/1BMqPiolxcGFcO7qQesWnp-rpbhg2p61wBSXzoE5YF0Q/edit?usp=sharing) | `1BMqPiolxcGFcO7qQesWnp-rpbhg2p61wBSXzoE5YF0Q` | 4 Tabs: Master Roster (75), Dental (25), Med Spa (25), and Allied Outpatient (25) with verified clinicians and PMS. |
+| **El Dorado Hills & Regional Corridor: 250 Practice Strike List** | Google Sheets | [Open 250 Practice Strike List](https://docs.google.com/spreadsheets/d/1BMqPiolxcGFcO7qQesWnp-rpbhg2p61wBSXzoE5YF0Q/edit?usp=sharing) | `1BMqPiolxcGFcO7qQesWnp-rpbhg2p61wBSXzoE5YF0Q` | 6 Tabs: Master Roster (250), Dental (50), Med Spa (50), Concierge & Specialty (50), PT & Rehab (50), and Longevity (50) with verified clinicians and PMS. |
 | **Production Web Demo** | Vercel | [https://webdemo-nine-zeta.vercel.app](https://webdemo-nine-zeta.vercel.app) | Public URL | Dual-practice interactive demonstration (Cascade Dental Arts $\leftrightarrow$ Cascade Aesthetic Medicine). |
 | **GitHub Repository** | Git | [github.com/milamanzarek/cascade-dental-staging-pilot](https://github.com/milamanzarek/cascade-dental-staging-pilot) | `main` branch | Clean, deployable source code repository. |
 

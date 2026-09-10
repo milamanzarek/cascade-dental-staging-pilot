@@ -60,6 +60,8 @@ By running autonomous agents directly against the practice's MySQL/SQLite databa
 6. [`research/06_PMS_CARRIER_INTEGRATION_AND_EDGE_CONNECTOR_SPECIFICATION.md`](research/06_PMS_CARRIER_INTEGRATION_AND_EDGE_CONNECTOR_SPECIFICATION.md): Deep-dive integration engineering study for Open Dental, Dentrix G6/G7, Eaglesoft, Boulevard GraphQL, Zenoti REST v2, A2P 10DLC TCR playbook, Zero-PHI SMS standard, and Zero-Port Edge Connector blueprint.
 7. [`research/07_PRICING_MODELS_AND_COMMERCIAL_OFFERING.md`](research/07_PRICING_MODELS_AND_COMMERCIAL_OFFERING.md): Comprehensive commercial offering dossier, true operating cost anatomy ($25-$95/mo vs $2,000/mo SaaS tax), build economics, 3 client pricing packages, client pitch script with objection handling, and 4-week onboarding roadmap with Mermaid charts.
 8. [`research/08_MEDSPA_EXPANSION_AND_PROSPECT_CONVERSION_PLAYBOOK.md`](research/08_MEDSPA_EXPANSION_AND_PROSPECT_CONVERSION_PLAYBOOK.md): Comprehensive Med Spa operational playbook, high-ticket dual-resource scheduling ($1,200 Morpheus8), Beauty Bank VIP concierge ($29.4k dormant credit recovery), 5 field how-to guides, and 5-stage prospect sales conversion protocol.
+9. [`research/09_OPERATIONAL_ROLLOUT_AND_SYSTEM_WALKTHROUGH.md`](research/09_OPERATIONAL_ROLLOUT_AND_SYSTEM_WALKTHROUGH.md): Master technical walkthrough of the commercial outreach suite, after-hours conversational voice agent, and one-click Windows edge installer.
+10. [`research/10_EL_DORADO_HILLS_CALIFORNIA_PROSPECT_EXPANSION.md`](research/10_EL_DORADO_HILLS_CALIFORNIA_PROSPECT_EXPANSION.md): Comprehensive 75-practice regional strike list and market analysis across El Dorado Hills, Folsom, and Granite Bay, CA (25 Dental, 25 Med Spa, 25 Allied Outpatient).
 
 ---
 
@@ -233,6 +235,15 @@ We provide three production-ready modules engineered specifically for live sales
 - **Turnkey Clinic Onboarding**: Automated PowerShell script (`installer/install_lane3_daemon.ps1`) verifies local Python runtime, tests outbound TLS 443 handshake to eliminate IT MSP firewall friction, builds the directory hierarchy (`C:\Lane3Edge\`), and registers a self-healing background Windows Scheduled Task with auto-restart on boot.
 - **Interactive Configuration Wizard (`installer/config_wizard.py`)**: Prompts clinic staff for practice credentials, database connection paths (Open Dental / Boulevard / Zenoti), and carrier tokens, generating secure, redacted `.env.clinic` files.
 - **IT MSP Documentation (`installer/README.md`)**: Complete system requirements, architecture flowcharts, service management commands, and troubleshooting guides.
+
+### 6.8 El Dorado Hills, CA: 75 Practice Acquisition Strike List (`prospects/` & `research/10`)
+- **Comprehensive Outpatient Portfolio**: 75 verified healthcare targets compiled across El Dorado Hills, Folsom, and Granite Bay, CA:
+  - **25 Dental Practices**: General, cosmetic, pediatric, orthodontic, and implantology practices.
+  - **25 Medical Spas & Aesthetic Clinics**: Laser resurfacing, injectables, RF microneedling, and body contouring centers.
+  - **25 Allied Outpatient Practices**: Concierge medicine, functional/longevity clinics, cosmetic dermatology, plastic surgery, sports physical therapy, and refractive eye care.
+- **Rich Prospect Profiles**: Includes practice names, addresses, verified decision makers/lead clinicians, scale/revenue, current PMS stacks, and tailored Lane 3 pitch hooks.
+- **Interactive Searchable Directory**: Responsive HTML dashboard with category filters and keyword search in `prospects/el_dorado_hills_directory.html`.
+- **Master Strategy Document**: Documented in [`prospects/EL_DORADO_HILLS_75_STRIKE_LIST.md`](prospects/EL_DORADO_HILLS_75_STRIKE_LIST.md) and [`research/10_EL_DORADO_HILLS_CALIFORNIA_PROSPECT_EXPANSION.md`](research/10_EL_DORADO_HILLS_CALIFORNIA_PROSPECT_EXPANSION.md).
 
 ---
 

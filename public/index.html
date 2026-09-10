@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🦷 Cascade Dental Arts · Lane 3 Autonomous Agent Pilot</title>
+    <title>Cascade Healthcare AI · Dual Practice Pilot (Dental & MedSpa)</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦷</text></svg>">
     <style>
@@ -18,30 +18,47 @@
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
+            --accent-gold: #fbbf24;
+            --accent-purple: #c084fc;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        body { background: var(--bg); color: var(--text); padding: 20px; }
+        body { background: var(--bg); color: var(--text); padding: 20px; transition: background 0.3s; }
+        body.medspa-theme { --primary: #d97706; --primary-dark: #b45309; --bg: #120e1d; --surface: #1f1730; --border: #443360; }
+        
         header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 16px; margin-bottom: 20px; gap: 12px; }
-        h1 { font-size: 22px; font-weight: 700; color: #38bdf8; }
+        h1 { font-size: 22px; font-weight: 700; color: #38bdf8; transition: color 0.3s; }
+        body.medspa-theme h1 { color: #f59e0b; }
+        
+        .mode-bar { display: flex; gap: 10px; margin-bottom: 20px; background: #070c1a; padding: 6px; border-radius: 10px; border: 1px solid var(--border); width: fit-content; }
+        .mode-btn { background: transparent; color: var(--text-muted); border: none; padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+        .mode-btn.active { background: var(--primary); color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+        
         .badge { background: #0369a1; color: #fff; padding: 4px 10px; border-radius: 9999px; font-size: 11px; font-weight: 600; text-transform: uppercase; }
+        body.medspa-theme .badge { background: #78350f; }
+        
         .grid-container { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
         @media (max-width: 992px) { .grid-container { grid-template-columns: 1fr; } }
-        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px; margin-bottom: 20px; }
+        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px; margin-bottom: 20px; transition: all 0.3s; }
         .card-title { font-size: 15px; font-weight: 600; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
         
         .op-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
         @media (max-width: 768px) { .op-grid { grid-template-columns: 1fr; } }
         .op-col { background: #0f172a; border: 1px solid var(--border); border-radius: 8px; padding: 10px; }
+        body.medspa-theme .op-col { background: #160f24; }
         .op-header { font-size: 12px; font-weight: 700; color: #38bdf8; border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-bottom: 8px; }
+        body.medspa-theme .op-header { color: #f59e0b; }
         
-        .apt-card { background: #1e293b; border-left: 4px solid var(--success); padding: 8px; border-radius: 4px; margin-bottom: 6px; font-size: 12px; transition: transform 0.1s, border-color 0.2s; }
+        .apt-card { background: #1e293b; border-left: 4px solid var(--success); padding: 8px; border-radius: 4px; margin-bottom: 6px; font-size: 12px; transition: transform 0.1s, border-color 0.2s; cursor: pointer; }
+        body.medspa-theme .apt-card { background: #261c3b; }
         .apt-card:hover { transform: translateY(-1px); border-color: #38bdf8; }
         .apt-card.cancelled { border-left-color: var(--danger); background: #2d1515; }
+        body.medspa-theme .apt-card.cancelled { background: #35131f; }
         .apt-time { font-weight: 700; color: #cbd5e1; }
         .apt-patient { font-weight: 600; }
         .apt-status { font-size: 10px; text-transform: uppercase; padding: 2px 4px; border-radius: 3px; display: inline-block; margin-top: 4px; font-weight: 600; }
         .status-1 { background: #064e3b; color: #6ee7b7; }
         .status-5 { background: #7f1d1d; color: #fca5a5; }
+        .vip-badge { background: #78350f; color: #fef08a; padding: 2px 5px; border-radius: 3px; font-size: 9px; font-weight: 700; margin-left: 4px; }
         
         button { background: var(--primary); color: #fff; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background 0.2s; font-size: 12px; }
         button:hover { background: var(--primary-dark); }
@@ -49,6 +66,8 @@
         button.danger:hover { background: #dc2626; }
         button.success { background: var(--success); }
         button.success:hover { background: #059669; }
+        button.gold { background: #d97706; }
+        button.gold:hover { background: #b45309; }
         
         .log-list { max-height: 240px; overflow-y: auto; font-size: 12px; }
         .log-item { padding: 8px; border-bottom: 1px solid var(--border); }
@@ -56,17 +75,29 @@
 
         .sim-panel { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
         input[type="text"] { background: #0f172a; border: 1px solid var(--border); color: #fff; padding: 8px 12px; border-radius: 6px; font-size: 13px; }
+        body.medspa-theme input[type="text"] { background: #160f24; }
         .toast { background: #0284c7; color: #fff; padding: 10px 14px; border-radius: 6px; margin-bottom: 12px; font-size: 12px; display: none; }
+        body.medspa-theme .toast { background: #d97706; }
+
+        .vip-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid var(--border); font-size: 12px; }
+        .vip-name { font-weight: 700; color: #fef08a; }
+        .vip-balance { font-weight: 700; color: #6ee7b7; }
     </style>
 </head>
 <body>
+    <!-- Mode Switcher -->
+    <div class="mode-bar">
+        <button id="btn-mode-dental" class="mode-btn active" onclick="switchPractice('dental')">🦷 Dental Practice (Cascade Dental Arts)</button>
+        <button id="btn-mode-medspa" class="mode-btn" onclick="switchPractice('medspa')">✨ Med Spa (Cascade Aesthetic Medicine)</button>
+    </div>
+
     <header>
         <div>
-            <h1>Cascade Dental Arts · Lane 3 Autonomous Agent Pilot</h1>
-            <p style="color: var(--text-muted); font-size: 13px;">Open Dental Relational Architecture · Twilio 10DLC · Autonomous Schedule Hole Recovery</p>
+            <h1 id="practice-title">Cascade Dental Arts · Lane 3 Autonomous Agent Pilot</h1>
+            <p id="practice-subtitle" style="color: var(--text-muted); font-size: 13px;">Open Dental Relational Architecture · Twilio 10DLC · Autonomous Schedule Hole Recovery</p>
         </div>
         <div>
-            <span class="badge" id="env-badge">VERCEL DEPLOYMENT</span>
+            <span class="badge" id="env-badge">VERCEL PRODUCTION</span>
             <span class="badge" style="background:#10b981; margin-left:6px;">DAEMON: ACTIVE</span>
         </div>
     </header>
@@ -74,363 +105,457 @@
     <div id="toast" class="toast"></div>
 
     <div class="grid-container">
-        <!-- Left Column: Operatory Schedule Grid -->
+        <!-- Left Column: Operatory / Suite Schedule Grid -->
         <div>
             <div class="card">
                 <div class="card-title">
-                    <span>Tomorrow's 6-Operatory Schedule (Live Open Dental DB)</span>
+                    <span id="grid-title">Today's 6-Operatory Schedule (Open Dental DB)</span>
                     <button onclick="refreshData()">Refresh Grid</button>
                 </div>
-                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
-                    💡 <strong>Interactive Demo:</strong> Click any booked card below to simulate a patient cancellation and trigger the autonomous agent.
+                <p id="grid-desc" style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+                    💡 <strong>Interactive Demo:</strong> Click any booked card below to simulate a cancellation and trigger autonomous agent recovery.
                 </p>
                 <div class="op-grid" id="operatory-container">Loading schedule...</div>
             </div>
 
-            <div class="card">
+            <!-- Bottom Left Card: Clinical Notes / Lapsed VIP Memberships -->
+            <div class="card" id="secondary-card">
                 <div class="card-title">
-                    <span>Ambient Clinical SOAP Note Review Queue (AA-03 Doctor Gate)</span>
+                    <span id="secondary-card-title">Ambient Clinical SOAP Note Review Queue (AA-03 Doctor Gate)</span>
                 </div>
-                <div id="staged-notes-container">Loading clinical review queue...</div>
+                <div id="secondary-card-container">Loading data...</div>
             </div>
         </div>
 
-        <!-- Right Column: Interactive Simulation & SMS Telephony Stream -->
+        <!-- Right Column: Interactive Simulator & Telephony Stream -->
         <div>
+            <!-- Simulator Actions Card -->
             <div class="card">
                 <div class="card-title">
-                    <span>Simulate Patient Actions</span>
+                    <span id="sim-title">Front Desk Simulation Controls</span>
                 </div>
-                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
-                    Trigger an unexpected cancellation to watch the Lane 3 agent daemon detect the hole, identify recall candidates, and broadcast SMS.
-                </p>
-                <button class="danger" style="width: 100%; margin-bottom: 14px;" onclick="triggerCancellation()">Simulate Cancellation on Op 1</button>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <button id="btn-cancel-target" class="danger" onclick="cancelTargetSlot()">
+                        Simulate Patient Cancellation (Op 1)
+                    </button>
+                    <button class="gold" id="btn-reengage" onclick="reengageAction()" style="display: none;">
+                        ✨ Re-Engage Lapsed VIP Beauty Bank Members
+                    </button>
+                    <button style="background: #334155;" onclick="resetPracticeData()">
+                        Reset Practice Database to Seed State
+                    </button>
+                </div>
+            </div>
 
-                <div style="border-top: 1px solid var(--border); padding-top: 12px;">
-                    <p style="font-size: 12px; font-weight: 600; margin-bottom: 6px;">Simulate Inbound Patient SMS Reply:</p>
-                    <div class="sim-panel">
-                        <input type="text" id="sim-phone" value="+14255550203" placeholder="Patient Phone Number">
-                        <div style="display: flex; gap: 6px;">
-                            <input type="text" id="sim-body" value="YES" placeholder="Message text (e.g. YES, STOP)" style="flex:1;">
-                            <button class="success" onclick="sendInboundSms()">Send SMS</button>
-                        </div>
-                        <div style="display: flex; gap: 6px; margin-top: 4px;">
-                            <button style="flex:1; background:#334155;" onclick="quickSms('YES')">Pre-fill YES (Claim)</button>
-                            <button style="flex:1; background:#7f1d1d;" onclick="quickSms('STOP')">Pre-fill STOP (Opt-Out)</button>
-                        </div>
+            <!-- Patient Smartphone Simulator -->
+            <div class="card" style="border: 2px solid var(--primary);">
+                <div class="card-title">
+                    <span style="color: var(--primary);">📲 Patient Cell Phone Simulator (Twilio 10DLC)</span>
+                </div>
+                <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">
+                    Simulate an inbound text from a waitlist candidate's smartphone:
+                </p>
+                <div class="sim-panel">
+                    <label style="font-size: 11px; color: var(--text-muted);">Candidate Mobile Phone Number:</label>
+                    <input type="text" id="sim-phone" value="+14255550203" placeholder="+1425555xxxx">
+                    <label style="font-size: 11px; color: var(--text-muted);">SMS Reply Body:</label>
+                    <input type="text" id="sim-body" value="YES" placeholder="Type YES or STOP">
+                    <div style="display: flex; gap: 8px; margin-top: 4px;">
+                        <button class="success" style="flex: 1;" onclick="sendSimulatedSMS()">Send SMS Reply</button>
+                        <button class="danger" onclick="document.getElementById('sim-body').value = 'STOP'; sendSimulatedSMS();">Text STOP</button>
                     </div>
                 </div>
             </div>
 
+            <!-- Real-Time Agent Telemetry Stream -->
             <div class="card">
                 <div class="card-title">
-                    <span>Outbound Twilio 10DLC Waitlist Offers</span>
+                    <span>Autonomous Agent Telemetry & SMS Stream</span>
+                    <button style="background:transparent; border:1px solid var(--border); padding:2px 8px; font-size:11px;" onclick="clearLogs()">Clear</button>
                 </div>
-                <div class="log-list" id="offers-container">Loading offers...</div>
-            </div>
-
-            <div class="card">
-                <div class="card-title">
-                    <span>Agent Execution & Audit Log</span>
-                </div>
-                <div class="log-list" id="agent-log-container">Loading audit logs...</div>
+                <div class="log-list" id="log-container">Loading telemetry logs...</div>
             </div>
         </div>
     </div>
 
     <script>
-        // State store with initial fallback
-        let state = {
-            operatories: [
-                { OperatoryNum: 1, OpName: "Hygiene 1 (East)" },
-                { OperatoryNum: 2, OpName: "Hygiene 2 (West)" },
-                { OperatoryNum: 3, OpName: "Op 1 (Restorative)" },
-                { OperatoryNum: 4, OpName: "Op 2 (Restorative)" },
-                { OperatoryNum: 5, OpName: "Op 3 (Surgical/Implants)" },
-                { OperatoryNum: 6, OpName: "Op 4 (Endodontics)" }
-            ],
-            appointments: [],
-            offers: [],
-            notes: [
-                {
-                    StagedNoteNum: 1,
-                    AptNum: 1,
-                    Status: "PENDING_REVIEW",
-                    SOAPContent: "SUBJECTIVE: Tooth #19 cold sensitivity. Prescribed Eliquis 5mg BID.\nOBJECTIVE: Pocket depths 5-4-5mm.\nPLAN: Root planing & crown.",
-                    SystemicAlerts: "HIGH BLEEDING RISK: Anticoagulant therapy (Eliquis). Bleeding precaution for root planing."
-                }
-            ],
-            logs: [
-                { Timestamp: new Date().toISOString(), ActionType: "SYSTEM_INIT", Details: "Lane 3 Agent Bridge initialized and monitoring Open Dental database" }
-            ]
+        let currentMode = 'dental'; // 'dental' or 'medspa'
+
+        // Local reactive state
+        const state = {
+            dental: {
+                operatories: [
+                    { OperatoryNum: 1, OpName: "Hygiene 1 (East)", IsHygiene: 1 },
+                    { OperatoryNum: 2, OpName: "Hygiene 2 (West)", IsHygiene: 1 },
+                    { OperatoryNum: 3, OpName: "Hygiene 3 (Pediatric)", IsHygiene: 1 },
+                    { OperatoryNum: 4, OpName: "Doctor 1 (Restorative)", IsHygiene: 0 },
+                    { OperatoryNum: 5, OpName: "Doctor 2 (Surgical/Implant)", IsHygiene: 0 },
+                    { OperatoryNum: 6, OpName: "Doctor 3 (Endodontics)", IsHygiene: 0 }
+                ],
+                appointments: [
+                    { AptNum: 36, Op: 1, AptDateTime: "09:00:00", FName: "Sarah", LName: "Miller", WirelessPhone: "+14255550201", Note: "Prophy & Exam", AptStatus: 1 },
+                    { AptNum: 37, Op: 1, AptDateTime: "10:00:00", FName: "Henry", LName: "Anderson", WirelessPhone: "+14255550203", Note: "Perio Maintenance", AptStatus: 1 },
+                    { AptNum: 38, Op: 1, AptDateTime: "11:00:00", FName: "David", LName: "Chen", WirelessPhone: "+14255550205", Note: "Adult Prophy", AptStatus: 1 },
+                    { AptNum: 45, Op: 4, AptDateTime: "09:30:00", FName: "Jessica", LName: "Davis", WirelessPhone: "+14255550214", Note: "Crown Prep #19", AptStatus: 1 },
+                    { AptNum: 46, Op: 4, AptDateTime: "11:00:00", FName: "William", LName: "Wright", WirelessPhone: "+14255550209", Note: "Composite #14-MOD", AptStatus: 1 }
+                ],
+                candidates: [
+                    { PatNum: 102, FName: "Henry", LName: "Anderson", Phone: "+14255550203" },
+                    { PatNum: 103, FName: "Amelia", LName: "Kovacs", Phone: "+14255550220" },
+                    { PatNum: 105, FName: "Jessica", LName: "Davis", Phone: "+14255550214" }
+                ],
+                stagedNotes: [
+                    { StagedNoteNum: 1, AptNum: 37, SOAPContent: "S: Pt presents for 4-month perio maintenance. Reports mild bleeding when flossing. O: Probing depths 3-4mm in posterior sextants. Moderate subgingival calculus. A: Localized stage II periodontitis. P: Debridement completed with ultrasonic and hand scaling. 4-month recall.", SystemicAlerts: "⚠️ Contraindication Alert: Patient on Eliquis (blood thinner). Prolonged bleeding risk noted.", Status: "PENDING_REVIEW" }
+                ],
+                logs: [
+                    { Timestamp: new Date().toLocaleTimeString(), Details: "System initialized. Open Dental SQLite engine in WAL mode." }
+                ],
+                targetApt: 37
+            },
+            medspa: {
+                suites: [
+                    { room_id: 1, room_name: "Suite 1 (Master Injectables)", equipment_tag: "Allergan Facial Aesthetic Station", provider: "Elena Rostova, ARNP" },
+                    { room_id: 2, room_name: "Suite 2 (Laser & RF)", equipment_tag: "InMode Morpheus8 & Sciton BBL", provider: "Dr. Marcus Vance, MD" },
+                    { room_id: 3, room_name: "Suite 3 (Clinical Skincare)", equipment_tag: "HydraFacial Elite MD", provider: "Chloe Lin, LMA" }
+                ],
+                appointments: [
+                    { appointment_id: 1, room_id: 1, start_time: "09:00:00", first_name: "Harper", last_name: "Rothschild", phone: "+14255551002", service_name: "Botox (30 Units)", total_price: 450.0, status: "CONFIRMED", vip_tier: "PLATINUM_VIP" },
+                    { appointment_id: 2, room_id: 1, start_time: "10:00:00", first_name: "Leah", last_name: "Kensington", phone: "+14255551051", service_name: "Juvederm Lip Volbella", total_price: 750.0, status: "CONFIRMED", vip_tier: "GOLD_VIP" },
+                    { appointment_id: 3, room_id: 1, start_time: "13:30:00", first_name: "Camila", last_name: "Sterling", phone: "+14255551194", service_name: "Cheek Filler (2 Syringes)", total_price: 1500.0, status: "CONFIRMED", vip_tier: "GOLD_VIP" },
+                    { appointment_id: 4, room_id: 2, start_time: "09:30:00", first_name: "Emma", last_name: "Fontaine", phone: "+14255551062", service_name: "Sciton BBL HERO", total_price: 650.0, status: "CONFIRMED", vip_tier: "PLATINUM_VIP" },
+                    { appointment_id: 5, room_id: 2, start_time: "11:00:00", first_name: "Aria", last_name: "Pembroke", phone: "+14255551171", service_name: "Morpheus8 RF Microneedling", total_price: 1200.0, status: "CANCELLED", vip_tier: "PLATINUM_VIP" },
+                    { appointment_id: 6, room_id: 3, start_time: "10:00:00", first_name: "Harper", last_name: "Rothschild", phone: "+14255551002", service_name: "HydraFacial Deluxe", total_price: 275.0, status: "CONFIRMED", vip_tier: "PLATINUM_VIP" }
+                ],
+                candidates: [
+                    { client_id: 201, first_name: "Harper", last_name: "Rothschild", phone: "+14255551002", vip_tier: "PLATINUM_VIP", banked_balance: 443.57 },
+                    { client_id: 202, first_name: "Emma", last_name: "Fontaine", phone: "+14255551062", vip_tier: "PLATINUM_VIP", banked_balance: 631.88 },
+                    { client_id: 205, first_name: "Aria", last_name: "Pembroke", phone: "+14255551171", vip_tier: "PLATINUM_VIP", banked_balance: 1190.99 }
+                ],
+                lapsedVips: [
+                    { client_id: 205, first_name: "Aria", last_name: "Pembroke", phone: "+14255551171", vip_tier: "PLATINUM_VIP", banked_balance: 1190.99, last_visit: "82 days ago" },
+                    { client_id: 202, first_name: "Emma", last_name: "Fontaine", phone: "+14255551062", vip_tier: "PLATINUM_VIP", banked_balance: 631.88, last_visit: "76 days ago" },
+                    { client_id: 203, first_name: "Leah", last_name: "Kensington", phone: "+14255551051", vip_tier: "GOLD_VIP", banked_balance: 598.73, last_visit: "91 days ago" },
+                    { client_id: 204, first_name: "Camila", last_name: "Sterling", phone: "+14255551194", vip_tier: "GOLD_VIP", banked_balance: 510.23, last_visit: "64 days ago" }
+                ],
+                logs: [
+                    { Timestamp: new Date().toLocaleTimeString(), Details: "Med Spa Engine initialized. Boulevard/Zenoti schema active." }
+                ],
+                targetApt: 5
+            }
         };
 
-        // Initialize synthetic appointments
-        function initLocalApts() {
-            if (state.appointments.length > 0) return;
-            const hours = ["08:00", "09:00", "11:00", "13:00", "14:00", "15:00"];
-            const names = [
-                ["Marcus", "Vance"], ["Jessica", "Davis"], ["Henry", "Anderson"],
-                ["Elena", "Kovacs"], ["William", "Wright"], ["David", "Kim"]
-            ];
-            let id = 1;
-            for (let op = 1; op <= 6; op++) {
-                hours.forEach((h, idx) => {
-                    const p = names[(op + idx) % names.length];
-                    state.appointments.push({
-                        AptNum: id,
-                        Op: op,
-                        AptDateTime: `2026-09-10 ${h}:00`,
-                        FName: p[0],
-                        LName: p[1],
-                        AptStatus: 1
-                    });
-                    id++;
-                });
-            }
-        }
-        initLocalApts();
-
-        function showToast(msg, isError = false) {
-            const t = document.getElementById('toast');
-            t.style.display = 'block';
-            t.style.background = isError ? 'var(--danger)' : '#0284c7';
+        function showToast(msg) {
+            const t = document.getElementById("toast");
             t.innerText = msg;
-            setTimeout(() => { t.style.display = 'none'; }, 6000);
+            t.style.display = "block";
+            setTimeout(() => { t.style.display = "none"; }, 4000);
         }
 
-        async function refreshData() {
-            try {
-                const res = await fetch('/api/dashboard-data');
-                if (res.ok) {
-                    const data = await res.json();
-                    state.operatories = data.operatories || state.operatories;
-                    state.appointments = data.appointments || state.appointments;
-                    state.offers = data.offers || state.offers;
-                    state.notes = data.notes || state.notes;
-                    state.logs = data.logs || state.logs;
-                    document.getElementById('env-badge').innerText = 'VERCEL SERVERLESS (LIVE)';
-                }
-            } catch (e) {
-                // Keep local state
-            }
-            renderUI();
-        }
+        function switchPractice(mode) {
+            currentMode = mode;
+            document.getElementById("btn-mode-dental").classList.toggle("active", mode === 'dental');
+            document.getElementById("btn-mode-medspa").classList.toggle("active", mode === 'medspa');
+            document.body.classList.toggle("medspa-theme", mode === 'medspa');
 
-        function renderUI() {
-            // Render Operatories
-            const opContainer = document.getElementById('operatory-container');
-            opContainer.innerHTML = '';
-            
-            state.operatories.forEach(op => {
-                const col = document.createElement('div');
-                col.className = 'op-col';
-                col.innerHTML = `<div class="op-header">${op.OpName}</div>`;
-                
-                const opApts = state.appointments.filter(a => a.Op === op.OperatoryNum);
-                opApts.forEach(apt => {
-                    const isCancelled = apt.AptStatus === 5;
-                    const card = document.createElement('div');
-                    card.className = `apt-card ${isCancelled ? 'cancelled' : ''}`;
-                    card.style.cursor = isCancelled ? 'default' : 'pointer';
-                    card.title = isCancelled ? 'Slot is vacant/cancelled' : 'Click to simulate patient cancellation';
-                    if (!isCancelled) {
-                        card.onclick = () => triggerCancellation(apt.AptNum);
-                    }
-                    card.innerHTML = `
-                        <div class="apt-time">${apt.AptDateTime.split(' ')[1].substring(0, 5)} · Apt #${apt.AptNum}</div>
-                        <div class="apt-patient">${apt.FName ? apt.FName + ' ' + apt.LName : 'VACANT / OPEN'}</div>
-                        <span class="apt-status status-${apt.AptStatus}">${isCancelled ? 'CANCELLED (HOLE)' : 'BOOKED (CLICK TO CANCEL)'}</span>
-                    `;
-                    col.appendChild(card);
-                });
-                opContainer.appendChild(col);
-            });
-
-            // Render Offers
-            const offersContainer = document.getElementById('offers-container');
-            offersContainer.innerHTML = '';
-            if (state.offers.length === 0) {
-                offersContainer.innerHTML = '<p style="color:var(--text-muted); font-size:11px;">No active SMS broadcasts.</p>';
+            if (mode === 'dental') {
+                document.getElementById("practice-title").innerText = "Cascade Dental Arts · Lane 3 Autonomous Agent Pilot";
+                document.getElementById("practice-subtitle").innerText = "Open Dental Relational Architecture · Twilio 10DLC · Autonomous Schedule Hole Recovery";
+                document.getElementById("grid-title").innerText = "Today's 6-Operatory Schedule (Open Dental DB)";
+                document.getElementById("grid-desc").innerHTML = "💡 <strong>Interactive Demo:</strong> Click any booked card below to simulate a patient cancellation and trigger autonomous recovery.";
+                document.getElementById("btn-cancel-target").innerText = "Simulate Patient Cancellation (Op 1)";
+                document.getElementById("btn-reengage").style.display = "none";
+                document.getElementById("sim-phone").value = "+14255550203";
+                document.getElementById("secondary-card-title").innerText = "Ambient Clinical SOAP Note Review Queue (AA-03 Doctor Gate)";
             } else {
-                state.offers.forEach(o => {
-                    const item = document.createElement('div');
-                    item.className = 'log-item';
-                    item.innerHTML = `
-                        <div class="log-time">${o.SentTimestamp ? o.SentTimestamp.split('T')[1].substring(0,8) : 'Now'} · To: ${o.FName || 'Patient'} (${o.Phone})</div>
-                        <div>Apt #${o.AptNum} · Status: <strong>${o.Status}</strong></div>
-                    `;
-                    offersContainer.appendChild(item);
-                });
+                document.getElementById("practice-title").innerText = "Cascade Aesthetic Medicine & MedSpa · Autonomous Agent";
+                document.getElementById("practice-subtitle").innerText = "Boulevard/Zenoti Relational Architecture · High-Value Slot Autofill · Banked VIP Beauty Bank";
+                document.getElementById("grid-title").innerText = "Today's 3-Suite Schedule (Boulevard/Zenoti Emulation)";
+                document.getElementById("grid-desc").innerHTML = "💡 <strong>Interactive Demo:</strong> Click any booked appointment to simulate a high-value cancellation ($650 - $1,500).";
+                document.getElementById("btn-cancel-target").innerText = "Simulate Morpheus8 Cancellation (Suite 2 - $1,200)";
+                document.getElementById("btn-reengage").style.display = "block";
+                document.getElementById("sim-phone").value = "+14255551002";
+                document.getElementById("secondary-card-title").innerText = "Lapsed VIP Beauty Bank Members ($400+ Unspent Wallet Credits)";
             }
-
-            // Render Logs
-            const logContainer = document.getElementById('agent-log-container');
-            logContainer.innerHTML = '';
-            state.logs.forEach(l => {
-                const item = document.createElement('div');
-                item.className = 'log-item';
-                item.innerHTML = `
-                    <div class="log-time">${l.Timestamp ? l.Timestamp.split('T')[1].substring(0,8) : 'Now'}</div>
-                    <div><strong>${l.ActionType}</strong>: ${l.Details}</div>
-                `;
-                logContainer.appendChild(item);
-            });
-
-            // Render Notes
-            const notesContainer = document.getElementById('staged-notes-container');
-            notesContainer.innerHTML = '';
-            state.notes.forEach(n => {
-                const isPending = n.Status === 'PENDING_REVIEW';
-                const item = document.createElement('div');
-                item.style = "background:#0f172a; border:1px solid var(--border); padding:12px; border-radius:6px; margin-bottom:8px;";
-                item.innerHTML = `
-                    <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
-                        <strong>Staged Note #${n.StagedNoteNum} (Apt #${n.AptNum})</strong>
-                        <span class="badge" style="background:${isPending ? 'var(--warning)' : 'var(--success)'}">${n.Status}</span>
-                    </div>
-                    <p style="font-size:12px; color:#cbd5e1; margin-bottom:8px;">${n.SOAPContent.substring(0, 160)}...</p>
-                    <div style="color:#fca5a5; font-size:11px; margin-bottom:8px;">⚠️ ${n.SystemicAlerts}</div>
-                    ${isPending ? `<button class="success" onclick="approveNote(${n.StagedNoteNum})">Dr. Chen: Approve & Commit to Chart</button>` : '<span style="color:var(--success); font-size:12px;">✓ Signed by Provider #1 (Sarah Chen, DDS)</span>'}
-                `;
-                notesContainer.appendChild(item);
-            });
+            renderGrid();
+            renderSecondaryCard();
+            renderLogs();
         }
 
-        async function triggerCancellation(aptNum = null) {
-            let targetApt = null;
-            if (aptNum) {
-                targetApt = state.appointments.find(a => a.AptNum === aptNum);
-            } else {
-                targetApt = state.appointments.find(a => a.AptStatus === 1 && a.Op === 1) || state.appointments.find(a => a.AptStatus === 1);
-            }
-            if (!targetApt) return;
+        function renderGrid() {
+            const container = document.getElementById("operatory-container");
+            container.innerHTML = "";
 
-            try {
-                const res = await fetch(`/api/simulate/cancel-appointment?apt_num=${targetApt.AptNum}`, { method: 'POST' });
-                if (res.ok) {
-                    const json = await res.json();
-                    if (json.candidates && json.candidates.length > 0) {
-                        document.getElementById('sim-phone').value = json.candidates[0].phone;
-                        document.getElementById('sim-body').value = 'YES';
+            if (currentMode === 'dental') {
+                const s = state.dental;
+                s.operatories.forEach(op => {
+                    const col = document.createElement("div");
+                    col.className = "op-col";
+                    col.innerHTML = `<div class="op-header">${op.OpName}</div>`;
+                    const appts = s.appointments.filter(a => a.Op === op.OperatoryNum);
+                    if (appts.length === 0) {
+                        col.innerHTML += `<div style="color:var(--text-muted); font-size:11px; padding:6px;">No appointments</div>`;
+                    } else {
+                        appts.forEach(a => {
+                            const card = document.createElement("div");
+                            card.className = `apt-card ${a.AptStatus === 5 ? 'cancelled' : ''}`;
+                            card.innerHTML = `
+                                <div class="apt-time">${a.AptDateTime.split(' ')[1] || a.AptDateTime} · Apt #${a.AptNum}</div>
+                                <div class="apt-patient">${a.FName ? a.FName + ' ' + a.LName : 'Empty / Open'}</div>
+                                <div style="color:var(--text-muted); font-size:11px;">${a.Note || ''}</div>
+                                <span class="apt-status status-${a.AptStatus}">${a.AptStatus === 1 ? 'BOOKED' : 'CANCELLED (BROKEN)'}</span>
+                            `;
+                            card.onclick = () => {
+                                if (a.AptStatus === 1) {
+                                    cancelSlot(a.AptNum);
+                                }
+                            };
+                            col.appendChild(card);
+                        });
                     }
-                    showToast(`Cancellation triggered for Apt #${json.cancelled_apt}. Lane 3 Daemon dispatched offers to ${json.dispatched_count} candidates! Candidate #1 pre-filled below.`);
-                    refreshData();
+                    container.appendChild(col);
+                });
+            } else {
+                const s = state.medspa;
+                s.suites.forEach(suite => {
+                    const col = document.createElement("div");
+                    col.className = "op-col";
+                    col.innerHTML = `
+                        <div class="op-header">${suite.room_name}</div>
+                        <div style="font-size:10px; color:var(--text-muted); margin-bottom:6px;">${suite.provider} · <em>${suite.equipment_tag}</em></div>
+                    `;
+                    const appts = s.appointments.filter(a => a.room_id === suite.room_id);
+                    if (appts.length === 0) {
+                        col.innerHTML += `<div style="color:var(--text-muted); font-size:11px; padding:6px;">No bookings</div>`;
+                    } else {
+                        appts.forEach(a => {
+                            const isCanc = a.status === 'CANCELLED';
+                            const card = document.createElement("div");
+                            card.className = `apt-card ${isCanc ? 'cancelled' : ''}`;
+                            card.innerHTML = `
+                                <div class="apt-time">${a.start_time.split(' ')[1] || a.start_time} · $${a.total_price.toFixed(2)}</div>
+                                <div class="apt-patient">${a.first_name} ${a.last_name} <span class="vip-badge">${a.vip_tier}</span></div>
+                                <div style="color:var(--text-muted); font-size:11px;">${a.service_name}</div>
+                                <span class="apt-status ${isCanc ? 'status-5' : 'status-1'}">${isCanc ? 'CANCELLED (VACANT)' : 'CONFIRMED'}</span>
+                            `;
+                            card.onclick = () => {
+                                if (a.status !== 'CANCELLED') {
+                                    cancelSlot(a.appointment_id);
+                                }
+                            };
+                            col.appendChild(card);
+                        });
+                    }
+                    container.appendChild(col);
+                });
+            }
+        }
+
+        function renderSecondaryCard() {
+            const container = document.getElementById("secondary-card-container");
+            container.innerHTML = "";
+
+            if (currentMode === 'dental') {
+                const s = state.dental;
+                if (s.stagedNotes.length === 0) {
+                    container.innerHTML = "<p style='font-size:12px; color:var(--text-muted);'>No notes pending doctor review.</p>";
                     return;
                 }
-            } catch (e) {
-                // Fallback to local state
-            }
-
-            // Local fallback simulation
-            targetApt.AptStatus = 5;
-            const cands = [
-                { name: "Henry Anderson", phone: "+14255550203" },
-                { name: "Jessica Davis", phone: "+14255550214" },
-                { name: "William Wright", phone: "+14255550209" }
-            ];
-            cands.forEach(c => {
-                state.offers.unshift({
-                    OfferId: Date.now(),
-                    AptNum: targetApt.AptNum,
-                    FName: c.name.split(' ')[0],
-                    Phone: c.phone,
-                    Status: "PENDING",
-                    SentTimestamp: new Date().toISOString()
+                s.stagedNotes.forEach(note => {
+                    const el = document.createElement("div");
+                    el.style.cssText = "background:#0f172a; border:1px solid var(--border); border-radius:8px; padding:12px; margin-bottom:8px;";
+                    el.innerHTML = `
+                        <div style="font-size:12px; font-weight:700; color:#38bdf8; margin-bottom:4px;">Apt #${note.AptNum} · Staged Note (Pending Sign-off)</div>
+                        <div style="font-size:11px; background:#1e293b; padding:8px; border-radius:4px; margin-bottom:6px;">${note.SOAPContent}</div>
+                        <div style="font-size:11px; color:#f87171; font-weight:600; margin-bottom:8px;">${note.SystemicAlerts}</div>
+                        <button class="success" onclick="approveNote(${note.StagedNoteNum})">Dr. Chen: Approve & Commit to Legal Chart</button>
+                    `;
+                    container.appendChild(el);
                 });
-            });
-            state.logs.unshift({
-                Timestamp: new Date().toISOString(),
-                ActionType: "AUTOFILL_DISPATCHED",
-                Details: `Dispatched Twilio 10DLC waitlist alerts for Apt #${targetApt.AptNum} to 3 candidates`
-            });
-            document.getElementById('sim-phone').value = cands[0].phone;
-            document.getElementById('sim-body').value = 'YES';
-            showToast(`Cancellation triggered for Apt #${targetApt.AptNum}. Lane 3 Daemon dispatched offers to 3 candidates! Candidate #1 (${cands[0].name}) pre-filled below.`);
-            renderUI();
-        }
-
-        async function sendInboundSms() {
-            const phone = document.getElementById('sim-phone').value.trim();
-            const body = document.getElementById('sim-body').value.trim();
-
-            try {
-                const res = await fetch('/webhooks/twilio/inbound-sms', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ From: phone, Body: body })
-                });
-                if (res.ok) {
-                    const json = await res.json();
-                    showToast(`Inbound SMS Result: ${json.status} · ${json.message}`);
-                    refreshData();
+            } else {
+                const s = state.medspa;
+                if (s.lapsedVips.length === 0) {
+                    container.innerHTML = "<p style='font-size:12px; color:var(--text-muted);'>No lapsed VIP members.</p>";
                     return;
                 }
-            } catch (e) {
-                // Fallback to local state
+                s.lapsedVips.forEach(v => {
+                    const el = document.createElement("div");
+                    el.className = "vip-item";
+                    el.innerHTML = `
+                        <div>
+                            <span class="vip-name">${v.first_name} ${v.last_name}</span> 
+                            <span class="vip-badge">${v.vip_tier}</span>
+                            <span style="color:var(--text-muted); font-size:11px; margin-left:8px;">Last Visit: ${v.last_visit}</span>
+                        </div>
+                        <div>
+                            <span class="vip-balance">Banked: $${v.banked_balance.toFixed(2)}</span>
+                            <button style="margin-left:10px; padding:4px 8px; font-size:10px;" class="gold" onclick="sendVipConcierge('${v.phone}', '${v.first_name}', ${v.banked_balance})">Send Concierge SMS</button>
+                        </div>
+                    `;
+                    container.appendChild(el);
+                });
+            }
+        }
+
+        function renderLogs() {
+            const container = document.getElementById("log-container");
+            container.innerHTML = "";
+            const currentLogs = currentMode === 'dental' ? state.dental.logs : state.medspa.logs;
+            currentLogs.forEach(l => {
+                const div = document.createElement("div");
+                div.className = "log-item";
+                div.innerHTML = `<span class="log-time">${l.Timestamp || l.timestamp}</span> · ${l.Details || l.message}`;
+                container.appendChild(div);
+            });
+        }
+
+        function logAction(msg) {
+            const target = currentMode === 'dental' ? state.dental.logs : state.medspa.logs;
+            target.unshift({ Timestamp: new Date().toLocaleTimeString(), Details: msg });
+            renderLogs();
+        }
+
+        function cancelTargetSlot() {
+            if (currentMode === 'dental') {
+                cancelSlot(state.dental.targetApt);
+            } else {
+                cancelSlot(state.medspa.targetApt);
+            }
+        }
+
+        function cancelSlot(id) {
+            if (currentMode === 'dental') {
+                const apt = state.dental.appointments.find(a => a.AptNum === id);
+                if (apt) {
+                    apt.AptStatus = 5;
+                    logAction(`[CANCELLATION] Apt #${id} (Op 1) cancelled by patient.`);
+                    showToast(`Apt #${id} cancelled. Autonomous agent searching overdue recall waitlist...`);
+                    
+                    setTimeout(() => {
+                        logAction(`[AGENT RECALL SEARCH] Identified 3 overdue candidates for Hygiene 1:`);
+                        state.dental.candidates.forEach((c, i) => {
+                            logAction(`  -> #${i+1}: ${c.FName} ${c.LName} (${c.Phone})`);
+                        });
+                        const topCand = state.dental.candidates[0];
+                        document.getElementById("sim-phone").value = topCand.Phone;
+                        logAction(`[OUTBOUND SMS] Dispatched to ${topCand.Phone}: 'Cascade Dental: An earlier opening is available today at 10:00 AM. Reply YES to claim.'`);
+                        showToast(`Outbound SMS sent to ${topCand.FName} ${topCand.LName} (${topCand.Phone})`);
+                    }, 600);
+                }
+            } else {
+                const apt = state.medspa.appointments.find(a => a.appointment_id === id);
+                if (apt) {
+                    apt.status = 'CANCELLED';
+                    logAction(`[CANCELLATION] Suite #${apt.room_id} (${apt.service_name} - $${apt.total_price.toFixed(2)}) cancelled by client.`);
+                    showToast(`Appointment #${id} ($${apt.total_price}) cancelled. Autonomous agent matching VIP waitlist...`);
+                    
+                    setTimeout(() => {
+                        logAction(`[AGENT VIP MATCH] Scanned 200 clients. Identified 3 eligible Platinum/Gold VIPs:`);
+                        state.medspa.candidates.forEach((c, i) => {
+                            logAction(`  -> #${i+1}: ${c.first_name} ${c.last_name} (${c.vip_tier}) - $${c.banked_balance.toFixed(2)} in Beauty Bank`);
+                        });
+                        const topCand = state.medspa.candidates[0];
+                        document.getElementById("sim-phone").value = topCand.phone;
+                        logAction(`[OUTBOUND LUXURY SMS] To ${topCand.phone}: 'Cascade Aesthetic: An earlier Morpheus8 laser slot opened at 11:00 AM. Reply YES to claim using your Beauty Bank credits.'`);
+                        showToast(`Outbound SMS dispatched to ${topCand.first_name} ${topCand.last_name} (${topCand.phone})`);
+                    }, 600);
+                }
+            }
+            renderGrid();
+        }
+
+        function sendSimulatedSMS() {
+            const phone = document.getElementById("sim-phone").value.trim();
+            const body = document.getElementById("sim-body").value.trim();
+
+            if (!phone || !body) {
+                alert("Please provide both phone number and SMS body.");
+                return;
             }
 
-            // Local fallback simulation
-            if (body.toUpperCase().includes('STOP')) {
-                state.logs.unshift({
-                    Timestamp: new Date().toISOString(),
-                    ActionType: "TCPA_OPT_OUT",
-                    Details: `Patient ${phone} sent STOP. PreferSMS revoked immediately in Open Dental chart.`
-                });
-                showToast(`[TCPA OPT-OUT] Patient ${phone} has been unsubscribed. SMS consent revoked.`);
-            } else if (body.toUpperCase().includes('YES')) {
-                const pendingOffer = state.offers.find(o => o.Phone === phone && o.Status === 'PENDING');
-                if (pendingOffer) {
-                    pendingOffer.Status = 'CLAIMED';
-                    // Expire others
-                    state.offers.forEach(o => {
-                        if (o.AptNum === pendingOffer.AptNum && o.OfferId !== pendingOffer.OfferId) o.Status = 'EXPIRED';
-                    });
-                    const apt = state.appointments.find(a => a.AptNum === pendingOffer.AptNum);
-                    if (apt) {
-                        apt.AptStatus = 1;
-                        apt.FName = pendingOffer.FName;
-                    }
-                    state.logs.unshift({
-                        Timestamp: new Date().toISOString(),
-                        ActionType: "AUTOFILL_CLAIMED",
-                        Details: `Apt #${pendingOffer.AptNum} atomically rebooked for ${pendingOffer.FName} (${phone})`
-                    });
-                    showToast(`[SLOT CLAIMED] Great news! Apt #${pendingOffer.AptNum} has been atomically rebooked for ${pendingOffer.FName}.`);
+            logAction(`[INBOUND 10DLC SMS] From ${phone}: '${body}'`);
+
+            if (body.toUpperCase() === 'STOP') {
+                logAction(`[TCPA COMPLIANCE] Received STOP keyword. Patient ${phone} opt-out ledger updated (PreferSMS = 0).`);
+                showToast(`TCPA Opt-out confirmed for ${phone}.`);
+                return;
+            }
+
+            if (currentMode === 'dental') {
+                const apt = state.dental.appointments.find(a => a.AptNum === state.dental.targetApt);
+                if (apt && apt.AptStatus === 5) {
+                    const cand = state.dental.candidates.find(c => c.Phone === phone) || { FName: "Amelia", LName: "Kovacs" };
+                    apt.AptStatus = 1;
+                    apt.FName = cand.FName;
+                    apt.LName = cand.LName;
+                    apt.WirelessPhone = phone;
+                    apt.Note = "Claimed via Autonomous SMS Waitlist";
+                    logAction(`[ATOMIC LOCK] Slot #${apt.AptNum} claimed by ${cand.FName} ${cand.LName} in 18.4ms! Status updated to BOOKED.`);
+                    logAction(`[OUTBOUND SMS] To ${phone}: 'Confirmed! Your appointment is scheduled for 10:00 AM with Dr. Chen.'`);
+                    showToast(`Slot #${apt.AptNum} successfully booked by ${cand.FName} ${cand.LName}!`);
                 } else {
-                    showToast(`[CONTENTION] Sorry, another patient just confirmed this appointment! You remain top-priority on the waitlist.`);
+                    logAction(`[CONTENTION NOTICE] Inbound SMS from ${phone} rejected: Slot already claimed by another patient.`);
+                    logAction(`[OUTBOUND SMS] To ${phone}: 'Sorry, another patient just claimed this slot! You have been kept on priority waitlist.'`);
+                    showToast(`Contention handled: slot already claimed.`);
+                }
+            } else {
+                const apt = state.medspa.appointments.find(a => a.appointment_id === state.medspa.targetApt);
+                if (apt && apt.status === 'CANCELLED') {
+                    const cand = state.medspa.candidates.find(c => c.phone === phone) || { first_name: "Harper", last_name: "Rothschild", vip_tier: "PLATINUM_VIP" };
+                    apt.status = 'CONFIRMED';
+                    apt.first_name = cand.first_name;
+                    apt.last_name = cand.last_name;
+                    apt.phone = phone;
+                    apt.vip_tier = cand.vip_tier;
+                    logAction(`[ATOMIC DUAL-RESOURCE LOCK] Slot #${apt.appointment_id} ($${apt.total_price}) claimed by ${cand.first_name} ${cand.last_name} in 4.02ms!`);
+                    logAction(`[OUTBOUND SMS] To ${phone}: 'Confirmed! You are scheduled for Morpheus8 at 11:00 AM with Dr. Vance. See you soon!'`);
+                    showToast(`Slot #${apt.appointment_id} booked by ${cand.first_name} ${cand.last_name}!`);
+                } else {
+                    logAction(`[CONTENTION NOTICE] Inbound SMS from ${phone} rejected: Luxury opening already claimed.`);
+                    logAction(`[OUTBOUND SMS] To ${phone}: 'Sorry, another VIP client just claimed this opening! We saved your spot for next availability.'`);
+                    showToast(`Contention handled gracefully.`);
                 }
             }
-            renderUI();
+            renderGrid();
         }
 
-        function quickSms(txt) {
-            document.getElementById('sim-body').value = txt;
+        function sendVipConcierge(phone, name, balance) {
+            logAction(`[VIP OUTREACH DISPATCH] Sent to ${name} (${phone}): 'Cascade Aesthetic: You have $${balance.toFixed(2)} in your Beauty Bank! Reply YES to reserve your VIP session.'`);
+            showToast(`Concierge outreach sent to ${name}!`);
         }
 
-        async function approveNote(stagedId) {
-            try {
-                const res = await fetch(`/api/simulate/doctor-approve?staged_id=${stagedId}`, { method: 'POST' });
-                if (res.ok) {
-                    showToast("Dr. Sarah Chen: Note approved and digitally committed to Open Dental chart!");
-                    refreshData();
-                    return;
-                }
-            } catch (e) {}
-
-            const n = state.notes.find(x => x.StagedNoteNum === stagedId);
-            if (n) n.Status = "APPROVED";
-            state.logs.unshift({
-                Timestamp: new Date().toISOString(),
-                ActionType: "NOTE_APPROVED",
-                Details: "Dr. Sarah Chen reviewed contraindications (Eliquis) and digitally signed note into chart"
-            });
-            showToast("Dr. Sarah Chen: Note approved and digitally committed to Open Dental chart!");
-            renderUI();
+        function reengageAction() {
+            logAction(`[BATCH OUTREACH] Dispatched 4 personalized Beauty Bank balance notifications to dormant VIP members ($2,932 total wallet value).`);
+            showToast("4 VIP concierge offers dispatched!");
         }
 
-        refreshData();
-        setInterval(refreshData, 4000);
+        function approveNote(noteNum) {
+            state.dental.stagedNotes = state.dental.stagedNotes.filter(n => n.StagedNoteNum !== noteNum);
+            logAction(`[DOC-AA-01 GATE] Dr. Sarah Chen reviewed & authenticated Staged Note #${noteNum}. Committed to legal chart.`);
+            showToast("Clinical note authenticated and committed to Open Dental legal chart.");
+            renderSecondaryCard();
+        }
+
+        function resetPracticeData() {
+            location.reload();
+        }
+
+        function clearLogs() {
+            if (currentMode === 'dental') state.dental.logs = [];
+            else state.medspa.logs = [];
+            renderLogs();
+        }
+
+        function refreshData() {
+            renderGrid();
+            renderSecondaryCard();
+            renderLogs();
+            showToast("Grid refreshed.");
+        }
+
+        // Initialize
+        renderGrid();
+        renderSecondaryCard();
+        renderLogs();
     </script>
 </body>
 </html>

@@ -1,17 +1,19 @@
 """
-Vercel Serverless Function Handler (FastAPI) for Cascade Dental Arts.
-Uses /tmp/cascade_dental.db for serverless persistence.
+Vercel Serverless Function Handler (FastAPI) for:
+1. Cascade Dental Arts (Dental Practice PMS)
+2. Cascade Aesthetic Medicine & MedSpa (Aesthetic / MedSpa PMS)
+Uses /tmp/ for serverless persistence.
 """
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import Optional, List
+from typing import Optional, List, Dict, Any
 import sqlite3
 import os
 import random
 from datetime import datetime, timedelta
 
-app = FastAPI(title="Cascade Dental Arts - Vercel Serverless Staging API")
+app = FastAPI(title="Cascade Healthcare AI - Dual Practice Staging API")
 
 app.add_middleware(
     CORSMiddleware,
@@ -21,18 +23,22 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-DB_FILE = "/tmp/cascade_dental.db"
+DENTAL_DB = "/tmp/cascade_dental.db"
+MEDSPA_DB = "/tmp/cascade_medspa.db"
 
-def get_connection():
-    conn = sqlite3.connect(DB_FILE, timeout=10.0)
+# ==============================================================================
+# DENTAL MODULE HELPERS
+# ==============================================================================
+def get_dental_conn():
+    conn = sqlite3.connect(DENTAL_DB, timeout=10.0)
     conn.row_factory = sqlite3.Row
     return conn
 
-def init_db_if_needed():
-    if not os.path.exists(DB_FILE):
-        conn = get_connection()
-        cursor = conn.cursor()
-        cursor.executescript("""
+def init_dental_db():
+    if not os.path.exists(DENTAL_DB):
+        conn = get_dental_conn()
+        cur = conn.cursor()
+        cur.executescript("""
         CREATE TABLE IF NOT EXISTS appointment (
             AptNum INTEGER PRIMARY KEY,
             PatNum INTEGER NOT NULL,
@@ -94,233 +100,292 @@ def init_db_if_needed():
         );
         """)
 
-        # Operatories
         ops = [
             (1, "Hygiene 1 (East)", 1),
             (2, "Hygiene 2 (West)", 1),
-            (3, "Op 1 (Restorative)", 0),
-            (4, "Op 2 (Restorative)", 0),
-            (5, "Op 3 (Surgical/Implants)", 0),
-            (6, "Op 4 (Endodontics)", 0),
+            (3, "Hygiene 3 (Pediatric)", 1),
+            (4, "Doctor 1 (Restorative)", 0),
+            (5, "Doctor 2 (Surgical/Implant)", 0),
+            (6, "Doctor 3 (Endodontics)", 0)
         ]
-        cursor.executemany("INSERT OR IGNORE INTO operatory VALUES (?, ?, ?)", ops)
+        cur.executemany("INSERT INTO operatory VALUES (?, ?, ?)", ops)
 
-        # Patients
         patients = [
-            (101, "Vance", "Marcus", "+14255550201", 1, "marcus.vance@example.com"),
-            (102, "Anderson", "Henry", "+14255550203", 1, "henry.anderson@example.com"),
-            (103, "Kovacs", "Amelia", "+14255550220", 1, "amelia.kovacs@example.com"),
-            (108, "Wright", "William", "+14255550209", 1, "william.wright@example.com"),
-            (113, "Davis", "Jessica", "+14255550214", 1, "jessica.davis@example.com"),
-            (121, "Clark", "Jessica", "+14255550222", 1, "jessica.clark@example.com"),
-            (122, "Chen", "Daniel", "+14255550223", 1, "daniel.chen@example.com"),
+            (101, "Miller", "Sarah", "+14255550201", 1, "smiller@email.com"),
+            (102, "Anderson", "Henry", "+14255550203", 1, "handerson@email.com"),
+            (103, "Kovacs", "Amelia", "+14255550220", 1, "akovacs@email.com"),
+            (104, "Chen", "David", "+14255550205", 1, "dchen@email.com"),
+            (105, "Davis", "Jessica", "+14255550214", 1, "jdavis@email.com"),
+            (106, "Wright", "William", "+14255550209", 1, "wwright@email.com")
         ]
-        cursor.executemany("INSERT OR IGNORE INTO patient VALUES (?, ?, ?, ?, ?, ?)", patients)
+        cur.executemany("INSERT INTO patient VALUES (?, ?, ?, ?, ?, ?)", patients)
 
-        # Recalls
-        recalls = [
-            (1, 102, "2026-06-18", "Overdue by 83 days"),
-            (2, 113, "2026-06-22", "Overdue by 79 days"),
-            (3, 108, "2026-06-23", "Overdue by 78 days"),
-            (4, 121, "2026-06-24", "Overdue by 77 days"),
-            (5, 122, "2026-06-28", "Overdue by 73 days"),
+        today_str = datetime.now().strftime("%Y-%m-%d")
+        appts = [
+            (36, 101, f"{today_str} 09:00:00", 1, 3, 1, "//XXXX//", "Prophy & Exam", 1, 1),
+            (37, 102, f"{today_str} 10:00:00", 1, 3, 1, "//XXXX//", "Perio Maintenance", 1, 1),
+            (38, 104, f"{today_str} 11:00:00", 1, 3, 1, "//XXXX//", "Adult Prophy", 1, 1),
+            (45, 105, f"{today_str} 09:30:00", 4, 1, 1, "///XXXX///", "Crown Prep #19", 0, 1),
+            (46, 106, f"{today_str} 11:00:00", 4, 1, 1, "//XXXX//", "Composite #14-MOD", 0, 1)
         ]
-        cursor.executemany("INSERT OR IGNORE INTO recall VALUES (?, ?, ?, ?)", recalls)
+        cur.executemany("INSERT INTO appointment VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", appts)
+        conn.commit()
 
-        # Appointments
-        tomorrow = (datetime.utcnow() + timedelta(days=1)).strftime("%Y-%m-%d")
-        hours = ["08:00:00", "09:00:00", "11:00:00", "13:00:00", "14:00:00", "15:00:00"]
-        apts = []
-        aid = 1
-        for op_id in range(1, 7):
-            is_hyg = 1 if op_id in [1, 2] else 0
-            for h in hours:
-                apts.append((aid, 101, f"{tomorrow} {h}", op_id, 1, 1, "/XXXXXXXXXX/", "Routine appointment", is_hyg, 1))
-                aid += 1
-        cursor.executemany("INSERT OR IGNORE INTO appointment VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", apts)
+# ==============================================================================
+# MED SPA MODULE HELPERS
+# ==============================================================================
+def get_medspa_conn():
+    conn = sqlite3.connect(MEDSPA_DB, timeout=10.0)
+    conn.row_factory = sqlite3.Row
+    return conn
 
-        # Initial Staged Note
-        cursor.execute("""
-        INSERT INTO agent_staged_notes (AptNum, SOAPContent, SystemicAlerts, Status)
-        VALUES (1, 'SUBJECTIVE: Tooth #19 cold sensitivity. Prescribed Eliquis 5mg BID.\nOBJECTIVE: Pocket depths 5-4-5mm.\nPLAN: Root planing & crown.', 'HIGH BLEEDING RISK: Anticoagulant therapy (Eliquis). Bleeding precaution for root planing.', 'PENDING_REVIEW')
+def init_medspa_db():
+    if not os.path.exists(MEDSPA_DB):
+        conn = get_medspa_conn()
+        cur = conn.cursor()
+        cur.executescript("""
+        CREATE TABLE IF NOT EXISTS rooms (
+            room_id INTEGER PRIMARY KEY,
+            room_name TEXT NOT NULL,
+            room_type TEXT NOT NULL,
+            equipment_tag TEXT
+        );
+
+        CREATE TABLE IF NOT EXISTS providers (
+            provider_id INTEGER PRIMARY KEY,
+            first_name TEXT NOT NULL,
+            last_name TEXT NOT NULL,
+            title TEXT NOT NULL
+        );
+
+        CREATE TABLE IF NOT EXISTS clients (
+            client_id INTEGER PRIMARY KEY,
+            first_name TEXT NOT NULL,
+            last_name TEXT NOT NULL,
+            phone TEXT NOT NULL UNIQUE,
+            vip_tier TEXT DEFAULT 'STANDARD',
+            banked_balance REAL DEFAULT 0.0,
+            prefer_sms INTEGER DEFAULT 1,
+            mhmda_consent INTEGER DEFAULT 1
+        );
+
+        CREATE TABLE IF NOT EXISTS appointments (
+            appointment_id INTEGER PRIMARY KEY,
+            client_id INTEGER,
+            provider_id INTEGER NOT NULL,
+            room_id INTEGER NOT NULL,
+            service_name TEXT NOT NULL,
+            start_time TEXT NOT NULL,
+            end_time TEXT NOT NULL,
+            status TEXT NOT NULL,
+            total_price REAL NOT NULL,
+            cancellation_reason TEXT
+        );
+
+        CREATE TABLE IF NOT EXISTS comm_logs (
+            log_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            client_id INTEGER,
+            message TEXT NOT NULL,
+            direction TEXT NOT NULL,
+            status TEXT NOT NULL,
+            timestamp TEXT NOT NULL
+        );
         """)
 
+        # Rooms
+        rooms = [
+            (1, "Suite 1 (Master Injectables)", "INJECTABLE", "Allergan Facial Aesthetic Station"),
+            (2, "Suite 2 (Laser & RF)", "LASER", "InMode Morpheus8 & Sciton BBL HERO"),
+            (3, "Suite 3 (Clinical Skincare)", "SKINCARE", "HydraFacial Elite MD")
+        ]
+        cur.executemany("INSERT INTO rooms VALUES (?, ?, ?, ?)", rooms)
+
+        # Providers
+        providers = [
+            (1, "Marcus", "Vance", "MD (Plastic Surgeon)"),
+            (2, "Elena", "Rostova", "ARNP (Master Injector)"),
+            (3, "Chloe", "Lin", "LMA (Lead Aesthetician)")
+        ]
+        cur.executemany("INSERT INTO providers VALUES (?, ?, ?, ?)", providers)
+
+        # Clients
+        clients = [
+            (201, "Harper", "Rothschild", "+14255551002", "PLATINUM_VIP", 443.57, 1, 1),
+            (202, "Emma", "Fontaine", "+14255551062", "PLATINUM_VIP", 631.88, 1, 1),
+            (203, "Leah", "Kensington", "+14255551051", "GOLD_VIP", 598.73, 1, 1),
+            (204, "Camila", "Sterling", "+14255551194", "GOLD_VIP", 510.23, 1, 1),
+            (205, "Aria", "Pembroke", "+14255551171", "PLATINUM_VIP", 1190.99, 1, 1)
+        ]
+        cur.executemany("INSERT INTO clients VALUES (?, ?, ?, ?, ?, ?, ?, ?)", clients)
+
+        # Appointments
+        today_str = datetime.now().strftime("%Y-%m-%d")
+        appts = [
+            (1, 201, 2, 1, "Botox Cosmetic (30 Units)", f"{today_str} 09:00:00", f"{today_str} 09:45:00", "CONFIRMED", 450.0, None),
+            (2, 203, 2, 1, "Juvederm Lip Volbella", f"{today_str} 10:00:00", f"{today_str} 11:00:00", "CONFIRMED", 750.0, None),
+            (3, 204, 2, 1, "Juvederm Cheek Contour (2 Syringes)", f"{today_str} 13:30:00", f"{today_str} 14:45:00", "CANCELLED", 1500.0, "Client travel emergency"),
+            (4, 202, 1, 2, "Sciton BBL HERO Photofacial", f"{today_str} 09:30:00", f"{today_str} 10:30:00", "CONFIRMED", 650.0, None),
+            (5, 205, 1, 2, "Morpheus8 RF Microneedling", f"{today_str} 11:00:00", f"{today_str} 12:30:00", "CANCELLED", 1200.0, "Child care conflict"),
+            (6, 201, 3, 3, "HydraFacial Deluxe", f"{today_str} 10:00:00", f"{today_str} 11:00:00", "CONFIRMED", 275.0, None)
+        ]
+        cur.executemany("INSERT INTO appointments VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", appts)
         conn.commit()
-        conn.close()
 
-@app.get("/api/dashboard-data")
-def dashboard_data():
-    init_db_if_needed()
-    conn = get_connection()
-    cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM operatory ORDER BY OperatoryNum ASC")
-    ops = [dict(r) for r in cursor.fetchall()]
+# ==============================================================================
+# DENTAL ENDPOINTS
+# ==============================================================================
+@app.get("/api/state")
+def get_dental_state():
+    init_dental_db()
+    conn = get_dental_conn()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM operatory ORDER BY OperatoryNum")
+    ops = [dict(r) for r in cur.fetchall()]
+    cur.execute("SELECT a.*, p.FName, p.LName, p.WirelessPhone FROM appointment a LEFT JOIN patient p ON a.PatNum = p.PatNum ORDER BY a.AptDateTime")
+    appts = [dict(r) for r in cur.fetchall()]
+    cur.execute("SELECT * FROM custom_agent_log ORDER BY LogNum DESC LIMIT 20")
+    logs = [dict(r) for r in cur.fetchall()]
+    return {"operatories": ops, "appointments": appts, "logs": logs}
 
-    cursor.execute("""
-    SELECT a.*, p.FName, p.LName, p.WirelessPhone
-    FROM appointment a
-    LEFT JOIN patient p ON a.PatNum = p.PatNum
-    ORDER BY a.AptDateTime ASC
-    """)
-    apts = [dict(r) for r in cursor.fetchall()]
+class CancelRequest(BaseModel):
+    apt_num: int
+    reason: Optional[str] = "Patient sudden cancellation"
 
-    cursor.execute("""
-    SELECT o.*, p.FName, p.LName
-    FROM waitlist_offers o JOIN patient p ON o.PatNum = p.PatNum
-    ORDER BY o.OfferId DESC LIMIT 15
-    """)
-    offers = [dict(r) for r in cursor.fetchall()]
-
-    cursor.execute("SELECT * FROM agent_staged_notes ORDER BY StagedNoteNum DESC LIMIT 5")
-    notes = [dict(r) for r in cursor.fetchall()]
-
-    cursor.execute("SELECT * FROM custom_agent_log ORDER BY LogNum DESC LIMIT 15")
-    logs = [dict(r) for r in cursor.fetchall()]
-
-    conn.close()
-    return {
-        "practice": "Cascade Dental Arts (Vercel Serverless)",
-        "operatories": ops,
-        "appointments": apts,
-        "offers": offers,
-        "notes": notes,
-        "logs": logs
-    }
-
-@app.post("/api/simulate/cancel-appointment")
-def cancel_appointment(apt_num: Optional[int] = None):
-    init_db_if_needed()
-    conn = get_connection()
-    cursor = conn.cursor()
-
-    if not apt_num:
-        cursor.execute("SELECT AptNum FROM appointment WHERE AptStatus = 1 AND Op = 1 ORDER BY AptNum ASC LIMIT 1")
-        row = cursor.fetchone()
-        if not row:
-            cursor.execute("SELECT AptNum FROM appointment WHERE AptStatus = 1 ORDER BY AptNum ASC LIMIT 1")
-            row = cursor.fetchone()
-        if row:
-            apt_num = row["AptNum"]
-        else:
-            conn.close()
-            return {"status": "NO_APPOINTMENTS", "message": "All appointments already cancelled!"}
-
-    cursor.execute("UPDATE appointment SET AptStatus = 5, Note = coalesce(Note,'') || ' [Simulated Cancellation]' WHERE AptNum = ?", (apt_num,))
-    cursor.execute("DELETE FROM waitlist_offers WHERE AptNum = ?", (apt_num,))
-    
-    # Get top recall candidates
-    cursor.execute("""
-    SELECT p.PatNum, p.FName, p.LName, p.WirelessPhone 
-    FROM recall r JOIN patient p ON r.PatNum = p.PatNum 
-    WHERE p.PreferSMS = 1 ORDER BY r.DateDueCalc ASC LIMIT 3
-    """)
-    candidates = [dict(r) for r in cursor.fetchall()]
-
-    dispatched = []
-    for c in candidates:
-        cursor.execute("""
-        INSERT INTO waitlist_offers (AptNum, PatNum, Phone, SentTimestamp, Status)
-        VALUES (?, ?, ?, ?, 'PENDING')
-        """, (apt_num, c["PatNum"], c["WirelessPhone"], datetime.utcnow().isoformat()))
-        dispatched.append({
-            "name": f"{c['FName']} {c['LName']}",
-            "phone": c["WirelessPhone"]
-        })
-
-    cursor.execute("""
-    INSERT INTO custom_agent_log (AptNum, ActionType, Details, Timestamp)
-    VALUES (?, 'AUTOFILL_DISPATCHED', ?, ?)
-    """, (apt_num, f"Dispatched offers to {len(dispatched)} candidates", datetime.utcnow().isoformat()))
-
+@app.post("/api/cancel")
+def cancel_dental_appointment(req: CancelRequest):
+    init_dental_db()
+    conn = get_dental_conn()
+    cur = conn.cursor()
+    cur.execute("UPDATE appointment SET AptStatus = 5 WHERE AptNum = ?", (req.apt_num,))
+    cur.execute("INSERT INTO custom_agent_log (AptNum, ActionType, Details, Timestamp) VALUES (?, 'CANCELLED', ?, ?)",
+                (req.apt_num, req.reason, datetime.now().isoformat()))
     conn.commit()
-    conn.close()
+    return {"status": "SUCCESS", "apt_num": req.apt_num}
+
+class InboundSMSRequest(BaseModel):
+    phone: str
+    body: str
+    apt_num: int
+
+@app.post("/api/inbound-sms")
+def dental_inbound_sms(req: InboundSMSRequest):
+    init_dental_db()
+    conn = get_dental_conn()
+    cur = conn.cursor()
+    body_upper = req.body.strip().upper()
+    if body_upper == "STOP":
+        cur.execute("UPDATE patient SET PreferSMS = 0 WHERE WirelessPhone = ?", (req.phone,))
+        conn.commit()
+        return {"status": "OPTED_OUT", "message": "TCPA Opt-out registered."}
+    
+    cur.execute("SELECT AptStatus FROM appointment WHERE AptNum = ?", (req.apt_num,))
+    row = cur.fetchone()
+    if not row or row["AptStatus"] != 5:
+        return {"status": "ALREADY_CLAIMED", "winner": False, "message": "Sorry, another patient just confirmed this slot!"}
+
+    cur.execute("SELECT PatNum, FName, LName FROM patient WHERE WirelessPhone = ?", (req.phone,))
+    pat = cur.fetchone()
+    pat_num = pat["PatNum"] if pat else 102
+    pat_name = f"{pat['FName']} {pat['LName']}" if pat else "Henry Anderson"
+
+    cur.execute("UPDATE appointment SET PatNum = ?, AptStatus = 1, Confirmed = 1 WHERE AptNum = ?", (pat_num, req.apt_num))
+    cur.execute("INSERT INTO custom_agent_log (AptNum, ActionType, Details, Timestamp) VALUES (?, 'CLAIMED', ?, ?)",
+                (req.apt_num, f"Slot claimed via SMS by {pat_name} ({req.phone})", datetime.now().isoformat()))
+    conn.commit()
+    return {"status": "SUCCESS", "winner": True, "patient_name": pat_name, "message": "Confirmed! See you at 10:00 AM."}
+
+# ==============================================================================
+# MED SPA ENDPOINTS
+# ==============================================================================
+@app.get("/api/medspa/state")
+def get_medspa_state():
+    init_medspa_db()
+    conn = get_medspa_conn()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM rooms ORDER BY room_id")
+    rooms = [dict(r) for r in cur.fetchall()]
+    cur.execute("""
+        SELECT a.*, c.first_name, c.last_name, c.phone, c.vip_tier, c.banked_balance, p.first_name AS prov_fname, p.title AS prov_title
+        FROM appointments a
+        LEFT JOIN clients c ON a.client_id = c.client_id
+        LEFT JOIN providers p ON a.provider_id = p.provider_id
+        ORDER BY a.start_time
+    """)
+    appts = [dict(r) for r in cur.fetchall()]
+    cur.execute("SELECT * FROM clients WHERE banked_balance >= 400.0 ORDER BY banked_balance DESC")
+    lapsed_vips = [dict(r) for r in cur.fetchall()]
+    cur.execute("SELECT * FROM comm_logs ORDER BY log_id DESC LIMIT 20")
+    logs = [dict(r) for r in cur.fetchall()]
+    return {"rooms": rooms, "appointments": appts, "lapsed_vips": lapsed_vips, "logs": logs}
+
+class MedSpaCancelRequest(BaseModel):
+    appointment_id: int
+    reason: Optional[str] = "Aesthetic client emergency"
+
+@app.post("/api/medspa/cancel")
+def cancel_medspa_appointment(req: MedSpaCancelRequest):
+    init_medspa_db()
+    conn = get_medspa_conn()
+    cur = conn.cursor()
+    cur.execute("UPDATE appointments SET status = 'CANCELLED', cancellation_reason = ? WHERE appointment_id = ?",
+                (req.reason, req.appointment_id))
+    cur.execute("INSERT INTO comm_logs (message, direction, status, timestamp) VALUES (?, 'OUTBOUND', 'CANCELLED', ?)",
+                (f"Cancelled Appointment #{req.appointment_id}: {req.reason}", datetime.now().isoformat()))
+    conn.commit()
+    return {"status": "SUCCESS", "appointment_id": req.appointment_id}
+
+class MedSpaInboundSMS(BaseModel):
+    appointment_id: int
+    phone: str
+    body: str
+
+@app.post("/api/medspa/inbound-sms")
+def medspa_inbound_sms(req: MedSpaInboundSMS):
+    init_medspa_db()
+    conn = get_medspa_conn()
+    cur = conn.cursor()
+    if req.body.strip().upper() == "STOP":
+        cur.execute("UPDATE clients SET prefer_sms = 0 WHERE phone = ?", (req.phone,))
+        conn.commit()
+        return {"status": "OPTED_OUT", "message": "TCPA Opt-out registered."}
+
+    cur.execute("SELECT status, total_price, start_time FROM appointments WHERE appointment_id = ?", (req.appointment_id,))
+    slot = cur.fetchone()
+    if not slot or slot["status"] != "CANCELLED":
+        return {"status": "ALREADY_CLAIMED", "winner": False, "message": "Sorry, another VIP client just claimed this opening!"}
+
+    cur.execute("SELECT client_id, first_name, last_name, vip_tier FROM clients WHERE phone = ?", (req.phone,))
+    client = cur.fetchone()
+    client_id = client["client_id"] if client else 201
+    client_name = f"{client['first_name']} {client['last_name']}" if client else "Harper Rothschild"
+
+    cur.execute("UPDATE appointments SET client_id = ?, status = 'CONFIRMED' WHERE appointment_id = ?",
+                (client_id, req.appointment_id))
+    cur.execute("INSERT INTO comm_logs (client_id, message, direction, status, timestamp) VALUES (?, ?, 'INBOUND', 'CLAIMED', ?)",
+                (client_id, f"VIP Slot claimed by {client_name} via SMS ({req.phone})", datetime.now().isoformat()))
+    conn.commit()
     return {
         "status": "SUCCESS",
-        "cancelled_apt": apt_num,
-        "dispatched_count": len(dispatched),
-        "candidates": dispatched
+        "winner": True,
+        "client_name": client_name,
+        "slot_time": slot["start_time"],
+        "value": slot["total_price"],
+        "message": f"Confirmed! You are scheduled for {slot['start_time']} at Cascade Aesthetic Medicine."
     }
 
-class TwilioPayload(BaseModel):
-    From: str
-    Body: str
-
-@app.post("/webhooks/twilio/inbound-sms")
-def twilio_webhook(payload: TwilioPayload):
-    init_db_if_needed()
-    conn = get_connection()
-    cursor = conn.cursor()
-
-    phone = payload.From.strip()
-    body = payload.Body.strip().upper()
-
-    if "STOP" in body:
-        cursor.execute("UPDATE patient SET PreferSMS = 0 WHERE WirelessPhone = ?", (phone,))
-        conn.commit()
-        conn.close()
-        return {"status": "OPTED_OUT", "message": "Unsubscribed from Cascade Dental Arts alerts."}
-
-    if "YES" in body:
-        cursor.execute("""
-        SELECT o.OfferId, o.AptNum, o.PatNum, o.Status, p.FName, p.LName, a.AptDateTime, a.AptStatus
-        FROM waitlist_offers o
-        JOIN patient p ON o.PatNum = p.PatNum
-        JOIN appointment a ON o.AptNum = a.AptNum
-        WHERE o.Phone = ? AND o.Status IN ('PENDING', 'EXPIRED')
-        ORDER BY o.OfferId DESC LIMIT 1
-        """, (phone,))
-        offer = cursor.fetchone()
-
-        if not offer:
-            conn.close()
-            return {"status": "NO_OFFER", "message": "No active waitlist opening registered for this number."}
-
-        if offer["AptStatus"] != 5 or offer["Status"] == "EXPIRED":
-            conn.close()
-            return {
-                "status": "ALREADY_CLAIMED",
-                "claimed": False,
-                "message": "Sorry, another patient just confirmed this appointment! We have saved your spot on our priority waitlist."
-            }
-
-        # Atomically claim
-        cursor.execute("""
-        UPDATE appointment SET PatNum = ?, AptStatus = 1, Confirmed = 19
-        WHERE AptNum = ?
-        """, (offer["PatNum"], offer["AptNum"]))
-
-        cursor.execute("UPDATE waitlist_offers SET Status = 'CLAIMED' WHERE OfferId = ?", (offer["OfferId"],))
-        cursor.execute("UPDATE waitlist_offers SET Status = 'EXPIRED' WHERE AptNum = ? AND OfferId != ?", (offer["AptNum"], offer["OfferId"]))
-
-        cursor.execute("""
-        INSERT INTO custom_agent_log (AptNum, ActionType, Details, Timestamp)
-        VALUES (?, 'AUTOFILL_CLAIMED', ?, ?)
-        """, (offer["AptNum"], f"Claimed by {offer['FName']} {offer['LName']}", datetime.utcnow().isoformat()))
-
-        conn.commit()
-        conn.close()
-        return {
-            "status": "SUCCESS",
-            "claimed": True,
-            "apt_num": offer["AptNum"],
-            "patient_name": f"{offer['FName']} {offer['LName']}",
-            "message": f"Confirmed! Your cleaning appointment is reserved for {offer['AptDateTime']}."
-        }
-
-    conn.close()
-    return {"status": "INFO", "message": "Reply YES to claim or STOP to unsubscribe."}
-
-@app.post("/api/simulate/doctor-approve")
-def doctor_approve(staged_id: int):
-    init_db_if_needed()
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("UPDATE agent_staged_notes SET Status = 'APPROVED' WHERE StagedNoteNum = ?", (staged_id,))
-    cursor.execute("""
-    INSERT INTO custom_agent_log (AptNum, ActionType, Details, Timestamp)
-    VALUES (1, 'NOTE_SIGNED', 'Doctor Sarah Chen reviewed contraindications and signed chart note', ?)
-    """, (datetime.utcnow().isoformat(),))
+@app.post("/api/medspa/reengage-vips")
+def reengage_vips():
+    init_medspa_db()
+    conn = get_medspa_conn()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM clients WHERE banked_balance >= 400.0 AND prefer_sms = 1 LIMIT 5")
+    vips = cur.fetchall()
+    dispatched = []
+    for v in vips:
+        msg = f"Cascade Aesthetic: Hi {v['first_name']}, you have ${int(v['banked_balance'])} banked in your Beauty Bank! Elena has an opening this week. Reply YES to reserve or STOP to opt out."
+        cur.execute("INSERT INTO comm_logs (client_id, message, direction, status, timestamp) VALUES (?, ?, 'OUTBOUND', 'SENT', ?)",
+                    (v["client_id"], msg, datetime.now().isoformat()))
+        dispatched.append({"client_name": f"{v['first_name']} {v['last_name']}", "balance": v["banked_balance"]})
     conn.commit()
-    conn.close()
-    return {"status": "SUCCESS", "staged_id": staged_id}
+    return {"status": "SUCCESS", "dispatched_count": len(dispatched), "recipients": dispatched}
